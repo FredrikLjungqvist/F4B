@@ -7,11 +7,12 @@ try {
         /* require(""); */
 
         if($_SERVER["REQUEST_METHOD"] == "GET") {
-            
             if($_GET["action"] == "getAllProducts") {
-                // GET ALL PRODUCTS
+                
+                echo json_encode("det gick");
+                exit;
             } else if($_GET["action"] == "getCategory") {
-                //GET SPECIFIC CATEGORY
+                echo json_encode("categiory");
             } else if($_GET["action"] == "getProduct") {
                 //GET SPECIFIC PRODUCT
             } else if($_GET["action"] == "getCart") {
