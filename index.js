@@ -1,4 +1,9 @@
-renderCard()
+window.addEventListener("load", initsite)
+function initsite()
+{
+    getAllProducts()
+    renderCard()
+}
 
 //Function will get the list of products and render them onto page 
 function renderCard() {
@@ -36,4 +41,39 @@ function renderCard() {
 
     document.getElementById("productCard"/*ID DÄR PRODUKT KORT SKAL RENDERAS*/).appendChild(renderCard);
 
+}
+
+async function getAllProducts() {
+    var url = new URL("http://localhost/api/recievers/productReciever.php")
+    
+    
+    var params = {action: "getCategory"} 
+    
+    
+    url.search = new URLSearchParams(params);
+    
+    console.log(url)
+    
+
+let products = await makeRequest(url, "GET")
+console.log(products)
+
+
+
+
+}
+
+
+
+
+async function makeRequest(url, method, body) {
+    try {
+        const response = await fetch(url, {method,body})
+        return response.json()
+    
+    
+    
+    } catch (error) {
+        console.log("det belv fel"+error)
+    }
 }
