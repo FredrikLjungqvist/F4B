@@ -1,0 +1,82 @@
+* {
+    box-sizing: border-box;
+
+}
+
+body {
+    /* background-image: url("hiking.jpg"); */
+    margin: 0;
+
+}
+
+.header {
+    color: white;
+    display: flex;
+    align-items: flex-start;
+}
+
+/* LOGGA */
+.logoContainer img {
+    flex-grow: 1;
+}
+
+/* MENYCONTAINER */
+.menyContainer {
+    background-color: rgb(28, 58, 28);
+    display: flex;
+    flex-grow: 3;
+    justify-content: flex-start;
+    align-items: center;
+    height: 70px;
+}
+
+.containerOne {
+    background-color: rgb(28, 58, 28);
+    display: flex;
+    margin: 7px;
+    text-align: center;
+}
+
+.containerTwo {
+    background-color: rgb(28, 58, 28);
+    display: flex;
+    margin: 50px;
+    text-align: center;
+    font-size: 15px;
+}
+
+a {
+    color: #FFFFFF;
+}
+
+a:hover {
+    color: #44633f;
+    text-decoration: none;
+}
+
+.serchContainer {
+    background-color:rgb(28, 58, 28);
+    display: flex;
+    flex-grow: 2;
+    height: 70px;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 12px;
+}
+
+.fas {
+    font-size: 30px;
+    padding: 2px;
+    color: #FFFFFF;
+}
+
+#cartCounter {
+    color: #FFFFFF;
+    font-size: 25px;
+    justify-content: center;
+    align-items: center;
+}
+
+.dropdown {
+    padding: 12px;
+}
