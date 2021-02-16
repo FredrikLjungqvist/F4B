@@ -3,21 +3,28 @@
 try {
 
     if(isset($_SERVER["REQUEST_METHOD"])) {
+        
         require("../repositories/productRepository.php");
 
-        /* require(""); */
-
         if($_SERVER["REQUEST_METHOD"] == "GET") {
+
             if($_GET["action"] == "getAllProducts") {
 
                 $test = getAllProducts();
                 echo json_encode($test);
                 
                 exit;
+
             } else if($_GET["action"] == "getCategory") {
-                echo json_encode("categiory");
+                //ECHOS BACK LIST OF ALL PRODUCTS IN SPECIFIC CATEGORY
+                echo json_encode(getCategory($_GET["categoryID"]));
+                exit;
+
             } else if($_GET["action"] == "getProduct") {
-                //GET SPECIFIC PRODUCT
+                //ECHOS BACK SPECIFIC PRODUCT
+                echo json_encode(getProduct($_GET["productID"]));
+                exit;
+
             } else if($_GET["action"] == "getCart") {
                 $_GET["userID"]=$userID;
                 $cart=getCart($userID);
