@@ -1,6 +1,8 @@
 window.addEventListener("load", initsite)
 function initsite()
 {
+    /* getProduct("30002") */
+    /* getCategory("3") */
     getAllProducts()
     renderCard()
 }
@@ -58,20 +60,39 @@ async function getAllProducts() {
 let products = await makeRequest(url, "GET")
 console.log(products)
 
+}
 
+async function getCategory(category) {
+    //FETCHES ARRAY OF PRODUCTS CONTAINED IN A CATEGORY. categoryID SET IN PARAMETER.
 
+    var url = new URL("http://localhost/api/recievers/productReciever.php")
+    
+    var params = {action: "getCategory", categoryID: category} 
+    url.search = new URLSearchParams(params);
+
+let products = await makeRequest(url, "GET")
+console.log(products)
 
 }
 
+async function getProduct(product) {
+    //FETCHES SPECIFIC PRODUCT. prodID SET IN PARAMETER.
 
+    var url = new URL("http://localhost/api/recievers/productReciever.php")
+    
+    var params = {action: "getProduct", productID: product} 
+    url.search = new URLSearchParams(params);
 
+let products = await makeRequest(url, "GET")
+console.log(products)
+
+}
 
 async function makeRequest(url, method, body) {
+    // Using fetch to send REST method and body (if set) to set path. Returns response or error
     try {
         const response = await fetch(url, {method,body})
         return response.json()
-    
-    
     
     } catch (error) {
         console.log("det belv fel"+error)
