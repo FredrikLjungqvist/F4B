@@ -3,19 +3,24 @@
 try {
 
     if(isset($_SERVER["REQUEST_METHOD"])) {
+        require("../repositories/productRepository.php");
 
         /* require(""); */
 
         if($_SERVER["REQUEST_METHOD"] == "GET") {
             if($_GET["action"] == "getAllProducts") {
                 
-                echo json_encode("det gick");
+                echo json_encode(getAllProducts());
+                
                 exit;
             } else if($_GET["action"] == "getCategory") {
                 echo json_encode("categiory");
             } else if($_GET["action"] == "getProduct") {
                 //GET SPECIFIC PRODUCT
             } else if($_GET["action"] == "getCart") {
+                $_GET["userID"]=$userID;
+                $cart=getCart($userID);
+                return $cart;
                 //GET PRODUCTS IN CART
             } else if($_GET["action"] == "listNewsletter") {
                 //GET LIST OF USERS WITH NEWSLETTER (ADMIN)

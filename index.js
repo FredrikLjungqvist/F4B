@@ -47,7 +47,7 @@ async function getAllProducts() {
     var url = new URL("http://localhost/api/recievers/productReciever.php")
     
     
-    var params = {action: "getCategory"} 
+    var params = {action: "getAllProducts"} 
     
     
     url.search = new URLSearchParams(params);
