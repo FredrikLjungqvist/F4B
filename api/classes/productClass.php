@@ -8,8 +8,7 @@
         $this->description = $description;
         $this->weight = $weight;
         $this->image = $image;
-        $this->unitsInStock = $unitsInStock;
-        
+        $this->unitsInStock = $unitsInStock;    
     }
 }   
 
