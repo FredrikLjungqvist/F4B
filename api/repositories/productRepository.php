@@ -6,6 +6,21 @@ function getAllProducts(){
     return $db->fetchQuery("SELECT * FROM products");
 }
 
+function productClassItem($products) {
+    require("../classes/productClass.php");
+    $productList = [];
+
+    foreach($products as $product) { 
+        $product = new Product($products["prodID"], $products["categoryID"], $products["prodDescription"], 
+        $products["prodPicture"], $products["prodName"], $products["unitPrice"], $products["unitWeight"], 
+        $products["unitInStock"]);
+        
+        array_push($productList, $product);
+        var_dump($productList);
+        return $productList;
+    }
+}
+
 //add new
 function addProduct($product){
     $db = new Database();

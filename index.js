@@ -1,12 +1,24 @@
 window.addEventListener("load", initsite)
-function initsite()
-{
+function initsite() {
     getAllProducts()
-    renderCard()
+
 }
 
+
+async function getAllProducts() {
+    var url = new URL("http://localhost/api/recievers/productReciever.php")
+    
+    var params = {action: "getAllProducts"} 
+    
+    url.search = new URLSearchParams(params);
+    console.log(url)
+
+    let products = await makeRequest(url, "GET")
+    console.log(products)
+
 //Function will get the list of products and render them onto page 
-function renderCard() {
+    products.forEach((product => {
+    
     let renderCard = document.createElement("div");
     renderCard.className ="card";
 
@@ -14,7 +26,7 @@ function renderCard() {
     cardBody.className ="card-Body"
 
     let title = document.createElement("div");
-    title.innerText ="En title"//placera productens namn här från databasen
+    title.innerText = product.prodName//placera productens namn här från databasen
 
     let image = document.createElement("img")
     image.className ="img"
@@ -24,47 +36,31 @@ function renderCard() {
     image.innerText="tomt på bilder just nu"
 
     let cardText = document.createElement("p")
-    cardText.innerText ="Some text" //placera productens beskrivning här från databasen
+    cardText.innerText = product.unitPrice + " kr" //placera productens beskrivning här från databasen
     cardText.className = "card-text"
+
+    let cardWeight = document.createElement("p")
+    cardWeight.innerText = product.unitWeight + " g"
+    cardWeight.className = "card-weight"
 
     let addbutton = document.createElement("button")
     addbutton.innerText ="Add button"
     addbutton.addEventListener("click", () =>{ //addera korrekt function för knappens click
         alert ("you clicked the button");
     });
-
+  
     cardBody.append(title)
     cardBody.append(image)
     cardBody.append(cardText)
+    cardBody.append(cardWeight)
     cardBody.append(addbutton)
     renderCard.append(cardBody) // the body of content appends here
 
     document.getElementById("productCard"/*ID DÄR PRODUKT KORT SKAL RENDERAS*/).appendChild(renderCard);
+  
+    }))
 
 }
-
-async function getAllProducts() {
-    var url = new URL("http://localhost/api/recievers/productReciever.php")
-    
-    
-    var params = {action: "getAllProducts"} 
-    
-    
-    url.search = new URLSearchParams(params);
-    
-    console.log(url)
-    
-
-let products = await makeRequest(url, "GET")
-console.log(products)
-
-
-
-
-}
-
-
-
 
 async function makeRequest(url, method, body) {
     try {

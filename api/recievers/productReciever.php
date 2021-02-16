@@ -9,8 +9,9 @@ try {
 
         if($_SERVER["REQUEST_METHOD"] == "GET") {
             if($_GET["action"] == "getAllProducts") {
-                
-                echo json_encode(getAllProducts());
+
+                $test = getAllProducts();
+                echo json_encode($test);
                 
                 exit;
             } else if($_GET["action"] == "getCategory") {
