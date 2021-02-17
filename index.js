@@ -3,7 +3,7 @@ function initsite()
 {
     /* getProduct("30002") */
     /* getCategory("3") */
-    getAllProducts()
+     getAllProducts() 
 
 }
 
@@ -29,7 +29,7 @@ async function getAllProducts() {
     cardBody.className ="card-Body"
 
     let title = document.createElement("div");
-    title.innerText = product.prodName//placera productens namn här från databasen
+    title.innerText = product.name//placera productens namn här från databasen
 
     let image = document.createElement("img")
     image.className ="img"
@@ -39,11 +39,11 @@ async function getAllProducts() {
     image.innerText="tomt på bilder just nu"
 
     let cardText = document.createElement("p")
-    cardText.innerText = product.unitPrice + " kr" //placera productens beskrivning här från databasen
+    cardText.innerText = product.price + " kr" //placera productens beskrivning här från databasen
     cardText.className = "card-text"
 
     let cardWeight = document.createElement("p")
-    cardWeight.innerText = product.unitWeight + " g"
+    cardWeight.innerText = product.weight + " g"
     cardWeight.className = "card-weight"
 
     let addbutton = document.createElement("button")
@@ -65,22 +65,7 @@ async function getAllProducts() {
 
 }
 
-async function getAllProducts() {
-    var url = new URL("http://localhost/api/recievers/productReciever.php")
-    
-    
-    var params = {action: "getAllProducts"} 
-    
-    
-    url.search = new URLSearchParams(params);
-    
-    console.log(url)
-    
 
-let products = await makeRequest(url, "GET")
-console.log(products)
-
-}
 
 async function getCategory(category) {
     //FETCHES ARRAY OF PRODUCTS CONTAINED IN A CATEGORY. categoryID SET IN PARAMETER.
