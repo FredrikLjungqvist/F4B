@@ -1,26 +1,29 @@
 <?php
 require("../handlers/databaseHandler.php");
+require("../classes/productClass.php");
 //get all
 function getAllProducts(){
     $db = new Database();
-    return $db->fetchQuery("SELECT * FROM products");
+    $productlist = $db->fetchQuery("SELECT * FROM products");
+    return productClassItem($productlist);
+
 }
 
 function productClassItem($products) {
-    require("../classes/productClass.php");
+    
     $productList = [];
-
+    
     foreach($products as $product) { 
-        $product = new Product($products["prodID"], $products["categoryID"], $products["prodDescription"], 
-        $products["prodPicture"], $products["prodName"], $products["unitPrice"], $products["unitWeight"], 
-        $products["unitInStock"]);
+        $productInstance = new Product((int) $product["prodID"], $product["categoryID"], $product["prodDescription"], 
+        $product["prodPicture"], $product["prodName"], $product["unitPrice"], $product["unitWeight"], 
+        $product["unitInStock"]);
         
-        array_push($productList, $product);
-        var_dump($productList);
-        return $productList;
-    }
+        array_push($productList, $productInstance); 
+       
+    }   
+    return $productList;
 }
-
+    
 //add new
 function addProduct($product){
     $db = new Database();
