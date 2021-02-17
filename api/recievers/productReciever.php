@@ -15,6 +15,11 @@ try {
                 //ECHOS BACK LIST OF ALL PRODUCTS
                  $test = getAllProducts();
                 function loopit($test){
+               $hej = "";
+
+               echo $hej;
+
+
                
                }
                 }
