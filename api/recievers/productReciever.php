@@ -10,9 +10,9 @@ try {
 
             if($_GET["action"] == "getAllProducts") {
 
-                $test = getAllProducts();
-                echo json_encode($test);
-                
+            if($_GET["action"] == "getAllProducts") {
+                //ECHOS BACK LIST OF ALL PRODUCTS
+                echo json_encode(getAllProducts());
                 exit;
 
             } else if($_GET["action"] == "getCategory") {
