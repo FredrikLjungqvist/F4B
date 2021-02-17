@@ -15,9 +15,7 @@ try {
                 //ECHOS BACK LIST OF ALL PRODUCTS
                  $test = getAllProducts();
                 function loopit($test){
-               for ($i=0; $i < $test ; $i++) { 
-                   $response += $test[$i];
-                   return $response;
+               
                }
                 }
                 echo json_encode(loopit($test));
