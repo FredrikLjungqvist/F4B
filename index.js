@@ -1,5 +1,4 @@
 window.addEventListener("load", initsite)
-
 function initsite()
 {
     /* getProduct("30002") */
@@ -101,23 +100,11 @@ async function getProduct(product) {
 
     var url = new URL("http://localhost/api/recievers/productReciever.php")
     
-    var params = {action: "getCart", productID: product} 
+    var params = {action: "getProduct", productID: product} 
     url.search = new URLSearchParams(params);
 
-let cart = await makeRequest(url, "GET")
-console.log(cart)
-
-}
-
-async function getCart(){
-    //Fetc the cart
-    var url = new URL("http://localhost/api/recievers/productReciever.php")
-    
-    var params = {action: "getCart", productID: product} 
-    url.search = new URLSearchParams(params);
-
-let cart = await makeRequest(url, "GET")
-console.log(cart)
+let products = await makeRequest(url, "GET")
+console.log(products)
 
 }
 
@@ -128,6 +115,6 @@ async function makeRequest(url, method, body) {
         return response.json()
     
     } catch (error) {
-            console.log("det belv fel"+error)
-        }
+        console.log("det belv fel"+error)
+    }
 }

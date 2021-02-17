@@ -5,13 +5,25 @@ try {
     if(isset($_SERVER["REQUEST_METHOD"])) {
         
         require("../repositories/productRepository.php");
+        require("../classes/productClass.php");
 
         if($_SERVER["REQUEST_METHOD"] == "GET") {
 
+           
+
             if($_GET["action"] == "getAllProducts") {
                 //ECHOS BACK LIST OF ALL PRODUCTS
-                echo json_encode(getAllProducts());
-                exit;
+                 $test = getAllProducts();
+                function loopit($test){
+               for ($i=0; $i < $test ; $i++) { 
+                   $response += $test[$i];
+                   return $response;
+               }
+                }
+                echo json_encode(loopit($test));
+
+                /* echo json_encode(getAllProducts());
+                exit; */
 
             } else if($_GET["action"] == "getCategory") {
                 //ECHOS BACK LIST OF ALL PRODUCTS IN SPECIFIC CATEGORY
