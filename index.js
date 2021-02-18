@@ -48,9 +48,10 @@ async function getAllProducts() {
 
     let addbutton = document.createElement("button")
     addbutton.innerText ="Add button"
-    addbutton.addEventListener("click", () =>{ //addera korrekt function för knappens click
+    addbutton. data = product
+    addbutton.addEventListener("click",addProductToCart) /* () =>{ //addera korrekt function för knappens click
         alert ("you clicked the button");
-    });
+    }); */
   
     cardBody.append(title)
     cardBody.append(image)
@@ -90,6 +91,36 @@ async function getProduct(product) {
 
 let products = await makeRequest(url, "GET")
 console.log(products)
+
+}
+
+
+async function addProductToCart(){
+
+    const cartItemCheck = await makeRequest("http://localhost/api/recievers/productReciever.php", "GET")
+    console.log(cartItemCheck)
+    const UserIDNumber = Math.floor(Math.random() * 10);
+    
+    const product = {
+        userID:UserIDNumber,
+        prodID:this.data.id,
+        quantity:UserIDNumber  /* this.data.id++ */
+        }
+    console.log(product)
+
+    let body = new FormData()
+    body.append("action", "addProductToCart")
+    body.append("product", JSON.stringify(product))
+
+    const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
+    console.log(result)
+    
+    /* var url = new URL("http://localhost/api/recievers/productReciever.php")
+    var params = {action: "addProductToCart", productID: cartItem} 
+    url.search = new URLSearchParams(params); */
+
+
+    /* cartItem = await makeRequest(url, "POST", body) */
 
 }
 

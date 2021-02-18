@@ -14,7 +14,7 @@ function productClassItem($products) {
     $productList = [];
     
     foreach($products as $product) { 
-        $productInstance = new Product((int) $product["prodID"], $product["categoryID"], $product["prodDescription"], 
+        $productInstance = new Product( (int)$product["ID"], $product["categoryID"], $product["prodDescription"], 
         $product["prodPicture"], $product["prodName"], $product["unitPrice"], $product["unitWeight"], 
         $product["unitInStock"]);
         
@@ -27,10 +27,9 @@ function productClassItem($products) {
 //add new
 function addProduct($product){
     $db = new Database();
-    
-    return $db->runQuery("INSERT INTO product (productname, price, weight, type) VALUES (:productname, :price, :weight, :type);", $product);
+    return $db->runQuery("INSERT INTO cartitem (userID,prodID, quantity) VALUES ( :userID, :prodID, :quantity);", $product);
 }
-
+/* ;INSERT INTO product (productname, price, weight, type) VALUES (:productname, :price, :weight, :type) */
 function getCart($userID){
     
     $db = new Database();
