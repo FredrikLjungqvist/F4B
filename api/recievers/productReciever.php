@@ -30,10 +30,14 @@ try {
                 echo json_encode(getProduct($_GET["productID"]));
                 exit;
 
-            } else if($_GET["action"] == "getCart") {
-                $_GET["userID"]=$userID;
-                $cart=getCart($userID);
-                return $cart;
+            } else if($_GET["action"] == "getCartCounter") {
+                
+                
+                $_GET["userID"] = $userID;
+                echo json_encode(getCartCounter($userID));
+                exit;
+
+                
                 //GET PRODUCTS IN CART
             } else if($_GET["action"] == "listNewsletter") {
                 //GET LIST OF USERS WITH NEWSLETTER (ADMIN)

@@ -3,8 +3,8 @@ function initsite()
 {
     /* getProduct("30002") */
     /* getCategory("3") */
-     getAllProducts() 
-
+     getAllProducts()
+     updateCartCounter(0)
 }
 
 
@@ -63,6 +63,22 @@ async function getAllProducts() {
   
     }))
 
+}
+
+
+async function updateCartCounter(userID) {
+    let url = new URL("http://localhost/api/recievers/productReciever.php")
+        
+    let params = {action: "getCartItem", userID: userID}
+    console.log(params)
+    url.search = new URLSearchParams(params)
+    console.log(url)
+
+    let cartItem = await makeRequest(url, "GET")
+    console.log(cartItem)
+
+    document.getElementById("cartCounter").innerText = cartItem[0].quant
+      
 }
 
 
