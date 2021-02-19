@@ -27,7 +27,9 @@ try {
 
             } else if($_GET["action"] == "getcartitem") {
                 //ECHOS BACK CARTITEM FROM SPECIFIC USERID
-                echo json_encode(getcartItem($_GET["userID"]));
+                $userID = json_decode($_GET["userID"]);
+                    echo json_encode(getcartItem($userID));
+                /* echo json_encode(getcartItem($_GET["userID"])); */
                 exit;
 
             } else if($_GET["action"] == "getProduct") {
@@ -53,9 +55,14 @@ try {
                     $product = json_decode($_POST["product"],true);
                     echo json_encode(addProduct($product));
                     exit;
+                    //ADD NEW PRODUCT TO CART
+            }else if ($_POST["action"] == "addQty") {
+                $product = json_decode($_POST["product"],true);
+                echo json_encode(addOneQunatity($product));
+                exit;
+                    //ADD QUANTITY FOR PRODUCT TO CART
                 
 
-                //ADD PRODUCT TO CART
             } else if($_POST["action"] == "removeProductFromCart") {
                 //DELETE PRODUCT FROM CART
             } else if($_POST["action"] == "clearCart") {

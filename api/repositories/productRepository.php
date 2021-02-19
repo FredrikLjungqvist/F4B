@@ -29,6 +29,10 @@ function addProduct($product){
     $db = new Database();
     return $db->runQuery("INSERT INTO cartitem (userID,prodID, quantity) VALUES ( :userID, :prodID, :quantity);", $product);
 }
+function addoneQunatity($product){
+    $db = new Database();
+    return $db->runQuery( "UPDATE cartitem SET quantity = quantity + 1 WHERE prodID = prodID", $product);
+}
 /* ;INSERT INTO product (productname, price, weight, type) VALUES (:productname, :price, :weight, :type) */
 function getcartItem($userID){
     $db = new Database();

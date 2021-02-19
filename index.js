@@ -50,9 +50,11 @@ async function getAllProducts() {
         let addbutton = document.createElement("button")
         addbutton.innerText = "Lägg i varukorgen"
         addbutton.classList.add("btn", "text-white")
-        addbutton.addEventListener("click", () =>{ //addera korrekt function för knappens click
+
+        addbutton.data = product
+        addbutton.addEventListener("click", addProductToCart) /* () =>{
             alert ("you clicked the button");
-    });
+    }); */
     
     cardBody.append(image)
     cardBody.append(title)
@@ -77,7 +79,7 @@ async function updateCartCounter(userID) {
     console.log(url)
 
     let cartItem = await makeRequest(url, "GET")
-    console.log(cartItem)
+    /* console.log(cartItem) */
 
     document.getElementById("cartCounter").innerText = cartItem[0].quant
       
@@ -113,61 +115,61 @@ console.log(products)
 
 
 async function addProductToCart(){
-
-    var url = new URL("http://localhost/api/recievers/productReciever.php")
-
+    
+    const productID = this.data.id
+    let cartItemlist = []
     userID = 1 // för inställd userID
-
+    var url = new URL("http://localhost/api/recievers/productReciever.php")
+    
     var params = {action: "getcartitem", userID: userID} 
     url.search = new URLSearchParams(params);
-    
-    let cartItemCheck = await makeRequest(url, "GET")
-    const productID = this.data.id
-    
-    for (let i = 0; i < cartItemCheck.length; i++) {
-        const cartItem = cartItemCheck[i];
-        
-        console.log(productID ,cartItem)
+    cartItemlist = await makeRequest(url, "GET")
+    console.log(cartItemlist)
 
-        if(cartItem == productID){
-            console.log("de är lika")
-            return
-        } else if(!cartItem == productID) {
-            console.log("de är inte lika")
+    	for (let i = 0; i < cartItemlist.length; i++) {
+            const checkID = cartItemlist[i].prodID;
+
+            console.log(checkID)
+            if (checkID == productID){
+                console.log("lika")
+
+                let body = new FormData()
+                body.append("action", "addQty")
+            
+                const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
+                console.log(result)
             return
 
-        } else {
-            console.log("Error")
+            } else if(checkID != productID){
+                console.log("inte lika")
+            }
         }
-    }
-
-       /*  if(cartItemCheck == productID){
-            console.log("de är lika")
-
-            
-        } else if(!cartItemCheck == productID) {
-            console.log("de är inte lika") */
-            
-            /* const product = {
+        addNewProduct()
+        async function addNewProduct(){
+            const product = {
                 userID:userID,
-                prodID:this.data.id,
+                prodID:productID,
                 quantity:1    
             } 
-            return product */
-        
-        //query till db: UPDATE `cartitem` SET `quantity` = '2' WHERE `cartitem`.`id` = 39; 
-        /* let body = new FormData()
-        body.append("action", "addProductToCart")
-        body.append("product", JSON.stringify(product))
-
-        const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
-        console.log(result) */
+            let body = new FormData()
+            body.append("action", "addProductToCart")
+            body.append("product", JSON.stringify(product))
+            
+            const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
+            console.log(result)
+            
+            
+            var url = new URL("http://localhost/api/recievers/productReciever.php")
+            var params = {action: "addProductToCart", productID: product} 
+            url.search = new URLSearchParams(params);
+            return
+        }
     
+    //query till db: UPDATE `cartitem` SET `quantity` = '2' WHERE `cartitem`.`id` = 39; 
     //För definera $userID till en siffra och hämta produkter från den kunden och jämför med det som läggs till.
-
-    /* var url = new URL("http://localhost/api/recievers/productReciever.php")
-    var params = {action: "addProductToCart", productID: cartItem} 
-    url.search = new URLSearchParams(params);
+    
+    
+        
 
 
     /* cartItem = await makeRequest(url, "POST", body) */
