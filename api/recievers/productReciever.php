@@ -31,6 +31,13 @@ try {
                 $cart=getCart($userID);
                 return $cart;
                 //GET PRODUCTS IN CART
+
+            } else if($_GET["action"] == "getCartCounter") {
+                //get number of products in cart
+                $userID = $_GET["userID"];
+                echo json_encode(getCartCounter($userID));
+                exit;
+
             } else if($_GET["action"] == "listNewsletter") {
                 //GET LIST OF USERS WITH NEWSLETTER (ADMIN)
             }
