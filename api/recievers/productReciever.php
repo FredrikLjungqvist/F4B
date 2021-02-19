@@ -13,12 +13,8 @@ try {
 
             if($_GET["action"] == "getAllProducts") {
                 //ECHOS BACK LIST OF ALL PRODUCTS
-                
-               
-               
                 echo json_encode(getAllProducts());
-
-                
+                exit;
 
             } else if($_GET["action"] == "getCategory") {
                 //ECHOS BACK LIST OF ALL PRODUCTS IN SPECIFIC CATEGORY
@@ -30,14 +26,10 @@ try {
                 echo json_encode(getProduct($_GET["productID"]));
                 exit;
 
-            } else if($_GET["action"] == "getCartCounter") {
-                
-                
-                $userID = $_GET["userID"];
-                echo json_encode(getCartCounter($userID));
-                exit;
-
-                
+            } else if($_GET["action"] == "getCart") {
+                $_GET["userID"]=$userID;
+                $cart=getCart($userID);
+                return $cart;
                 //GET PRODUCTS IN CART
             } else if($_GET["action"] == "listNewsletter") {
                 //GET LIST OF USERS WITH NEWSLETTER (ADMIN)

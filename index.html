@@ -16,7 +16,7 @@
 <body>
   <header>
     <div class="header">
-      <div class="logoContainer"><a href="#"><img src="./pictures/fa.png" alt="logga"></a></div>
+      <div class="logoContainer"><a href="#"><img src="./pictures/fa.png" alt="logga" onclick="getAllProducts()"></a></div>
       <div class="menyContainer">
         <div class="containerOne"><a href="#">Logga in/Registrera</a></div>
         <div class="containerOne"><a href="#">Nyhetsbrev</a></div>
@@ -31,13 +31,15 @@
             </a>
 
             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <a class="dropdown-item" href="#">TEXT</a>
-              <a class="dropdown-item" href="#">TEXT</a>
-              <a class="dropdown-item" href="#">TEXT</a>
+              <a class="dropdown-item" onclick="getCategory(1)">Bärsystem</a>
+              <a class="dropdown-item" onclick="getCategory(2)">Friluftskläder</a>
+              <a class="dropdown-item" onclick="getCategory(3)">Kringutrustning</a>
+              <a class="dropdown-item" onclick="getCategory(4)">Lättviktsutrustning</a>
+              <a class="dropdown-item" onclick="getCategory(5)">SäsongsRea</a>
             </div>
           </div>
 
-          <h2 id="cartCounter"></h2><a href="#"><i class="fas fa-shopping-cart"></i></a>
+          <h2 id="cartCounter">1</h2><a href="#"><i class="fas fa-shopping-cart"></i></a>
         </div>
 
       </div>
@@ -46,9 +48,10 @@
 
   </header>
 
-    
-    <div class="col, md-4" id="productCard"></div>
-  
+
+  <main>
+      <div id="productCard"></div>
+  </main>
 
   <!-- bootstrap-kod -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
