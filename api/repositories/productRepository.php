@@ -42,7 +42,7 @@ function getcartItem($userID){
 function getCart($userID){
     
     $db = new Database();
-    return $db->fetchQuery("SELECT * FROM cartItems WHERE userID=$userID");
+    return $db->fetchQuery("SELECT * FROM cartitem WHERE userID = $userID");
 }
 
 
@@ -55,13 +55,15 @@ function deleteAllProducts(){
 //get specific category
 function getCategory($category){
     $db = new Database();
-    return $db->fetchQuery("SELECT * FROM products WHERE categoryID = $category");
+    $productList =  $db->fetchQuery("SELECT * FROM products WHERE categoryID = $category");
+    return productClassItem($productList);
 }
 
 //get specific product
 function getProduct($product){
     $db = new Database();
-    return $db->fetchQuery("SELECT * FROM products WHERE prodID = $product");
+    $productlist =  $db->fetchQuery("SELECT * FROM products WHERE ID = $product");
+    return productClassItem($productlist);
 }
 
 //get number of products in cart

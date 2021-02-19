@@ -1,20 +1,30 @@
 <?php
-require("../classes/productClass.php");
+
+
 class cartItem{
     function __construct($product, $quantity) {
-        $this->product = $product;
+        
+        $this->product=$product;
         $this->quantity = $quantity;
         
-}
-
-    public $productId;
+    } 
+    
+     function getProduct($productID){
+        $db = new Database();
+    $productlist =  $db->fetchQuery("SELECT * FROM products WHERE prodID = $productID");
+    return productClassItem($productlist);
+    }
+    
+    
     public $quantity;
 
 }
 
+
+
 class cart{
-    function __construct(){
-        $this->cart=[];
+    function __construct($cartItem){
+        $this->cartitem=$cartItem;
     }
     
     function totalPrice($array){
