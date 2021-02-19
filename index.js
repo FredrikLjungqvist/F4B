@@ -41,9 +41,11 @@ function renderProducts(products) {
         let addbutton = document.createElement("button")
         addbutton.innerText = "Lägg i varukorgen"
         addbutton.classList.add("btn", "text-white")
-        addbutton.addEventListener("click", () =>{ //addera korrekt function för knappens click
+
+        addbutton.data = product
+        addbutton.addEventListener("click", addProductToCart) /* () =>{
             alert ("you clicked the button");
-    });
+    }); */
     
     cardBody.append(image)
     cardBody.append(title)
@@ -76,7 +78,7 @@ async function updateCartCounter(userID) {
     console.log(url)
 
     let cartItem = await makeRequest(url, "GET")
-    console.log(cartItem)
+    /* console.log(cartItem) */
 
     document.getElementById("cartCounter").innerText = cartItem[0].quant
       
@@ -86,22 +88,81 @@ async function updateCartCounter(userID) {
 
 async function getCategory(category) {
     //FETCHES ARRAY OF PRODUCTS CONTAINED IN A CATEGORY. categoryID SET IN PARAMETER.
+
     var url = new URL("http://localhost/api/recievers/productReciever.php")
+    
     var params = {action: "getCategory", categoryID: category} 
     url.search = new URLSearchParams(params);
 
-    let products = await makeRequest(url, "GET")
-    renderProducts(products)
+let products = await makeRequest(url, "GET")
+console.log(products)
+
 }
 
 async function getProduct(product) {
     //FETCHES SPECIFIC PRODUCT. prodID SET IN PARAMETER.
+
     var url = new URL("http://localhost/api/recievers/productReciever.php")
-    var params = {action: "getProduct", productID: product} 
+    
+    var params = {action: "getProduct", productID: product } 
     url.search = new URLSearchParams(params);
 
-    let products = await makeRequest(url, "GET")
-    console.log(products)
+let products = await makeRequest(url, "GET")
+console.log(products)
+
+}
+
+
+async function addProductToCart(){
+    
+    const productID = this.data.id
+    let cartItemlist = []
+    userID = 1 // för inställd userID
+    var url = new URL("http://localhost/api/recievers/productReciever.php")
+    
+    var params = {action: "getcartitem", userID: userID} 
+    url.search = new URLSearchParams(params);
+    cartItemlist = await makeRequest(url, "GET")
+    console.log(cartItemlist)
+
+    	for (let i = 0; i < cartItemlist.length; i++) {
+            const checkID = cartItemlist[i].prodID;
+
+            console.log(checkID)
+            if (checkID == productID){
+                console.log("lika")
+
+                let body = new FormData()
+                body.append("action", "addQty")
+            
+                const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
+                console.log(result)
+            return
+
+            } else if(checkID != productID){
+                console.log("inte lika")
+            }
+        }
+        addNewProduct()
+        async function addNewProduct(){
+            const product = {
+                userID:userID,
+                prodID:productID,
+                quantity:1    
+            } 
+            let body = new FormData()
+            body.append("action", "addProductToCart")
+            body.append("product", JSON.stringify(product))
+            
+            const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
+            console.log(result)
+            
+            
+            var url = new URL("http://localhost/api/recievers/productReciever.php")
+            var params = {action: "addProductToCart", productID: product} 
+            url.search = new URLSearchParams(params);
+            return
+        }
 }
 
 async function makeRequest(url, method, body) {

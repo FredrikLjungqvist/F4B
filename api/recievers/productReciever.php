@@ -13,12 +13,23 @@ try {
 
             if($_GET["action"] == "getAllProducts") {
                 //ECHOS BACK LIST OF ALL PRODUCTS
+                
+               
+               
                 echo json_encode(getAllProducts());
-                exit;
+
+                
 
             } else if($_GET["action"] == "getCategory") {
                 //ECHOS BACK LIST OF ALL PRODUCTS IN SPECIFIC CATEGORY
                 echo json_encode(getCategory($_GET["categoryID"]));
+                exit;
+
+            } else if($_GET["action"] == "getcartitem") {
+                //ECHOS BACK CARTITEM FROM SPECIFIC USERID
+                $userID = json_decode($_GET["userID"]);
+                    echo json_encode(getcartItem($userID));
+                /* echo json_encode(getcartItem($_GET["userID"])); */
                 exit;
 
             } else if($_GET["action"] == "getProduct") {
@@ -26,10 +37,14 @@ try {
                 echo json_encode(getProduct($_GET["productID"]));
                 exit;
 
-            } else if($_GET["action"] == "getCart") {
-                $_GET["userID"]=$userID;
-                $cart=getCart($userID);
-                return $cart;
+            } else if($_GET["action"] == "getCartCounter") {
+                
+                
+                $userID = $_GET["userID"];
+                echo json_encode(getCartCounter($userID));
+                exit;
+
+                
                 //GET PRODUCTS IN CART
 
             } else if($_GET["action"] == "getCartCounter") {
@@ -43,9 +58,20 @@ try {
             }
 
         } else if($_SERVER["REQUEST_METHOD"] == "POST") {
-
             if($_POST["action"] == "addProductToCart") {
-                //ADD PRODUCT TO CART
+                
+                    $product = json_decode($_POST["product"],true);
+                    echo json_encode(addProduct($product));
+                    exit;
+                    //ADD NEW PRODUCT TO CART
+            }else if ($_POST["action"] == "addQty") {
+
+                    $product = json_decode($_POST["product"],true);
+                    echo json_encode(addOneQunatity($product));
+                    exit;
+                    //ADD QUANTITY FOR PRODUCT TO CART
+                
+
             } else if($_POST["action"] == "removeProductFromCart") {
                 //DELETE PRODUCT FROM CART
             } else if($_POST["action"] == "clearCart") {
