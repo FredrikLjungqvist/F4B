@@ -13,12 +13,8 @@ try {
 
             if($_GET["action"] == "getAllProducts") {
                 //ECHOS BACK LIST OF ALL PRODUCTS
-                
-               
-               
                 echo json_encode(getAllProducts());
-
-                
+                exit;
 
             } else if($_GET["action"] == "getCategory") {
                 //ECHOS BACK LIST OF ALL PRODUCTS IN SPECIFIC CATEGORY

@@ -47,7 +47,8 @@ function deleteAllProducts(){
 //get specific category
 function getCategory($category){
     $db = new Database();
-    return $db->fetchQuery("SELECT * FROM products WHERE categoryID = $category");
+    $productlist = $db->fetchQuery("SELECT * FROM products WHERE categoryID = $category");
+    return productClassItem($productlist);
 }
 
 //get specific product
