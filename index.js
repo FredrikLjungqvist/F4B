@@ -5,6 +5,8 @@ function initsite()
     /* getCategory("3") */
     getAllProducts() 
 
+     getAllProducts()
+     updateCartCounter(0)
 }
 
 function renderProducts(products) {
@@ -63,6 +65,74 @@ async function getAllProducts() {
     let products = await makeRequest(url, "GET")
     renderProducts(products)
 }
+
+    console.log(products)
+
+//Function will get the list of products and render them onto page 
+    products.forEach((product => {
+    
+        let renderCard = document.createElement("div")
+        renderCard.className = "card text-center";
+
+        let cardBody = document.createElement("div");
+        cardBody.classList.add("card-body")
+
+        let image = document.createElement("img")
+        image.classList.add("card-img-top")
+        image.style.width = "160px" //Instead of a picture for now
+        image.style.height ="160px"//Instead of a picture for now
+        image.style.backgroundColor = "purple"//Instead of a picture for now
+        image.innerText="tomt på bilder just nu"
+
+        let title = document.createElement("h5");
+        title.classList.add("card-title")
+        title.innerText = product.name//placera productens namn här från databasen
+
+        let cardText = document.createElement("p")
+        cardText.classList.add("card-text",)
+        cardText.innerText = product.price + " kr"//placera productens beskrivning här från databasen
+        
+        let cardWeight = document.createElement("p")
+        cardWeight.classList.add("card-text",)
+        cardWeight.innerText = product.weight + " g"//placera productens beskrivning här från databasen
+
+        let addbutton = document.createElement("button")
+        addbutton.innerText = "Lägg i varukorgen"
+        addbutton.classList.add("btn", "text-white")
+        addbutton.addEventListener("click", () =>{ //addera korrekt function för knappens click
+            alert ("you clicked the button");
+    });
+    
+    cardBody.append(image)
+    cardBody.append(title)
+    cardBody.append(cardText)
+    cardBody.append(cardWeight)
+    cardBody.append(addbutton)
+    renderCard.append(cardBody) // the body of content appends here
+
+    document.getElementById("productCard"/*ID DÄR PRODUKT KORT SKAL RENDERAS*/).appendChild(renderCard);
+  
+    }))
+
+}
+
+
+async function updateCartCounter(userID) {
+    let url = new URL("http://localhost/api/recievers/productReciever.php")
+        
+    let params = {action: "getCartCounter", userID: userID}
+    console.log(params)
+    url.search = new URLSearchParams(params)
+    console.log(url)
+
+    let cartItem = await makeRequest(url, "GET")
+    console.log(cartItem)
+
+    document.getElementById("cartCounter").innerText = cartItem[0].quant
+      
+}
+
+
 
 async function getCategory(category) {
     //FETCHES ARRAY OF PRODUCTS CONTAINED IN A CATEGORY. categoryID SET IN PARAMETER.
