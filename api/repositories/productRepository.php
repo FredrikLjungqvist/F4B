@@ -64,10 +64,11 @@ function getProduct($product){
     return $db->fetchQuery("SELECT * FROM products WHERE prodID = $product");
 }
 
+//get number of products in cart
 function getCartCounter($userID) {
     $db = new Database();
     return $db->fetchQuery("SELECT SUM(quantity) AS quant FROM cartitem WHERE userID = $userID");
-  
+
 }
 
 ?>

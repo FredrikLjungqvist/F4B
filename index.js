@@ -3,23 +3,14 @@ function initsite()
 {
     /* getProduct("30002") */
     /* getCategory("3") */
-     getAllProducts()
-     updateCartCounter(0)
+    getAllProducts()
+    updateCartCounter(1)
 }
 
-
-async function getAllProducts() {
-    var url = new URL("http://localhost/api/recievers/productReciever.php")
+function renderProducts(products) {
+    //Function will get the list of products and render them onto page
+    document.getElementById("productCard").innerHTML = "";
     
-    var params = {action: "getAllProducts"} 
-    
-    url.search = new URLSearchParams(params);
-    console.log(url)
-
-    let products = await makeRequest(url, "GET")
-    console.log(products)
-
-//Function will get the list of products and render them onto page 
     products.forEach((product => {
     
         let renderCard = document.createElement("div")
@@ -66,7 +57,15 @@ async function getAllProducts() {
     document.getElementById("productCard"/*ID DÄR PRODUKT KORT SKAL RENDERAS*/).appendChild(renderCard);
   
     }))
+}
 
+async function getAllProducts() {
+    var url = new URL("http://localhost/api/recievers/productReciever.php")
+    var params = {action: "getAllProducts"} 
+    url.search = new URLSearchParams(params);
+
+    let products = await makeRequest(url, "GET")
+    renderProducts(products)
 }
 
 
