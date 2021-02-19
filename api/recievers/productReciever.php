@@ -27,7 +27,7 @@ try {
 
             } else if($_GET["action"] == "getcartitem") {
                 //ECHOS BACK CARTITEM FROM SPECIFIC USERID
-                echo json_encode("de snackar");
+                echo json_encode(getcartItem($_GET["userID"]));
                 exit;
 
             } else if($_GET["action"] == "getProduct") {
@@ -39,8 +39,8 @@ try {
                 
                 
                 $_GET["userID"] = $userID;
-                echo json_encode(getCartCounter($userID));
-                exit;
+                /* echo json_encode(getCartCounter($userID));
+                exit; */
 
                 
                 //GET PRODUCTS IN CART
@@ -50,10 +50,9 @@ try {
 
         } else if($_SERVER["REQUEST_METHOD"] == "POST") {
             if($_POST["action"] == "addProductToCart") {
-
-                      $product = json_decode($_POST["product"],true);
-                      echo json_encode(addProduct($product));
-                        exit;
+                    $product = json_decode($_POST["product"],true);
+                    echo json_encode(addProduct($product));
+                    exit;
                 
 
                 //ADD PRODUCT TO CART
