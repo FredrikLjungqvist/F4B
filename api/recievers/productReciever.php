@@ -33,7 +33,7 @@ try {
             } else if($_GET["action"] == "getCartCounter") {
                 
                 
-                $_GET["userID"] = $userID;
+                $userID = $_GET["userID"];
                 echo json_encode(getCartCounter($userID));
                 exit;
 
