@@ -1,21 +1,38 @@
 <?php
+require("../classes/productClass.php");
 class cartItem{
-    function __construct($productId, $quantity, $price, $weight) {
-        $this->productId = $productId;
+    function __construct($product, $quantity) {
+        $this->product = $product;
         $this->quantity = $quantity;
-        $this->price = $price;
-        $this->weight = $weight;
+        
 }
 
     public $productId;
     public $quantity;
 
-    function totalPrice($price){
-        
+}
+
+class cart{
+    function __construct(){
+        $this->cart=[];
+    }
+    
+    function totalPrice($array){
+        $sum = array_reduce($array, function($i, $obj)
+ {
+     return $i +=$obj->product->price;
+ });
+ 
+     return $sum;
+         
+    }
 }
 
 
-}
+
+
+
+
 
 //cartitem has product + quant;
 //cart is array of cartitems;
