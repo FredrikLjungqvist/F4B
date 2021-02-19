@@ -50,7 +50,7 @@ a {
 }
 
 a:hover {
-    color: rgb(28, 58, 28);
+    color: #44633f;
     text-decoration: none;
 }
 
@@ -79,29 +79,4 @@ a:hover {
 
 .dropdown {
     padding: 12px;
-}
-
-#productCard {
-    margin-top: 50px;
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.cardBody {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 200px;
-}
-
-
-.cardText {
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.btn {
-    font-size: 14px;
-    background-color: rgb(28, 58, 28);
-    border: none;
 }

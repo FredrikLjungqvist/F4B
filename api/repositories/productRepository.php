@@ -14,7 +14,7 @@ function productClassItem($products) {
     $productList = [];
     
     foreach($products as $product) { 
-        $productInstance = new Product((int) $product["ID"], $product["categoryID"], $product["prodDescription"], 
+        $productInstance = new Product((int) $product["prodID"], $product["categoryID"], $product["prodDescription"], 
         $product["prodPicture"], $product["prodName"], $product["unitPrice"], $product["unitWeight"], 
         $product["unitInStock"]);
         
@@ -55,7 +55,8 @@ function deleteAllProducts(){
 //get specific category
 function getCategory($category){
     $db = new Database();
-    return $db->fetchQuery("SELECT * FROM products WHERE categoryID = $category");
+    $productlist = $db->fetchQuery("SELECT * FROM products WHERE categoryID = $category");
+    return productClassItem($productlist);
 }
 
 //get specific product
@@ -64,10 +65,5 @@ function getProduct($product){
     return $db->fetchQuery("SELECT * FROM products WHERE prodID = $product");
 }
 
-function getCartCounter($userID) {
-    $db = new Database();
-    return $db->fetchQuery("SELECT SUM(quantity) AS quant FROM cartitem WHERE userID = $userID");
-  
-}
 
 ?>
