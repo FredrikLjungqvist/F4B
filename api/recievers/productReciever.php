@@ -13,8 +13,12 @@ try {
 
             if($_GET["action"] == "getAllProducts") {
                 //ECHOS BACK LIST OF ALL PRODUCTS
+                
+               
+               
                 echo json_encode(getAllProducts());
-                exit;
+
+                
 
             } else if($_GET["action"] == "getCategory") {
                 //ECHOS BACK LIST OF ALL PRODUCTS IN SPECIFIC CATEGORY
@@ -33,10 +37,14 @@ try {
                 echo json_encode(getProduct($_GET["productID"]));
                 exit;
 
-            } else if($_GET["action"] == "getCart") {
-                $_GET["userID"]=$userID;
-                $cart=getCart($userID);
-                return $cart;
+            } else if($_GET["action"] == "getCartCounter") {
+                
+                
+                $userID = $_GET["userID"];
+                echo json_encode(getCartCounter($userID));
+                exit;
+
+                
                 //GET PRODUCTS IN CART
             } else if($_GET["action"] == "listNewsletter") {
                 //GET LIST OF USERS WITH NEWSLETTER (ADMIN)
@@ -44,14 +52,16 @@ try {
 
         } else if($_SERVER["REQUEST_METHOD"] == "POST") {
             if($_POST["action"] == "addProductToCart") {
+                
                     $product = json_decode($_POST["product"],true);
                     echo json_encode(addProduct($product));
                     exit;
                     //ADD NEW PRODUCT TO CART
             }else if ($_POST["action"] == "addQty") {
-                $product = json_decode($_POST["product"],true);
-                echo json_encode(addOneQunatity($product));
-                exit;
+
+                    $product = json_decode($_POST["product"],true);
+                    echo json_encode(addOneQunatity($product));
+                    exit;
                     //ADD QUANTITY FOR PRODUCT TO CART
                 
 

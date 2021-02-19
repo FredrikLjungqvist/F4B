@@ -14,7 +14,7 @@ function productClassItem($products) {
     $productList = [];
     
     foreach($products as $product) { 
-        $productInstance = new Product((int) $product["prodID"], $product["categoryID"], $product["prodDescription"], 
+        $productInstance = new Product((int) $product["ID"], $product["categoryID"], $product["prodDescription"], 
         $product["prodPicture"], $product["prodName"], $product["unitPrice"], $product["unitWeight"], 
         $product["unitInStock"]);
         
@@ -29,7 +29,7 @@ function addProduct($product){
     $db = new Database();
     return $db->runQuery("INSERT INTO cartitem (userID,prodID, quantity) VALUES ( :userID, :prodID, :quantity);", $product);
 }
-function addoneQunatity($product){
+function addOneQunatity($product){
     $db = new Database();
     return $db->runQuery( "UPDATE cartitem SET quantity = quantity + 1 WHERE prodID = prodID", $product);
 }
@@ -55,8 +55,7 @@ function deleteAllProducts(){
 //get specific category
 function getCategory($category){
     $db = new Database();
-    $productlist = $db->fetchQuery("SELECT * FROM products WHERE categoryID = $category");
-    return productClassItem($productlist);
+    return $db->fetchQuery("SELECT * FROM products WHERE categoryID = $category");
 }
 
 //get specific product
@@ -65,5 +64,10 @@ function getProduct($product){
     return $db->fetchQuery("SELECT * FROM products WHERE prodID = $product");
 }
 
+function getCartCounter($userID) {
+    $db = new Database();
+    return $db->fetchQuery("SELECT SUM(quantity) AS quant FROM cartitem WHERE userID = $userID");
+  
+}
 
 ?>
