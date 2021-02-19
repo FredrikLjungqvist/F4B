@@ -38,9 +38,9 @@ try {
             } else if($_GET["action"] == "getCartCounter") {
                 
                 
-                $_GET["userID"] = $userID;
-                /* echo json_encode(getCartCounter($userID));
-                exit; */
+                $userID = $_GET["userID"];
+                echo json_encode(getCartCounter($userID));
+                exit;
 
                 
                 //GET PRODUCTS IN CART

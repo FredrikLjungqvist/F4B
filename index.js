@@ -22,39 +22,40 @@ async function getAllProducts() {
 //Function will get the list of products and render them onto page 
     products.forEach((product => {
     
-    let renderCard = document.createElement("div");
-    renderCard.className ="card";
+        let renderCard = document.createElement("div")
+        renderCard.className = "card text-center";
 
-    let cardBody = document.createElement("div");
-    cardBody.className ="card-Body"
+        let cardBody = document.createElement("div");
+        cardBody.classList.add("card-body")
 
-    let title = document.createElement("div");
-    title.innerText = product.name//placera productens namn här från databasen
+        let image = document.createElement("img")
+        image.classList.add("card-img-top")
+        image.style.width = "160px" //Instead of a picture for now
+        image.style.height ="160px"//Instead of a picture for now
+        image.style.backgroundColor = "purple"//Instead of a picture for now
+        image.innerText="tomt på bilder just nu"
 
-    let image = document.createElement("img")
-    image.className ="img"
-    image.style.width = "50px" //Instead of a picture for now
-    image.style.height ="50px"//Instead of a picture for now
-    image.style.backgroundColor ="purple"//Instead of a picture for now
-    image.innerText="tomt på bilder just nu"
+        let title = document.createElement("h5");
+        title.classList.add("card-title")
+        title.innerText = product.name//placera productens namn här från databasen
 
-    let cardText = document.createElement("p")
-    cardText.innerText = product.price + " kr" //placera productens beskrivning här från databasen
-    cardText.className = "card-text"
+        let cardText = document.createElement("p")
+        cardText.classList.add("card-text",)
+        cardText.innerText = product.price + " kr"//placera productens beskrivning här från databasen
+        
+        let cardWeight = document.createElement("p")
+        cardWeight.classList.add("card-text",)
+        cardWeight.innerText = product.weight + " g"//placera productens beskrivning här från databasen
 
-    let cardWeight = document.createElement("p")
-    cardWeight.innerText = product.weight + " g"
-    cardWeight.className = "card-weight"
-
-    let addbutton = document.createElement("button")
-    addbutton.innerText ="Add button"
-    addbutton. data = product
-    addbutton.addEventListener("click",addProductToCart) /* () =>{ //addera korrekt function för knappens click
-        alert ("you clicked the button");
-    }); */
-  
-    cardBody.append(title)
+        let addbutton = document.createElement("button")
+        addbutton.innerText = "Lägg i varukorgen"
+        addbutton.classList.add("btn", "text-white")
+        addbutton.addEventListener("click", () =>{ //addera korrekt function för knappens click
+            alert ("you clicked the button");
+    });
+    
     cardBody.append(image)
+    cardBody.append(title)
     cardBody.append(cardText)
     cardBody.append(cardWeight)
     cardBody.append(addbutton)
@@ -70,7 +71,7 @@ async function getAllProducts() {
 async function updateCartCounter(userID) {
     let url = new URL("http://localhost/api/recievers/productReciever.php")
         
-    let params = {action: "getCartItem", userID: userID}
+    let params = {action: "getCartCounter", userID: userID}
     console.log(params)
     url.search = new URLSearchParams(params)
     console.log(url)
