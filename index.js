@@ -95,7 +95,7 @@ async function getCategory(category) {
     url.search = new URLSearchParams(params);
 
 let products = await makeRequest(url, "GET")
-console.log(products)
+renderProducts(products)
 
 }
 
@@ -123,24 +123,24 @@ async function addProductToCart(){
     var params = {action: "getcartitem", userID: userID} 
     url.search = new URLSearchParams(params);
     cartItemlist = await makeRequest(url, "GET")
-    console.log(cartItemlist)
+    
 
     	for (let i = 0; i < cartItemlist.length; i++) {
             const checkID = cartItemlist[i].prodID;
 
             console.log(checkID)
             if (checkID == productID){
-                console.log("lika")
+               
 
                 let body = new FormData()
                 body.append("action", "addQty")
             
                 const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
-                console.log(result)
+               
             return
 
             } else if(checkID != productID){
-                console.log("inte lika")
+                
             }
         }
         addNewProduct()
@@ -155,7 +155,7 @@ async function addProductToCart(){
             body.append("product", JSON.stringify(product))
             
             const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
-            console.log(result)
+            
             
             
             var url = new URL("http://localhost/api/recievers/productReciever.php")

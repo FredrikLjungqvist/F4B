@@ -5,7 +5,7 @@ try {
     if(isset($_SERVER["REQUEST_METHOD"])) {
         
         require("../repositories/productRepository.php");
-        
+        require("../classes/cartItem.php");
 
         if($_SERVER["REQUEST_METHOD"] == "GET") {
 
@@ -24,12 +24,28 @@ try {
                 //ECHOS BACK LIST OF ALL PRODUCTS IN SPECIFIC CATEGORY
                 echo json_encode(getCategory($_GET["categoryID"]));
                 exit;
+            
+            } else if($_GET["action"] == "getCart") {
+                //ECHOS BACK CARTITEM FROM SPECIFIC USERID
+                
+                $userID = getCart($_GET["userID"]);
+                
+                $product = getProduct(10001);
+                $cartItem = new cartItem($product, $userID[0]["quantity"]);
+                $cart = new cart($cartItem);
 
+                
+                echo json_encode($cart);
+                
+                
+                exit;
+
+            
             } else if($_GET["action"] == "getcartitem") {
                 //ECHOS BACK CARTITEM FROM SPECIFIC USERID
                 $userID = json_decode($_GET["userID"]);
                     echo json_encode(getcartItem($userID));
-                /* echo json_encode(getcartItem($_GET["userID"])); */
+               
                 exit;
 
             } else if($_GET["action"] == "getProduct") {
