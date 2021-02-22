@@ -9,33 +9,37 @@ class cartItem{
         
     } 
     
-     function getProduct($productID){
-        $db = new Database();
-    $productlist =  $db->fetchQuery("SELECT * FROM products WHERE prodID = $productID");
-    return productClassItem($productlist);
-    }
-    
-    
-    public $quantity;
-
 }
 
 
 
 class cart{
     function __construct($cartItem){
-        $this->cartitem=$cartItem;
+        $this->cartitems=$cartItem;
+        $this->totalPrice=$this->totalPrice();
+        $this->totalWeight=$this->totalWeight();
+    }
+    public $cartitems;
+    public $totalPrice;
+    public $totalWeight;
+    
+    public function totalPrice(){
+        $sum = array_reduce($this->cartitems, function($i, $obj)
+        {
+            return $i +=$obj->product[0]->price * $obj->quantity;
+        });
+        
+        return (int )$sum;
     }
     
-    function totalPrice($array){
-        $sum = array_reduce($array, function($i, $obj)
- {
-     return $i +=$obj->product->price;
- });
- 
-     return $sum;
-         
+    function totalWeight(){
+        $sum = array_reduce($this->cartitems, function($i, $obj)
+        {
+            return $i +=$obj->product[0]->weight;
+        });
+        return (int )$sum;
     }
+    
 }
 
 
