@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <body>
+        <div class="wrapper">
+            <h2>Sign Up</h2>
+            <p>Please fill this form to create an account.</p>
+            <form action="/api/recievers/userReciever.php" method="post">
+                <div>
+                    <label>Username</label>
+                    <input type="text" name="usernameToSave" class="form-control">
+                </div>    
+                <div>
+                    <label>Password</label>
+                    <input type="password" name="passwordToSave" class="form-control">
+                    
+                </div>
+                <div>
+                    <label>Confirm Password</label>
+                    <input type="password" name="confirm_password" class="form-control" value="">
+                    
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Submit">
+                    <input type="reset" class="btn btn-default" value="Reset">
+                </div>
+                <p>Already have an account? <a href="login.php">Login here</a>.</p>
+            </form>
+        </div>    
+        <div class="wrapper">
+            <h2>Login</h2>
+            <p>Please fill in your credentials to login.</p>
+            <form action="/api/recievers/userReciever.php" method="post">
+               
+                    <label>Username</label>
+                    <input type="text" name="username" class="form-control">
+                    
+                </div>    
+                <div class="form-group ">
+                    <label>Password</label>
+                    <input type="password" name="password" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="submit" class="btn btn-primary" value="Login">
+                </div>
+                <p>Don't have an account? <a href=#>Sign up now</a>.</p>
+            </form>
+        </div> 
+    
+    
+    
+    </body>
+</body>
+</html>
