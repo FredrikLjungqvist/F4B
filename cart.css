@@ -1,0 +1,18 @@
+* {
+    box-sizing: border-box;
+
+}
+
+body {
+    margin: 0;
+}
+
+/* .cardBodyCart {
+    display: flex;
+    width: 50%;
+}
+
+.renderCardCart {
+    display: flex;
+    text-align: center;
+} */
