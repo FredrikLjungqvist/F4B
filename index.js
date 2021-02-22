@@ -1,6 +1,7 @@
 window.addEventListener("load", initsite)
-function initsite()
-{
+function initsite(){
+   
+   
     /* getProduct("30002") */
     /* getCategory("3") */
     getAllProducts()
