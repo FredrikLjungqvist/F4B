@@ -1,13 +1,14 @@
 <?php
 
 class User {
-    function __construct($id, $password, $logginStatus, $registerDate)
+    function __construct($id, $username, $password)
     {
         
         $this->id = $id;
+        $this->username = $username;
         $this->password = $password;
-        $this->logginStatus = $logginStatus;
-        $this->registerDate = $registerDate;
+        /* $this->logginStatus = $logginStatus;
+        $this->registerDate = $registerDate; */
 
     }
 }
