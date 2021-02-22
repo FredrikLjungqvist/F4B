@@ -28,11 +28,10 @@ try {
             } else if($_GET["action"] == "getCart") {
                 //ECHOS BACK CARTITEM FROM SPECIFIC USERID
                 
-                $userID = getCart($_GET["userID"]);
                 
-                $product = getProduct(10001);
-                $cartItem = new cartItem($product, $userID[0]["quantity"]);
-                $cart = new cart($cartItem);
+                $cart = makeOrderItem(getCart($_GET["userID"]));
+                
+                
 
                 
                 echo json_encode($cart);

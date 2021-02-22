@@ -14,9 +14,8 @@ function productClassItem($products) {
     $productList = [];
     
     foreach($products as $product) { 
-        $productInstance = new Product((int) $product["ID"], $product["categoryID"], $product["prodDescription"], 
-        $product["prodPicture"], $product["prodName"], $product["unitPrice"], $product["unitWeight"], 
-        $product["unitInStock"]);
+        $productInstance = new Product((int) $product["ID"], (int) $product["categoryID"], $product["prodDescription"], 
+        $product["prodPicture"], $product["prodName"], (int) $product["unitPrice"],(int) $product["unitWeight"], (int) $product["unitInStock"]);
         
         array_push($productList, $productInstance); 
        
@@ -44,6 +43,18 @@ function getCart($userID){
     $db = new Database();
     return $db->fetchQuery("SELECT * FROM cartitem WHERE userID = $userID");
 }
+
+function makeOrderItem($response){
+$orderItemList = [];
+foreach ($response as $item) {
+    $product = getProduct($item["prodID"]);
+    $orderItemInstance = new cartItem($product, $item["quantity"]);
+    array_push($orderItemList, $orderItemInstance);
+}
+$cart = new cart($orderItemList);
+
+return $cart;
+};
 
 
 //delet all
