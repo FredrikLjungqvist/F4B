@@ -13,7 +13,7 @@ class cartItem{
 
 
 
-class cart{
+class cart {
     function __construct($cartItem){
         $this->cartitems=$cartItem;
         $this->totalPrice=$this->totalPrice();

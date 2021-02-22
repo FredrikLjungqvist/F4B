@@ -31,9 +31,6 @@ try {
                 
                 $cart = makeOrderItem(getCart($_GET["userID"]));
                 
-                
-
-                
                 echo json_encode($cart);
                 
                 
