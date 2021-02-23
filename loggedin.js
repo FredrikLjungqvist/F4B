@@ -7,7 +7,7 @@ async function registerUser(){
     body.set("usernameToSave", username)
     body.set("passwordToSave", password)
 
-    let response = await makeRequest(url, "POST", body)
+    let response = await makeRequest("./api/recievers/userReciever.php", "POST", body)
     console.log(response)
 
 }
@@ -21,7 +21,7 @@ async function loginUser(){
     body.set("username", username)
     body.set("password", password)
 
-    let response = await makeRequest(url, "POST", body)
+    let response = await makeRequest("./api/recievers/userReciever.php", "POST", body)
     console.log(response)
 
 }
