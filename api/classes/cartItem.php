@@ -35,7 +35,7 @@ class cart {
     function totalWeight(){
         $sum = array_reduce($this->cartitems, function($i, $obj)
         {
-            return $i +=$obj->product[0]->weight;
+            return $i +=$obj->product[0]->weight * $obj->quantity;
         });
         return (int )$sum;
     }

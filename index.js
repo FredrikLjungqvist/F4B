@@ -11,13 +11,11 @@ function initsite(){
 function renderProducts(products) {
     //Function will get the list of products and render them onto page
     document.getElementById("productCard").innerHTML = "";
-    
+
     products.forEach((product => {
 
-        
-    
         let renderCard = document.createElement("div")
-        renderCard.classList.add("card")
+        renderCard.classList.add("card", "mx-3", "my-3", "py-2", "justify-content-center")
         renderCard.style.width = "17%"
         renderCard.style.height = "19rem"
         renderCard.style.margin = "5px"
@@ -33,7 +31,7 @@ function renderProducts(products) {
         image.style.backgroundColor = "purple"//Instead of a picture for now
         image.innerText="tomt på bilder just nu"
 
-        let title = document.createElement("h5");
+        let title = document.createElement("h6");
         title.classList.add("card-title")
         title.innerText = product.name//placera productens namn här från databasen
 
