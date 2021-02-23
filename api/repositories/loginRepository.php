@@ -18,7 +18,7 @@ function addUser($userinfo){
 function loginUser($username, $password){
     
     $db = new Database();
-    $response = $db->fetchQuery("SELECT name FROM user WHERE name = '$username'");
+    $response = $db->fetchQuery("SELECT * FROM user WHERE name = '$username'");
     var_dump($response);
     
     
@@ -28,7 +28,15 @@ function loginUser($username, $password){
     
      if( $response[0]["name"] == $username){
          if(password_verify($password, $hashed_password[0]["password"])) {
-            return "rätt password";
+            return true;
+            session_start();
+                            
+            
+            $_SESSION["loggedin"] = true;
+            $_SESSION["id"] = $response[0]["id"];
+            $_SESSION["username"] = $response[0]["name"]; 
+
+
         }else{
             return "fel password";
         } 
