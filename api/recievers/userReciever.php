@@ -13,7 +13,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit;
             
             }else if ($_POST["username"] && $_POST["password"]) {
-               $user = loginUser($_POST["username"]);
+               $user = loginUser($_POST["username"], $_POST["password"]);
                 print_r($user);
             }
             
