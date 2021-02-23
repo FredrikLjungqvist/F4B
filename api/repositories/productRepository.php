@@ -30,7 +30,7 @@ function addProduct($product){
 }
 function addOneQunatity($product){
     $db = new Database();
-    return $db->runQuery( "UPDATE cartitem SET quantity = quantity + 1 WHERE prodID = prodID", $product);
+    return $db->runQuery( "UPDATE cartitem SET quantity = quantity + 1 WHERE prodID = 'prodID'", $product);
 }
 /* ;INSERT INTO product (productname, price, weight, type) VALUES (:productname, :price, :weight, :type) */
 function getcartItem($userID){
