@@ -30,8 +30,6 @@ function renderProducts(products) {
         image.classList.add("card-img-top")
         image.style.width = "130px" //Instead of a picture for now
         image.style.height ="135px"//Instead of a picture for now
-        image.style.backgroundColor = "purple"//Instead of a picture for now
-        image.innerText= "hej"
 
         let title = document.createElement("h6");
         title.classList.add("card-title")
