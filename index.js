@@ -1,7 +1,8 @@
 window.addEventListener("load", initsite)
 function initsite(){
    
-   
+    document.getElementById("productCard").innerHTML = "";
+    document.getElementById("productCardCart").innerHTML = "";
     /* getProduct("30002") */
     /* getCategory("3") */
     getAllProducts()
@@ -11,37 +12,45 @@ function initsite(){
 function renderProducts(products) {
     //Function will get the list of products and render them onto page
     document.getElementById("productCard").innerHTML = "";
-    
+
+
     products.forEach((product => {
-    
+
         let renderCard = document.createElement("div")
-        renderCard.className = "card text-center";
+        renderCard.classList.add("card", "mx-3", "my-3", "py-2", "justify-content-center")
+        renderCard.style.width = "15%"
+        renderCard.style.height = "19rem"
+        renderCard.style.margin = "2px"
 
         let cardBody = document.createElement("div");
-        cardBody.classList.add("card-body")
+        cardBody.classList.add("card-body", "text-center")
+        
 
+        
         let image = document.createElement("img")
-        image.classList.add("card-img-top")
-        image.style.width = "160px" //Instead of a picture for now
-        image.style.height ="160px"//Instead of a picture for now
-        image.style.backgroundColor = "purple"//Instead of a picture for now
-        image.innerText="tomt på bilder just nu"
+        image.classList.add("card-img-top", "img-fluid")    
+        image.style.width = "20%"
+        image.style.height = "20%"
+        image.src = "./pictures/" + value.image
 
-        let title = document.createElement("h5");
+
+        let title = document.createElement("h6");
         title.classList.add("card-title")
         title.innerText = product.name//placera productens namn här från databasen
 
+
         let cardText = document.createElement("p")
         cardText.classList.add("card-text",)
-        cardText.innerText = product.price + " kr"//placera productens beskrivning här från databasen
+        cardText.innerText = product.price + " kr" + " " + product.weight + " g"//placera productens beskrivning här från databasen
         
         let cardWeight = document.createElement("p")
         cardWeight.classList.add("card-text",)
-        cardWeight.innerText = product.weight + " g"//placera productens beskrivning här från databasen
+    
 
         let addbutton = document.createElement("button")
         addbutton.innerText = "Lägg i varukorgen"
         addbutton.classList.add("btn", "text-white")
+        addbutton.style.background = "rgb(28, 58, 28)"
 
         addbutton.data = product
         addbutton.addEventListener("click", addProductToCart) /* () =>{
