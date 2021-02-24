@@ -21,11 +21,10 @@ function renderProducts(products) {
         cardBody.classList.add("card-body")
 
         let image = document.createElement("img")
-        image.classList.add("card-img-top")
-        image.style.width = "160px" //Instead of a picture for now
-        image.style.height ="160px"//Instead of a picture for now
-        image.style.backgroundColor = "purple"//Instead of a picture for now
-        image.innerText="tomt på bilder just nu"
+        image.classList.add("card-img-top", "img-fluid")
+        image.style.width = "20%"
+        image.style.height = "20%"
+        image.src = "./pictures/" + product.image
 
         let title = document.createElement("h5");
         title.classList.add("card-title")

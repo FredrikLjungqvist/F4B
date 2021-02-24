@@ -21,11 +21,10 @@ function renderCart(cart) {
         colDiv.classList.add("col","md-4")
 
         let image = document.createElement("img")
-        image.classList.add("card-img-top")
-        image.style.width = "100px" //Instead of a picture for now
-        image.style.height ="100px"//Instead of a picture for now
-        image.style.backgroundColor = "purple"//Instead of a picture for now
-        image.innerText="tomt på bilder just nu"
+        image.classList.add("card-img-top", "img-fluid")     
+        image.style.width = "5%"
+        image.style.height = "5%"
+        image.src = "./pictures/" + value.image
 
         let colDivTwo = document.createElement("div");
         colDivTwo.classList.add("col", "md-8")
