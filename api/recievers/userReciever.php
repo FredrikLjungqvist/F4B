@@ -9,7 +9,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $userinfo = [
                     "name"=>$_POST["usernameToSave"],
                     "password"=> password_hash($_POST["passwordToSave"], PASSWORD_DEFAULT),
-                    "isAdmin"=>1
+                    "isAdmin"=>0
                 ];
 
                 echo json_encode(addUser($userinfo));

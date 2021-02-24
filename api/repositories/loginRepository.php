@@ -13,11 +13,13 @@ function addUser($userinfo){
 }
 
 function loginUser($username, $password){
-
+    
     $db = new Database();
-    $response = $db->fetchQuery("SELECT * FROM user WHERE name = '$username'");
     
-    
+
+    /* $response = $db->fetchQuery("SELECT * FROM user WHERE name = :username", ["username" => $username]); */
+     $response = $db->fetchQuery("SELECT * FROM user WHERE name = '$username'"); 
+   
     
      $hashed_password = $db->fetchQuery("SELECT password FROM user WHERE name = '$username'");
     
