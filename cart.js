@@ -23,11 +23,10 @@ function renderCart(cart) {
           renderCardCart.style.margin = "5px"
       
           let image = document.createElement("img")
-          image.classList.add("card-img-top")
-          image.style.marginTop = "-25px"
-          image.style.maxWidth = "10%"
-          image.style.maxHeight = "150px"
-          image.style.backgroundColor = "purple"
+          image.classList.add("card-img-top", "img-fluid")    
+          image.style.width = "5%"
+          image.style.height = "5%"
+          image.src = "./pictures/" + value.image
           
           let cardBodyCart = document.createElement("div")
           cardBodyCart.classList.add("card-body", "d-flex","flex-nowrap", "justify-content-around")
@@ -137,3 +136,4 @@ async function makeRequest(url, method, body) {
         console.log("det belv fel"+error)
     }
 }
+

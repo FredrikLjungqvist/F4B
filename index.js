@@ -26,10 +26,13 @@ function renderProducts(products) {
         cardBody.classList.add("card-body", "text-center")
         
 
+        
         let image = document.createElement("img")
-        image.classList.add("card-img-top")
-        image.style.width = "130px" //Instead of a picture for now
-        image.style.height ="135px"//Instead of a picture for now
+        image.classList.add("card-img-top", "img-fluid")    
+        image.style.width = "20%"
+        image.style.height = "20%"
+        image.src = "./pictures/" + value.image
+
 
         let title = document.createElement("h6");
         title.classList.add("card-title")
