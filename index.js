@@ -129,15 +129,20 @@ async function addProductToCart(){
     	for (let i = 0; i < cartItemlist.length; i++) {
             const checkID = cartItemlist[i].prodID;
 
-            console.log(checkID)
             if (checkID == productID){
-               
+                
+                const product = {
+                    userID:userID,
+                    prodID:productID  
+                } 
 
                 let body = new FormData()
                 body.append("action", "addQty")
+                body.append("product", JSON.stringify(product))
             
                 const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
-               
+                /* console.log(product) */
+                console.log(result)
             return
 
             } else if(checkID != productID){
@@ -156,12 +161,7 @@ async function addProductToCart(){
             body.append("product", JSON.stringify(product))
             
             const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
-            
-            
-            
-            var url = new URL("http://localhost/api/recievers/productReciever.php")
-            var params = {action: "addProductToCart", productID: product} 
-            url.search = new URLSearchParams(params);
+            console.log(result)
             return
         }
 }
