@@ -24,10 +24,15 @@ public function runQuery($query, $entity){
 
     
 }
-public function fetchQuery($query){
+/* public function fetchQuery($query, $entity){
+    $preparedQuery = $this->prepareQuery($query);
+    $preparedQuery->execute($entity);
+    return $preparedQuery->fetchAll(PDO::FETCH_ASSOC); */
+
+ public function fetchQuery($query){
     $preparedQuery = $this->prepareQuery($query);
     $preparedQuery->execute();
-    return $preparedQuery->fetchAll(PDO::FETCH_ASSOC);
+    return $preparedQuery->fetchAll(PDO::FETCH_ASSOC); 
     
 }
 
