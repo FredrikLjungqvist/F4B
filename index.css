@@ -10,7 +10,7 @@ body {
 }
 
 .header {
-    color: white;
+    color: #FFFFFF;
     display: flex;
     align-items: flex-start;
 }
@@ -65,7 +65,7 @@ a:hover {
 }
 
 .fas {
-    font-size: 30px;
+    font-size: 25px;
     padding: 2px;
     color: #FFFFFF;
 }
@@ -90,4 +90,45 @@ a:hover {
 
 #productCardCart {
     word-wrap: normal;
+}
+
+.far {
+    font-size: 20px;
+    padding: 2px;
+    color: #FFFFFF;
+}
+
+
+
+footer {
+    display: flex;
+    height: 200px;
+    color: #FFFFFF;
+    font-size: 13px;
+}
+
+/* LOGGA */
+.footConOne {
+    flex-grow: 1;
+    display: flex;
+    background-color: rgb(28, 58, 28);
+    padding: 10px;
+    flex-direction: column;
+}
+
+/* MENYCONTAINER */
+.footConTwo {
+    background-color: rgb(28, 58, 28);
+    display: flex;
+    flex-grow: 3;
+
+}
+
+.footConThree {
+    flex-grow: 2;
+    display: flex;
+    background-color: rgb(28, 58, 28);
+    padding: 10px;
+    align-items: center;
+    justify-content: center;
 }
