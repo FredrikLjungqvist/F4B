@@ -1,7 +1,8 @@
 window.addEventListener("load", initsite)
 function initsite(){
    
-   
+    document.getElementById("productCard").innerHTML = "";
+    document.getElementById("productCardCart").innerHTML = "";
     /* getProduct("30002") */
     /* getCategory("3") */
     getAllProducts()
@@ -12,13 +13,14 @@ function renderProducts(products) {
     //Function will get the list of products and render them onto page
     document.getElementById("productCard").innerHTML = "";
 
+
     products.forEach((product => {
 
         let renderCard = document.createElement("div")
         renderCard.classList.add("card", "mx-3", "my-3", "py-2", "justify-content-center")
-        renderCard.style.width = "17%"
+        renderCard.style.width = "15%"
         renderCard.style.height = "19rem"
-        renderCard.style.margin = "5px"
+        renderCard.style.margin = "2px"
 
         let cardBody = document.createElement("div");
         cardBody.classList.add("card-body", "text-center")
@@ -29,7 +31,7 @@ function renderProducts(products) {
         image.style.width = "130px" //Instead of a picture for now
         image.style.height ="135px"//Instead of a picture for now
         image.style.backgroundColor = "purple"//Instead of a picture for now
-        image.innerText="tomt på bilder just nu"
+        image.innerText= "hej"
 
         let title = document.createElement("h6");
         title.classList.add("card-title")

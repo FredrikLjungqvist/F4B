@@ -1,11 +1,12 @@
 function initCart() {
-    
+    document.getElementById("productCardCart").innerHTML=""
+    document.getElementById("productCard").innerHTML=""
     getCart()
 }
 
 function renderCart(cart) {
+    document.getElementById("productCardCart").innerHTML=""
     document.getElementById("productCard").innerHTML=""
-    
     /* if(!cart) {
         let emptyCart = document.createElement(h3)
         emptyCart.innerText = "Det finns inga produkter i varukorgen"
@@ -17,69 +18,76 @@ function renderCart(cart) {
             
           let renderCardCart = document.createElement("div")
           renderCardCart.className = "card";
-          renderCardCart.style.width = "82%"
-          renderCardCart.style.height = "6rem"
+          renderCardCart.style.width = "80%"
+          renderCardCart.style.height = "5.5rem"
           renderCardCart.style.margin = "5px"
       
           let image = document.createElement("img")
           image.classList.add("card-img-top")
           image.style.marginTop = "-25px"
-          image.style.width = "80px" //Instead of a picture for now
-          image.style.height = "80px"//Instead of a picture for now
-          image.style.backgroundColor = "purple"//Instead of a picture for now
-          image.innerText= "tomt på bilder just nu"
+          image.style.maxWidth = "10%"
+          image.style.maxHeight = "150px"
+          image.style.backgroundColor = "purple"
           
           let cardBodyCart = document.createElement("div")
           cardBodyCart.classList.add("card-body", "d-flex","flex-nowrap", "justify-content-around")
           cardBodyCart.style.padding = "2rem"
       
           let title = document.createElement("h6");
-          title.classList.add("card-title","d-flex","p-0")
+          title.classList.add("card-title","d-flex","p-0", "align-items-center")
           title.innerText = value.name + "  " //placera productens namn här från databasen
+          title.style.maxWidth = "130px"
+          title.style.maxHeight = "15px"
       
           let cardText = document.createElement("p")
           cardText.classList.add("card-text","d-flex", "p-0")
           cardText.innerText = " Pris: " + value.price + " kr " + "  " //placera productens beskrivning här från databasen
-          
+          cardText.style.maxWidth = "130px"
+          cardText.style.maxHeight = "15px"
       
           let cardWeight = document.createElement("p")
           cardWeight.classList.add("card-text","d-flex","p-0")
           cardWeight.innerText = " Vikt: " + value.weight + " g "//placera productens beskrivning här från databasen
-          
+          cardWeight.style.maxWidth = "130px"
+          cardWeight.style.maxHeight = "15px"
+
           let cardQuant = document.createElement("p")
           cardQuant.classList.add("card-text","d-flex","p-0")
           cardQuant.innerText = " Antal: " + cartItem.quantity + " st"
-
-          let cardTotal = document.createElement("p")
-          cardTotal.classList.add("card-text","d-flex","p-0")
-          cardTotal.innerText = "Sum pris: " + value.price * cartItem.quantity + " kr"
+          title.style.maxWidth = "130px"
+          title.style.maxHeight = "15px"
 
           let cardTotWeight = document.createElement("p")
           cardTotWeight.classList.add("card-text","d-flex","p-0")
           cardTotWeight.innerText = "Sum vikt: " + value.weight * cartItem.quantity + " g"
-      
+          cardTotWeight.style.maxWidth = "130px"
+          cardTotWeight.style.maxHeight = "15px"
+
+          let cardTotal = document.createElement("p")
+          cardTotal.classList.add("card-text","d-flex","p-0")
+          cardTotal.innerText = "Sum pris: " + value.price * cartItem.quantity + " kr"
+          cardTotal.style.maxWidth = "130px"
+          cardTotal.style.maxHeight = "15px"
+
+          let iconCross = document.createElement("i")
+          iconCross.classList = "fa fa-close"
+
           let deleteBtn = document.createElement("button")
-          deleteBtn.innerText = "x"
-          deleteBtn.classList.add("btn", "text-white")
-          deleteBtn.style.background = "rgb(28, 58, 28)"
-          deleteBtn.style.height = "2rem"
+          deleteBtn.classList.add("btn", "text-grey", "p-0")
+          deleteBtn.style.background = "white"
+          deleteBtn.style.maxWidth = "12px"
+          deleteBtn.style.maxHeight = "12px"
+          
        /*    addbutton.data = product
           addbutton.addEventListener("click", addProductToCart) () =>{
               alert ("you clicked the button"); 
             });  */
       
-      cardBodyCart.append(image)
-      cardBodyCart.append(title)
-      cardBodyCart.append(cardText)
-      cardBodyCart.append(cardWeight)
-      cardBodyCart.append(cardQuant)
-      cardBodyCart.append(cardTotal)
-      cardBodyCart.append(cardTotWeight)
+      cardBodyCart.append(image, title, cardText, cardWeight, cardQuant, cardTotWeight, cardTotal, deleteBtn)
+      deleteBtn.append(iconCross)
+      renderCardCart.append(cardBodyCart)
       
-      cardBodyCart.append(deleteBtn)
-      renderCardCart.append(cardBodyCart) // the body of content appends here
-      
-      document.getElementById("productCard").appendChild(renderCardCart);
+      document.getElementById("productCardCart").appendChild(renderCardCart);
       });
       
     }))
@@ -106,7 +114,7 @@ function renderCart(cart) {
     totalDiv.append(totalText)
     totalDiv.append(totalTextTwo)
     totalDiv.append(buyBtn)
-    document.getElementById("productCard").appendChild(totalDiv);
+    document.getElementById("productCardCart").appendChild(totalDiv);
 }
 
 async function getCart() {
