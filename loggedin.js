@@ -16,7 +16,7 @@ async function loginCheck(){
 
     if (response.username && response.admin == 1) {
         console.log("admin finns")
-        render(response.username)
+        renderAdmin(response.username)
     }else if (response.username && response.admin == 0) {
         console.log("user finns")
         render(response.username)
@@ -63,26 +63,61 @@ async function loginUser(){
     initsite() 
 }
 
-function renderAdmin(){
+function renderAdmin(user){
     console.log("renderAdmin")
+    document.getElementById("logincard").innerHTML= ""
     
-    document.getElementById("logincard").innerHTML =""
-    let renderCard = document.createElement("div")
-
-    let test = document.createElement("p")
-    test.innertext ="Admin inloggad"
-
     let logoutbtn = document.createElement("button")
     logoutbtn.id="logoutbtn"
     logoutbtn.innerText = "logout"
     logoutbtn.addEventListener("click", logout)
     
+    let renderCard = document.createElement("div")
+    renderCard.className = "card text-center";
+    
+    let card = document.createElement("div")
+    card.className = "card text-center";
+
+    let cardText = document.createElement("p")
+    cardText.innerText ="Välkommen Admin " + user
+
+    let prodIDinput = document.createElement("input")
+    prodIDinput.id = "prodIDinput"
+    prodIDinput.placeholder = "prodIDinput"
+
+    let qtyinput = document.createElement("input")
+    qtyinput.id ="qtyinput"
+    qtyinput.placeholder = "Qty"
+
+    let addqtybtn = document.createElement("button")
+    addqtybtn.id="addqtybtn"
+    addqtybtn.innerText = "UPDATE"
+    addqtybtn.addEventListener("click", updateqty)
+
+    card.append(cardText)
+    card.append(prodIDinput)
+    card.append(qtyinput)
+    card.append(addqtybtn)
+    renderCard.append(card)
     renderCard.append(logoutbtn)
-    renderCard.append(test)
-
     document.getElementById("logincard").appendChild(renderCard);
-    return renderCard
+    
+}
 
+async function updateqty() {
+    console.log("updateqty")
+    const prodid = document.getElementById("prodIDinput").value
+    const qty = document.getElementById("qtyinput").value
+    console.log(prodid + qty)
+   
+    const body = new FormData()
+
+    body.append("action", "updateStock")
+    body.append("prodid", prodid)
+    body.append("qty", qty)
+
+    let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
+    console.log(response)
 }
 
 function renderLogin(){
@@ -153,7 +188,7 @@ async function logout() {
     initsite()
 }
 
-function render($user){
+function render(user){
     console.log("render")
     document.getElementById("logincard").innerHTML= ""
     
@@ -166,11 +201,11 @@ function render($user){
     renderCard.className = "card text-center";
     
     let cardText = document.createElement("p")
-    cardText.innerText ="Välkommen " + $user
+    cardText.innerText ="Välkommen " + user
     
-        renderCard.append(logoutbtn)
-        renderCard.append(cardText)
-        document.getElementById("logincard").appendChild(renderCard);
+    renderCard.append(logoutbtn)
+    renderCard.append(cardText)
+    document.getElementById("logincard").appendChild(renderCard);
     
 }
 
