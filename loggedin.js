@@ -132,7 +132,7 @@ function renderAdmin(user){
     descInput.placeholder = "Description"
 
     let setName = document.createElement("input")
-    setName.id ="set Name"
+    setName.id ="setName"
     setName.placeholder = "set Name"
 
     let setcategory = document.createElement("input")
@@ -158,7 +158,7 @@ function renderAdmin(user){
     let uploadbtn = document.createElement("button")
     uploadbtn.id="uploadbtn"
     uploadbtn.innerText = "UPLOAD"
-    /* addqtybtn.addEventListener("click", updateqty) */
+    uploadbtn.addEventListener("click", addProduct)
 
     //Delete Input
     let deleteprod = document.createElement("input")
@@ -172,7 +172,7 @@ function renderAdmin(user){
     let deletebtn = document.createElement("button")
     deletebtn.id="deletebtn"
     deletebtn.innerText = "DELETE"
-    /* addqtybtn.addEventListener("click", updateqty) */
+    /* addqtybtn.addEventListener("click", confirmCheck) */
 
     cardupdate.append(cardText)
     cardupdate.append(prodIDinput)
@@ -205,7 +205,10 @@ function renderAdmin(user){
     document.getElementById("logincard").appendChild(renderCard);
     
 }
-
+function confirmCheck(){
+    console.log("work")
+    window.confirm("are you sure want to delete this");
+}
 async function updateqty() {
     console.log("updateqty")
     const prodid = document.getElementById("prodIDinput").value
@@ -275,7 +278,32 @@ function renderLogin(){
     return renderCard
 }
 
+async function addProduct() {
 
+   
+    let product = {
+        description : document.getElementById("descInput").value,
+        name : document.getElementById("setName").value,
+        category : document.getElementById("setcategory").value,
+        price : document.getElementById("setUnitPrice").value,
+        weight : document.getElementById("setWeight").value,
+        qty : document.getElementById("newqtyinput").value,
+        img : document.getElementById("imagefile").value
+    }
+
+    console.log(product)
+    const body = new FormData()
+
+    body.append("action", "addProduct")
+    body.append("product", JSON.stringify(product))
+    
+
+    let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
+    console.log(response)
+    
+
+
+}
 
 async function logout() {
     console.log("Logout")
