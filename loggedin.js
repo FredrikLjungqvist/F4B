@@ -157,7 +157,7 @@ function renderAdmin(user){
     
 
     let setName = document.createElement("input")
-    setName.id ="set Name"
+    setName.id ="setName"
     setName.placeholder = "set Name"
     
 
@@ -189,8 +189,7 @@ function renderAdmin(user){
     let uploadbtn = document.createElement("button")
     uploadbtn.id="uploadbtn"
     uploadbtn.innerText = "UPLOAD"
-    uploadbtn.classList.add("btn-warning")
-    /* addqtybtn.addEventListener("click", updateqty) */
+    uploadbtn.addEventListener("click", addProduct)
 
     //Delete Input
     let deleteprod = document.createElement("input")
@@ -236,16 +235,10 @@ function renderAdmin(user){
     document.getElementById("logincard").appendChild(renderCard);
     
 }
-
 function confirmCheck(){
-    console.log("confirmCheck")
-    if(window.confirm("är du säker")){
-        deleteProduct()
-    }else{
-        console.log(false)
-    }
+    console.log("work")
+    window.confirm("are you sure want to delete this");
 }
-
 async function updateqty() {
     console.log("updateqty")
     const prodid = document.getElementById("prodIDinput").value
@@ -315,7 +308,32 @@ function renderLogin(){
     return renderCard
 }
 
+async function addProduct() {
 
+   
+    let product = {
+        description : document.getElementById("descInput").value,
+        name : document.getElementById("setName").value,
+        category : document.getElementById("setcategory").value,
+        price : document.getElementById("setUnitPrice").value,
+        weight : document.getElementById("setWeight").value,
+        qty : document.getElementById("newqtyinput").value,
+        img : document.getElementById("imagefile").value
+    }
+
+    console.log(product)
+    const body = new FormData()
+
+    body.append("action", "addProduct")
+    body.append("product", JSON.stringify(product))
+    
+
+    let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
+    console.log(response)
+    
+
+
+}
 
 async function logout() {
     console.log("Logout")

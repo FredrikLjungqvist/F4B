@@ -48,6 +48,11 @@ try {
 
             } else if($_POST["action"] == "addProduct") {
                 //ADD PRODUCT (ADMIN) // add image later
+                
+                $product=json_decode($_POST["product"], true);
+                
+                echo json_encode(addProduct($product));
+
 
             } else if($_POST["action"] == "sendNewsletter") {
                 //SENDS NEWSLETTER TO REGISTERED USERS, AND SAVES NEWSLETTER IN DATABASE (ADMIN)
