@@ -30,6 +30,14 @@ try {
                 
             } else if($_POST["action"] == "setCategory") {
                 //SET CATEGORY FOR SPECIFIC PRODUCT (ADMIN)
+                $input = [
+                    "productID"=>$_POST["productID"],
+                    "categoryID"=>$_POST["categoryID"]
+                ];
+
+                /* echo json_encode($input); */
+                echo json_encode(setCategory($input));
+                exit;
 
             } else if($_POST["action"] == "deleteProduct") {
                 //DELETE PRODUCT (ADMIN)

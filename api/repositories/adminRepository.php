@@ -9,4 +9,16 @@ function adminUpdate($product){
     return $db->runQuery("UPDATE products SET unitInStock = :quantity WHERE ID = :prodID", $product);
 }
 
+
+
+
+function setCategory($input){
+
+    $db = new Database();
+    return $db->runQuery("INSERT INTO productcat (productID, categoryID) VALUES (:productID, :categoryID);", $input);
+
+}
+
+
+
 ?>
