@@ -188,6 +188,7 @@ function renderAdmin(user){
 
     let uploadbtn = document.createElement("button")
     uploadbtn.id="uploadbtn"
+    uploadbtn.classList.add("btn-warning")
     uploadbtn.innerText = "UPLOAD"
     uploadbtn.addEventListener("click", addProduct)
 

@@ -20,7 +20,7 @@ function setCategory($input){
 
     $db = new Database();
     return $db->runQuery("INSERT INTO productcat (productID, categoryID) VALUES (:productID, :categoryID);", $input);
-
+}
 function addProduct($product){
     
     $db = new Database();
@@ -31,4 +31,4 @@ function addProduct($product){
 
 
 ?>
-?>
+
