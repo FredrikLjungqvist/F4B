@@ -75,6 +75,8 @@ async function getAllProducts() {
 
 
 async function updateCartCounter(userID) {
+    console.log("updateCartCounter")
+    document.getElementById("cartCounter").innerText = ""
     let url = new URL("http://localhost/api/recievers/productReciever.php")
         
     let params = {action: "getCartCounter", userID: userID}
@@ -119,8 +121,9 @@ console.log(products)
 async function addProductToCart(){
     
     const productID = this.data.id
+    console.log(productID)
     let cartItemlist = []
-    userID = 1 // för inställd userID
+    const userID = 1 // för inställd userID
     var url = new URL("http://localhost/api/recievers/productReciever.php")
     
     var params = {action: "getcartitem", userID: userID} 
@@ -145,13 +148,14 @@ async function addProductToCart(){
                 const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
 
                 console.log(result)
-            return
+                updateCartCounter(1)
+                return
 
             } else if(checkID != productID){
                 
             }
         }
-        addNewProduct()
+        addNewProduct(1)
         async function addNewProduct(){
             const product = {
                 userID:userID,
@@ -164,6 +168,7 @@ async function addProductToCart(){
             
             const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
             console.log(result)
+            updateCartCounter(1)
             return
         }
 }

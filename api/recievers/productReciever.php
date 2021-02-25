@@ -50,16 +50,6 @@ try {
                 exit;
 
             } else if($_GET["action"] == "getCartCounter") {
-                
-                
-                $userID = $_GET["userID"];
-                echo json_encode(getCartCounter($userID));
-                exit;
-
-                
-                //GET PRODUCTS IN CART
-
-            } else if($_GET["action"] == "getCartCounter") {
                 //get number of products in cart
                 $userID = $_GET["userID"];
                 echo json_encode(getCartCounter($userID));
@@ -82,8 +72,15 @@ try {
                     //ADD QUANTITY FOR PRODUCT TO CART
                 
 
-            } else if($_POST["action"] == "removeProductFromCart") {
-                //DELETE PRODUCT FROM CART
+            } else if ($_POST["action"] == "deleteAll") {
+
+                $entity = [
+                    "prodID"=>$_POST["prodID"],
+                    "userID"=>$_POST["userID"]
+                ];
+            
+                echo json_encode(deleteCartItem($entity));
+
             } else if($_POST["action"] == "clearCart") {
                 //CLEARS CART
             } 

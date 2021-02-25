@@ -79,9 +79,9 @@ function renderCart(cart) {
           deleteBtn.style.maxWidth = "12px"
           deleteBtn.style.maxHeight = "12px"
           
-       /*    addbutton.data = product
-          addbutton.addEventListener("click", addProductToCart) () =>{
-              alert ("you clicked the button"); 
+        deleteBtn.data = value.id
+        deleteBtn.addEventListener("click", deleteCartItem) /* ()=>{
+        alert ("you clicked the button"); 
             });  */
       
       cardBodyCart.append(image, title, cardText, cardWeight, cardQuant, cardTotWeight, cardTotal, deleteBtn)
@@ -126,6 +126,21 @@ async function getCart() {
     let cart = await makeRequest(url, "GET")
     console.log(cart)
     renderCart(cart)
+}
+
+async function deleteCartItem() {
+    const prodID = this.data
+    const userID = 1
+
+    let body = new FormData()
+    body.append("prodID", prodID)
+    body.append("userID", userID)
+    body.append("action", "deleteAll")
+    
+    const result = await makeRequest("./api/recievers/productReciever.php", "POST", body)
+    console.log(result)
+    getCart()
+    updateCartCounter(1)
 }
 
 async function makeRequest(url, method, body) {
