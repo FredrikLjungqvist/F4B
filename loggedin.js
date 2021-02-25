@@ -74,13 +74,23 @@ function renderAdmin(user){
     
     let renderCard = document.createElement("div")
     renderCard.className = "card text-center";
+
+    let cardupdatecategory = document.createElement("div")
+    cardupdatecategory.className = "card text-center";
     
-    let card = document.createElement("div")
-    card.className = "card text-center";
+    let cardupdate = document.createElement("div")
+    cardupdate.className = "card text-center";
+
+    let carddelete = document.createElement("div")
+    carddelete.className = "card text-center";
+
+    let cardupload = document.createElement("div")
+    cardupload.className = "card text-center";
 
     let cardText = document.createElement("p")
     cardText.innerText ="Välkommen Admin " + user
 
+    //Update Input
     let prodIDinput = document.createElement("input")
     prodIDinput.id = "prodIDinput"
     prodIDinput.placeholder = "prodIDinput"
@@ -94,11 +104,103 @@ function renderAdmin(user){
     addqtybtn.innerText = "UPDATE"
     addqtybtn.addEventListener("click", updateqty)
 
-    card.append(cardText)
-    card.append(prodIDinput)
-    card.append(qtyinput)
-    card.append(addqtybtn)
-    renderCard.append(card)
+    //Set category
+    let productidset = document.createElement("input")
+    productidset.id = "productidset"
+    productidset.placeholder = "productidset"
+
+    let prodcategoryset = document.createElement("input")
+    prodcategoryset.id ="prodcategoryset"
+    prodcategoryset.placeholder = "prodcategoryset"
+
+    let addcategorybtn = document.createElement("button")
+    addcategorybtn.id="addcategorybtn"
+    addcategorybtn.innerText = "addcategorybtn"
+    /* addcategorybtn.addEventListener("click", updateqty) */
+
+    //Upload Input
+
+    //osäker om behöve beroende increment i db
+   /*  let setProudctID = document.createElement("div")
+    setProudctID.id ="setProudctID"
+    setProudctID.placeholder ="proudctIDset" */
+
+    let descInput = document.createElement("textarea")
+    descInput.style.width = "50px"
+    descInput.style.height = "30px"
+    descInput.id = "descInput"
+    descInput.placeholder = "Description"
+
+    let setName = document.createElement("input")
+    setName.id ="set Name"
+    setName.placeholder = "set Name"
+
+    let setcategory = document.createElement("input")
+    setcategory.id ="setcategory"
+    setcategory.placeholder = "setcategory"
+
+    let setUnitPrice = document.createElement("input")
+    setUnitPrice.id ="setUnitPrice"
+    setUnitPrice.placeholder = "set Unit Price"
+
+    let setWeight = document.createElement("input")
+    setWeight.id ="setWeight"
+    setWeight.placeholder = "setWeight"
+
+    let newqtyinput = document.createElement("input")
+    newqtyinput.id ="newqtyinput"
+    newqtyinput.placeholder = "Qty"
+
+    let imagefile = document.createElement("input")
+    imagefile.id="imagefile"
+    imagefile.placeholder ="Place image code here"
+
+    let uploadbtn = document.createElement("button")
+    uploadbtn.id="uploadbtn"
+    uploadbtn.innerText = "UPLOAD"
+    /* addqtybtn.addEventListener("click", updateqty) */
+
+    //Delete Input
+    let deleteprod = document.createElement("input")
+    deleteprod.id = "deleteprod"
+    deleteprod.placeholder = "Delete Product"
+
+    let deleteqtyinput = document.createElement("input")
+    deleteqtyinput.id ="deleteqtyinput"
+    deleteqtyinput.placeholder = "Amount to delete"
+
+    let deletebtn = document.createElement("button")
+    deletebtn.id="deletebtn"
+    deletebtn.innerText = "DELETE"
+    /* addqtybtn.addEventListener("click", updateqty) */
+
+    cardupdate.append(cardText)
+    cardupdate.append(prodIDinput)
+    cardupdate.append(qtyinput)
+    cardupdate.append(addqtybtn)
+
+    cardupdatecategory.append(productidset)
+    cardupdatecategory.append(prodcategoryset)
+    cardupdatecategory.append(addcategorybtn)
+
+    cardupload.append(descInput)
+    cardupload.append(setName)
+    /* cardupload.append(setProudctID) */
+    cardupload.append(setcategory)
+    cardupload.append(setUnitPrice)
+    cardupload.append(setWeight)
+    cardupload.append(newqtyinput)
+    cardupload.append(imagefile)
+    cardupload.append(uploadbtn)
+
+    carddelete.append(deleteprod)
+    carddelete.append(deleteqtyinput)
+    carddelete.append(deletebtn)
+
+    renderCard.append(cardupdate)
+    renderCard.append(cardupdatecategory)
+    renderCard.append(cardupload)
+    renderCard.append(carddelete)
     renderCard.append(logoutbtn)
     document.getElementById("logincard").appendChild(renderCard);
     
