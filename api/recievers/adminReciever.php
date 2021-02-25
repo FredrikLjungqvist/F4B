@@ -42,6 +42,10 @@ try {
             } else if($_POST["action"] == "deleteProduct") {
                 //DELETE PRODUCT (ADMIN)
 
+                    $product = json_decode($_POST["product"],true);
+                    echo json_encode(adminDelete($product));
+                    exit;
+
             } else if($_POST["action"] == "addProduct") {
                 //ADD PRODUCT (ADMIN) // add image later
 

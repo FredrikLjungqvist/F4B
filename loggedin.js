@@ -70,24 +70,45 @@ function renderAdmin(user){
     let logoutbtn = document.createElement("button")
     logoutbtn.id="logoutbtn"
     logoutbtn.innerText = "logout"
+    logoutbtn.classList.add("btn-secondary")
     logoutbtn.addEventListener("click", logout)
     
     let renderCard = document.createElement("div")
-    renderCard.className = "card text-center";
+    renderCard.classList.add =("card text-center");
+
+    let cardBody = document.createElement("div");
+    cardBody.classList.add("card-body", "text-center","rounded")
+    cardBody.style.width ="400px"
 
     let cardupdatecategory = document.createElement("div")
-    cardupdatecategory.className = "card text-center";
+    cardupdatecategory.classList.add ("card","text-center");
+    cardupdatecategory.style.marginBottom = "30px"
+    cardupdatecategory.style.padding="20px"
+    cardupdatecategory.style.background ="rgb(28, 58, 28)"
     
     let cardupdate = document.createElement("div")
-    cardupdate.className = "card text-center";
+    cardupdate.classList.add("col","card", "text-center","rounded");
+    cardupdate.style.marginBottom = "30px"
+    cardupdate.style.padding="20px"
+    cardupdate.style.background ="rgb(28, 58, 28)"
 
     let carddelete = document.createElement("div")
-    carddelete.className = "card text-center";
+    carddelete.classList.add ("card","text-center","rounded");
+    carddelete.style.marginBottom = "30px"
+    carddelete.style.padding="20px"
+    carddelete.style.background ="rgb(28, 58, 28)"
 
     let cardupload = document.createElement("div")
-    cardupload.className = "card text-center";
+    cardupload.classList.add = ("card","text-center","rounded");
+    cardupload.style.display ="flex"
+    cardupload.style.flexDirection ="column"
+    cardupload.style.marginBottom = "30px"
+    cardupload.style.padding="20px"
+    cardupload.style.background ="rgb(28, 58, 28)"
+    
 
-    let cardText = document.createElement("p")
+
+    let cardText = document.createElement("h4")
     cardText.innerText ="Välkommen Admin " + user
 
     //Update Input
@@ -102,6 +123,7 @@ function renderAdmin(user){
     let addqtybtn = document.createElement("button")
     addqtybtn.id="addqtybtn"
     addqtybtn.innerText = "UPDATE"
+    addqtybtn.classList.add("btn-warning")
     addqtybtn.addEventListener("click", updateqty)
 
     //Set category
@@ -115,6 +137,9 @@ function renderAdmin(user){
 
     let addcategorybtn = document.createElement("button")
     addcategorybtn.id="addcategorybtn"
+    addcategorybtn.innerText = "Add Category"
+    addcategorybtn.classList.add("btn-warning")
+    /* addcategorybtn.addEventListener("click", updateqty) */
     addcategorybtn.innerText = "addcategorybtn"
     addcategorybtn.addEventListener("click", setCategory)
 
@@ -126,63 +151,69 @@ function renderAdmin(user){
     setProudctID.placeholder ="proudctIDset" */
 
     let descInput = document.createElement("textarea")
-    descInput.style.width = "50px"
-    descInput.style.height = "30px"
+    descInput.style.width = "100%"
+    descInput.style.height = "50px"
     descInput.id = "descInput"
     descInput.placeholder = "Description"
+    
 
     let setName = document.createElement("input")
     setName.id ="set Name"
     setName.placeholder = "set Name"
+    
 
     let setcategory = document.createElement("input")
     setcategory.id ="setcategory"
     setcategory.placeholder = "setcategory"
+    
 
     let setUnitPrice = document.createElement("input")
     setUnitPrice.id ="setUnitPrice"
     setUnitPrice.placeholder = "set Unit Price"
+    
 
     let setWeight = document.createElement("input")
     setWeight.id ="setWeight"
     setWeight.placeholder = "setWeight"
+    
 
     let newqtyinput = document.createElement("input")
     newqtyinput.id ="newqtyinput"
     newqtyinput.placeholder = "Qty"
+    
 
     let imagefile = document.createElement("input")
     imagefile.id="imagefile"
     imagefile.placeholder ="Place image code here"
+    
 
     let uploadbtn = document.createElement("button")
     uploadbtn.id="uploadbtn"
     uploadbtn.innerText = "UPLOAD"
+    uploadbtn.classList.add("btn-warning")
     /* addqtybtn.addEventListener("click", updateqty) */
 
     //Delete Input
     let deleteprod = document.createElement("input")
     deleteprod.id = "deleteprod"
     deleteprod.placeholder = "Delete Product"
+    
 
-    let deleteqtyinput = document.createElement("input")
-    deleteqtyinput.id ="deleteqtyinput"
-    deleteqtyinput.placeholder = "Amount to delete"
 
     let deletebtn = document.createElement("button")
     deletebtn.id="deletebtn"
     deletebtn.innerText = "DELETE"
-    /* addqtybtn.addEventListener("click", updateqty) */
+    deletebtn.classList.add("btn-danger")
+    deletebtn.addEventListener("click", confirmCheck)
 
-    cardupdate.append(cardText)
     cardupdate.append(prodIDinput)
     cardupdate.append(qtyinput)
     cardupdate.append(addqtybtn)
-
+    
     cardupdatecategory.append(productidset)
     cardupdatecategory.append(prodcategoryset)
     cardupdatecategory.append(addcategorybtn)
-
+    
     cardupload.append(descInput)
     cardupload.append(setName)
     /* cardupload.append(setProudctID) */
@@ -192,18 +223,28 @@ function renderAdmin(user){
     cardupload.append(newqtyinput)
     cardupload.append(imagefile)
     cardupload.append(uploadbtn)
-
+    
     carddelete.append(deleteprod)
-    carddelete.append(deleteqtyinput)
     carddelete.append(deletebtn)
-
-    renderCard.append(cardupdate)
-    renderCard.append(cardupdatecategory)
-    renderCard.append(cardupload)
-    renderCard.append(carddelete)
-    renderCard.append(logoutbtn)
+    
+    cardBody.append(cardText)
+    cardBody.append(cardupdate)
+    cardBody.append(cardupdatecategory)
+    cardBody.append(cardupload)
+    cardBody.append(carddelete)
+    cardBody.append(logoutbtn)
+    renderCard.append(cardBody)
     document.getElementById("logincard").appendChild(renderCard);
     
+}
+
+function confirmCheck(){
+    console.log("confirmCheck")
+    if(window.confirm("är du säker")){
+        deleteProduct()
+    }else{
+        console.log(false)
+    }
 }
 
 async function updateqty() {
@@ -288,6 +329,24 @@ async function logout() {
     let response = await makeRequest(url, "GET")
     console.log(response)
     initsite()
+}
+
+async function deleteProduct(){
+    console.log("deleteProduct")
+    //DELETE FROM `products` WHERE `products`.`ID` = 30008;
+    let deleteproductinput = document.getElementById("deleteprod").value
+    let deleteprod = deleteproductinput
+
+    const product ={
+        ID:deleteprod
+    }
+    let body = new FormData()
+    body.append("action", "deleteProduct")
+    body.append("product", JSON.stringify(product))
+    
+    const result = await makeRequest("http://localhost/api/recievers/adminReciever.php", "POST",body)
+    console.log(result)
+    return
 }
 
 function render(user){
