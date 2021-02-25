@@ -145,6 +145,7 @@ async function addProductToCart(){
                 const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
 
                 console.log(result)
+               
             return
 
             } else if(checkID != productID){
@@ -164,8 +165,10 @@ async function addProductToCart(){
             
             const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
             console.log(result)
+           
             return
         }
+        
 }
 
 async function makeRequest(url, method, body) {
