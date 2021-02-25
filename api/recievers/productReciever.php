@@ -82,8 +82,15 @@ try {
                     //ADD QUANTITY FOR PRODUCT TO CART
                 
 
-            } else if($_POST["action"] == "removeProductFromCart") {
-                //DELETE PRODUCT FROM CART
+            } else if ($_POST["action"] == "deleteAll") {
+
+                $entity = [
+                    "prodID"=>$_POST["prodID"],
+                    "userID"=>$_POST["userID"]
+                ];
+            
+                echo json_encode(deleteCartItem($entity));
+
             } else if($_POST["action"] == "clearCart") {
                 //CLEARS CART
             } 
