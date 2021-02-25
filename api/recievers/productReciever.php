@@ -50,16 +50,6 @@ try {
                 exit;
 
             } else if($_GET["action"] == "getCartCounter") {
-                
-                
-                $userID = $_GET["userID"];
-                echo json_encode(getCartCounter($userID));
-                exit;
-
-                
-                //GET PRODUCTS IN CART
-
-            } else if($_GET["action"] == "getCartCounter") {
                 //get number of products in cart
                 $userID = $_GET["userID"];
                 echo json_encode(getCartCounter($userID));

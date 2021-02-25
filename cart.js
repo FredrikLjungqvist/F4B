@@ -140,6 +140,7 @@ async function deleteCartItem() {
     const result = await makeRequest("./api/recievers/productReciever.php", "POST", body)
     console.log(result)
     getCart()
+    updateCartCounter(1)
 }
 
 async function makeRequest(url, method, body) {
