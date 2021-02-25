@@ -23,47 +23,49 @@ function renderCart(cart) {
           renderCardCart.style.margin = "5px"
       
           let image = document.createElement("img")
-          image.classList.add("card-img-top", "img-fluid")    
-          image.style.width = "5%"
-          image.style.height = "5%"
+          image.classList.add("card-img-top", "img-fluid", "p-0")    
+          image.style.width = "auto"
+          image.style.height = "100%"
           image.src = "./pictures/" + value.image
+          image.style.maxWidth = "50px"
+          image.style.maxHeight = "60px"
           
           let cardBodyCart = document.createElement("div")
-          cardBodyCart.classList.add("card-body", "d-flex","flex-nowrap", "justify-content-around")
-          cardBodyCart.style.padding = "2rem"
+          cardBodyCart.classList.add("card-body", "d-flex", "justify-content-around", "align-items-center")
+          cardBodyCart.style.padding = "1rem"
       
           let title = document.createElement("h6");
-          title.classList.add("card-title","d-flex","p-0", "align-items-center")
-          title.innerText = value.name + "  " //placera productens namn här från databasen
+          title.classList.add("card-title","d-flex","p-0","align-items-center")
+          title.innerText = value.name 
           title.style.maxWidth = "130px"
           title.style.maxHeight = "15px"
       
           let cardText = document.createElement("p")
-          cardText.classList.add("card-text","d-flex", "p-0")
-          cardText.innerText = " Pris: " + value.price + " kr " + "  " //placera productens beskrivning här från databasen
+          cardText.classList.add("card-text","d-flex", "p-0", "align-items-center")
+          cardText.innerText = " Pris: " + value.price + " kr "
           cardText.style.maxWidth = "130px"
           cardText.style.maxHeight = "15px"
       
           let cardWeight = document.createElement("p")
-          cardWeight.classList.add("card-text","d-flex","p-0")
-          cardWeight.innerText = " Vikt: " + value.weight + " g "//placera productens beskrivning här från databasen
+          cardWeight.classList.add("card-text","d-flex","p-0", "align-items-center")
+          cardWeight.innerText = " Vikt: " + value.weight + " g "
           cardWeight.style.maxWidth = "130px"
           cardWeight.style.maxHeight = "15px"
 
           let cardQuant = document.createElement("p")
-          cardQuant.classList.add("card-text","d-flex","p-0")
+          cardQuant.classList.add("card-text","d-flex","p-0","align-items-center")
           cardQuant.innerText = " Antal: " + cartItem.quantity + " st"
           title.style.maxWidth = "130px"
           title.style.maxHeight = "15px"
 
           let cardTotWeight = document.createElement("p")
-          cardTotWeight.classList.add("card-text","d-flex","p-0")
+          cardTotWeight.classList.add("card-text","d-flex","p-0", "align-items-center")
           cardTotWeight.innerText = "Sum vikt: " + value.weight * cartItem.quantity + " g"
           cardTotWeight.style.maxWidth = "130px"
           cardTotWeight.style.maxHeight = "15px"
 
           let cardTotal = document.createElement("p")
-          cardTotal.classList.add("card-text","d-flex","p-0")
+          cardTotal.classList.add("card-text","d-flex","p-0","align-items-center")
           cardTotal.innerText = "Sum pris: " + value.price * cartItem.quantity + " kr"
           cardTotal.style.maxWidth = "130px"
           cardTotal.style.maxHeight = "15px"
@@ -72,7 +74,7 @@ function renderCart(cart) {
           iconCross.classList = "fa fa-close"
 
           let deleteBtn = document.createElement("button")
-          deleteBtn.classList.add("btn", "text-grey", "p-0")
+          deleteBtn.classList.add("btn", "text-grey", "p-0","align-items-center")
           deleteBtn.style.background = "white"
           deleteBtn.style.maxWidth = "12px"
           deleteBtn.style.maxHeight = "12px"

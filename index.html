@@ -18,17 +18,18 @@
 <body>
   <header>
     <div class="header">
-      <div class="logoContainer"><a href="#"><img src="./pictures/fa.png" alt="logga" onclick="getAllProducts()"></a></div>
+      <div class="logoContainer"><a href="#"><img src="./pictures/fa.png" alt="logga" onclick="getAllProducts()"></a>
+      </div>
       <div class="menyContainer">
-        <div class="containerOne"><a href="login.html">Logga in/Registrera</a></div>
+
         <div class="containerOne"><a href="#">Nyhetsbrev</a></div>
         <div class="containerTwo">FRI FRAKT ÖVER 495KR | FRIA RETURER</div>
 
         <div class="serchContainer">
-
+          <a href="login.html"><i id="userIcon" class="far fa-user"></i></a>
           <div class="dropdown show">
-            <a class="btn btn-secondary dropdown-toggle" style="background-color: rgb(28, 58, 28)" href="#" role="button"
-              id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a class="btn btn-secondary dropdown-toggle" style="background-color: rgb(28, 58, 28)" href="#"
+              role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               Kategorier
             </a>
 
@@ -41,7 +42,7 @@
             </div>
           </div>
 
-          <h2  id="cartCounter">1</h2><a onclick="initCart()" href="#"><i class="fas fa-shopping-cart"></i></a>
+          <h2 id="cartCounter"></h2><a onclick="initCart()" href="#"><i class="fas fa-shopping-cart"></i></a>
         </div>
 
       </div>
@@ -52,11 +53,30 @@
 
 
   <main>
-      
-      <div id="productCard"></div>
-      <div id="productCardCart"></div>
-      
+    <div id="productCard"></div>
+    <div id="productCardCart"></div>
+
   </main>
+
+  <footer>
+    <div class="footConOne">
+      <p>Välkommen till F4B-FRILUFT! <br>
+        Webshoppen för dig som vill vara snygg och lätt i<br>
+        vildmarken. Vi vill gärna hållafokuset på upplevelse <br>
+        än att lägga tanke på vikten under färden. Med mängder <br>
+        av produkter så tillhanda håller vi eget märket där vi <br>
+        sätter ribban högt med hållbarhet och produkter som klarar<br>
+        utmaningarna för den friluftige äventyraren.<br></p>
+        <p>Copyright 1990. F4B-FRILUFT AB.</p>
+    </div>
+    <div class="footConTwo"></div>
+    <div class="footConThree">
+      <p>Prenumerera på vårat nyhetsbrev för fler nyheter!<br>
+        <a href="#">Klicka här!</a>
+      </p>
+      
+    </div>
+  </footer>
 
   <!-- bootstrap-kod -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -69,4 +89,5 @@
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 </body>
+
 </html>

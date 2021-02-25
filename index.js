@@ -15,37 +15,32 @@ function renderProducts(products) {
 
 
     products.forEach((product => {
-
+        
         let renderCard = document.createElement("div")
-        renderCard.classList.add("card", "mx-3", "my-3", "py-2", "justify-content-center")
+        renderCard.classList.add("card", "mx-3", "my-3", "py-2")
         renderCard.style.width = "15%"
-        renderCard.style.height = "19rem"
+        renderCard.style.height = "auto"
         renderCard.style.margin = "2px"
 
         let cardBody = document.createElement("div");
         cardBody.classList.add("card-body", "text-center")
         
-
-        
         let image = document.createElement("img")
         image.classList.add("card-img-top", "img-fluid")    
-        image.style.width = "20%"
-        image.style.height = "20%"
-        image.src = "./pictures/" + value.image
+        image.style.width = "auto"
+        image.style.height = "80%"
+        image.src = "./pictures/" + product.image
+        image.style.maxHeight = "150px"
 
-
-        let title = document.createElement("h6");
+        let title = document.createElement("h6")
         title.classList.add("card-title")
-        title.innerText = product.name//placera productens namn här från databasen
-
+        title.innerText = product.name
 
         let cardText = document.createElement("p")
-        cardText.classList.add("card-text",)
-        cardText.innerText = product.price + " kr" + " " + product.weight + " g"//placera productens beskrivning här från databasen
-        
+        cardText.classList.add("card-text")
+        cardText.innerText = product.price + " kr" + " " + product.weight + " g"
         let cardWeight = document.createElement("p")
-        cardWeight.classList.add("card-text",)
-    
+        cardWeight.classList.add("card-text")
 
         let addbutton = document.createElement("button")
         addbutton.innerText = "Lägg i varukorgen"
@@ -62,9 +57,9 @@ function renderProducts(products) {
     cardBody.append(cardText)
     cardBody.append(cardWeight)
     cardBody.append(addbutton)
-    renderCard.append(cardBody) // the body of content appends here
+    renderCard.append(cardBody)
 
-    document.getElementById("productCard"/*ID DÄR PRODUKT KORT SKAL RENDERAS*/).appendChild(renderCard);
+    document.getElementById("productCard").appendChild(renderCard);
   
     }))
 }
@@ -88,10 +83,8 @@ async function updateCartCounter(userID) {
     console.log(url)
 
     let cartItem = await makeRequest(url, "GET")
-    /* console.log(cartItem) */
 
-    document.getElementById("cartCounter").innerText = cartItem[0].quant
-      
+    document.getElementById("cartCounter").innerText = cartItem[0].quant    
 }
 
 
@@ -150,7 +143,7 @@ async function addProductToCart(){
                 body.append("product", JSON.stringify(product))
             
                 const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
-                /* console.log(product) */
+
                 console.log(result)
             return
 
