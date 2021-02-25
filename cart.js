@@ -79,7 +79,7 @@ function renderCart(cart) {
           deleteBtn.style.maxWidth = "12px"
           deleteBtn.style.maxHeight = "12px"
           
-        deleteBtn.data = cartitems
+        deleteBtn.data = value.id
         deleteBtn.addEventListener("click", deleteCartItem) /* ()=>{
         alert ("you clicked the button"); 
             });  */
@@ -129,13 +129,17 @@ async function getCart() {
 }
 
 async function deleteCartItem() {
-    const value = this.data
-    console.log(value)
-    /* let body = new FormData()
+    const prodID = this.data
+    const userID = 1
+
+    let body = new FormData()
+    body.append("prodID", prodID)
+    body.append("userID", userID)
     body.append("action", "deleteAll")
     
-    const result = await makeRequest("./api/receiver/productReceiver.php", "POST", body)
-    console.log(result) */
+    const result = await makeRequest("./api/recievers/productReciever.php", "POST", body)
+    console.log(result)
+    getCart()
 }
 
 async function makeRequest(url, method, body) {
