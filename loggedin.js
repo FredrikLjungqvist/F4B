@@ -139,7 +139,6 @@ function renderAdmin(user){
     addcategorybtn.id="addcategorybtn"
     addcategorybtn.innerText = "Add Category"
     addcategorybtn.classList.add("btn-warning")
-    /* addcategorybtn.addEventListener("click", updateqty) */
     addcategorybtn.innerText = "addcategorybtn"
     addcategorybtn.addEventListener("click", setCategory)
 
