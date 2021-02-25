@@ -13,4 +13,16 @@ function adminDelete($product){
     $db = new Database();
     return $db->runQuery("DELETE FROM products WHERE ID = :ID", $product);
 }
+
+
+
+function setCategory($input){
+
+    $db = new Database();
+    return $db->runQuery("INSERT INTO productcat (productID, categoryID) VALUES (:productID, :categoryID);", $input);
+
+}
+
+
+
 ?>

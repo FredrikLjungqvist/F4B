@@ -140,6 +140,8 @@ function renderAdmin(user){
     addcategorybtn.innerText = "Add Category"
     addcategorybtn.classList.add("btn-warning")
     /* addcategorybtn.addEventListener("click", updateqty) */
+    addcategorybtn.innerText = "addcategorybtn"
+    addcategorybtn.addEventListener("click", setCategory)
 
     //Upload Input
 
@@ -366,6 +368,23 @@ function render(user){
     renderCard.append(cardText)
     document.getElementById("logincard").appendChild(renderCard);
     
+}
+
+async function setCategory() {
+    console.log("setCategory")
+
+    const productID = document.getElementById("productidset").value
+    const categoryID = document.getElementById("prodcategoryset").value
+    console.log(productID + " " + categoryID)
+   
+    const body = new FormData()
+    body.append("action", "setCategory")
+    body.append("productID", productID)
+    body.append("categoryID", categoryID)
+
+    let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
+    console.log(response)
+
 }
 
 async function makeRequest(url, method, body) {
