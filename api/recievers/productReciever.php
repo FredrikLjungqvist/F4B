@@ -83,7 +83,11 @@ try {
                 
 
             } else if($_POST["action"] == "removeProductFromCart") {
+
                 //DELETE PRODUCT FROM CART
+                if ($_POST["action"] == "deleteAll") 
+                echo json_encode(deleteCartItem());
+
             } else if($_POST["action"] == "clearCart") {
                 //CLEARS CART
             } 

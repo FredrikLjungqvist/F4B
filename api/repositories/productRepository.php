@@ -59,9 +59,10 @@ return $cart;
 
 
 //delet all
-function deleteAllProducts(){
-    $db = new Database();
-
+function deleteCartItem($cartItem){
+    /* $db = new Database();
+    return $db->runQuery("DELETE FROM cartitem WHERE id='"' $cartItem");
+    return */
 }
 
 //get specific category
