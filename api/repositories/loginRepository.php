@@ -9,7 +9,7 @@ function addUser($userinfo){
     
    /*  $password =  password_hash($password, PASSWORD_DEFAULT); */
     $db = new Database();
-    return $db->runQuery("INSERT INTO user (name, password, isAdmin) VALUES (:name, :password, :isAdmin );", $userinfo);
+    return $db->runQuery("INSERT INTO user (name, password, role, firstName, lastName, address1, address2, zipCode, city, country, email, mobilePhone) VALUES ( :username, :password, :role, :firstName, :lastName, :address1, :address2, :zipCode, :city, :country, :email, :mobilePhone);", $userinfo);
 }
 
 function loginUser($username, $password){
