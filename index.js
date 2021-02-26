@@ -1,19 +1,425 @@
 window.addEventListener("load", initsite)
+document.getElementById("loginPopUp").addEventListener("click",loginModal)
+
+$('#myModal').modal()                      // initialized with defaults
+$('#myModal').modal({ keyboard: false })   // initialized with no keyboard
+$('#myModal').modal('hide')                // initializes and invokes show immediately
+
 function initsite(){
    
     document.getElementById("productCard").innerHTML = "";
     document.getElementById("productCardCart").innerHTML = "";
+    document.getElementById("modalpop").innerHTML = "";
     /* getProduct("30002") */
     /* getCategory("3") */
     getAllProducts()
     updateCartCounter(1)
 }
 
+
+function loginModal(){
+    document.getElementById("modalpop").innerHTML = "";
+    console.log("LoginModal")
+    
+    let renderModal = document.createElement("div")
+    renderModal.id="myModal"
+    renderModal.classList.add("modal")
+    
+    //header of modal
+    let header = document.createElement("div")
+    header.classList.add("modal-header")
+    
+    //the body of modal
+    let modalbody = document.createElement("div")
+    modalbody.classList.add("modal-body")
+    
+    //footer of modal
+    let modalfooter = document.createElement("div")
+    modalfooter.classList.add("modal-footer")
+    
+    let modaldialog = document.createElement("div")
+    modaldialog.classList.add="modal-dialog","modal-dialog-centered"
+    
+    let modalContent = document.createElement("div")
+    /* modalContent.style.width="200px" */
+    modalContent.classList.add("modal-sm","modal-content")
+    modalContent.style.marginTop ="100px"
+    modalContent.style.left="45%"
+    
+    // in header
+    let title = document.createElement("h3")
+    title.innerText = "Logga in"
+    
+    let closeModal = document.createElement("button")
+    closeModal.classList.add("close")
+    closeModal.innerText="Stäng"
+    closeModal.addEventListener("click", ()=>{
+        $('#myModal').modal('hide')
+    })
+    
+    // in body
+    let userInput = document.createElement("input")
+    userInput.id = "username"
+    userInput.classList.add("form-group", "m-2")
+    userInput.placeholder ="Användarnamn"
+    
+    let passwordInput = document.createElement("input")
+    passwordInput.id = "password"
+    passwordInput.classList.add("form-group", "m-2")
+    passwordInput.type="password"
+    passwordInput.placeholder ="Lösenord"
+    
+    //in footer
+    let loginbtn = document.createElement("button")
+    loginbtn.id="loginbtn"
+    loginbtn.classList.add("btn","btn-primary")
+    loginbtn.style.backgroundColor ="rgb(28, 58, 28)"
+    loginbtn.innerText = "Logga in"
+    loginbtn.addEventListener("click", /* loginUser */ ()=>{
+        window.location.href ="login.html"
+    })
+    
+    let createaccbtn = document.createElement("button")
+    createaccbtn.id="createaccbtn"
+    createaccbtn.classList.add("btn","btn-primary")
+    createaccbtn.style.backgroundColor ="rgb(28, 58, 28)"
+    createaccbtn.innerText ="Registrera"
+    createaccbtn.addEventListener("click",/* registerUser */ ()=>{
+        $('#myModal').modal('toggle')
+        renderAccountCreation()
+        
+    })
+    
+    
+    
+    header.append(title)
+    header.append(closeModal)
+    
+    modalbody.append(userInput)
+    modalbody.append(passwordInput)
+    
+    modalfooter.append(loginbtn)
+    modalfooter.append(createaccbtn)
+    
+    modalContent.append(header)
+    modalContent.append(modalbody)
+    modalContent.append(modalfooter)
+    
+    modaldialog.append(modalContent)
+    renderModal.append(modaldialog)
+    document.getElementById("modalpop").append(renderModal);
+    $('#myModal').modal('show')
+    
+}
+
+function renderAccountCreation(){
+    console.log("renderAccountCreation")
+
+    document.getElementById("productCard").innerHTML = "";
+
+    let renderCard = document.createElement("div")
+    renderCard.classList.add("container")
+
+    let pagetitle = document.createElement("h3")
+    pagetitle.innerText ="Registrering"
+    
+    let accountform = document.createElement("form")
+    accountform.classList.add("form-row","m-4")
+
+    let createform = document.createElement("div")
+    createform.classList.add("form-group","form-control",)
+
+    let credentials = document.createElement("div")
+    credentials.classList.add("row","col")
+
+    let fullName = document.createElement("div")
+    fullName.classList.add("row","col")
+
+    let contactinfo = document.createElement("div")
+    contactinfo.classList.add("row","col")
+
+    let location = document.createElement("div")
+    location.classList.add("row","col")
+
+    //username
+    let userform = document.createElement("div")
+    userform.classList.add("form-group","col")
+    
+    let userlabel = document.createElement("label")
+    userlabel.innerText="Användarnamn"
+    
+    let userInput = document.createElement("input")
+    userInput.id="usernameToSave"
+    userInput.classList.add("form-control")
+    userInput.placeholder="Användarnamn"
+
+    //password
+    let passwordform = document.createElement("div")
+    passwordform.classList.add("form-group","col")
+    
+    let passwordlabel = document.createElement("label")
+    passwordlabel.innerText="Lösenord"
+    
+    let passwordinput = document.createElement("input")
+    passwordinput.type ="password"
+    passwordinput.id="passwordToSave"
+    passwordinput.classList.add("form-control")
+    passwordinput.placeholder="Lösenord"
+
+    //password check
+    let passwordCheckform = document.createElement("div")
+    passwordCheckform.classList.add("form-group","col")
+    
+    let passwordChecklabel = document.createElement("label")
+    passwordChecklabel.innerText="Skriv samma Lösenord"
+    
+    let passwordCheckinput = document.createElement("input")
+    passwordCheckinput.type ="password"
+    passwordCheckinput.id="passwordToSaveCheck"
+    passwordCheckinput.classList.add("form-control")
+    passwordCheckinput.placeholder="Skriv samma Lösenord"
+
+    //email
+    let emailform = document.createElement("div")
+    emailform.classList.add("form-group","col")
+    
+    let emaillabel = document.createElement("label")
+    emaillabel.classList.add("row","ml-1")
+    emaillabel.innerText="E-mail"
+    
+    let emailInput = document.createElement("input")
+    emailInput.id="inputEmail4"
+    emailInput.classList.add("form-control")
+    emailInput.placeholder="Example@f4b.se"
+
+    //phone
+    let phoneform = document.createElement("div")
+    phoneform.classList.add("form-group","col")
+
+    let phonelabel = document.createElement("label")
+    phonelabel.innerText="Telefonnummer"
+
+    let phoneInput = document.createElement("input")
+    phoneInput.id="phoneInput"
+    phoneInput.classList.add("form-control","col")
+    phoneInput.placeholder="+46 xxxxxxx"
+
+    // chekcbox newsletter
+    let checkform = document.createElement("div")
+    checkform.classList.add("col","ml-3")
+    
+    let checklabel = document.createElement("label")
+    checklabel.classList.add("form-check-label")
+    checklabel.innerText="Jag vill bli informerad om nyheter, aktuella erbjudanden och händelser från F4B-FRILUFT via e-post."
+    
+    let checkbox = document.createElement("input")
+    checkbox.type ="checkbox"
+    checkbox.id="checkbox"
+    checkbox.classList.add("form-check-input")
+
+    //förnamn
+    let firstnameform = document.createElement("div")
+    firstnameform.classList.add("form-group","col")
+
+    let firstnamelabel = document.createElement("label")
+    firstnamelabel.innerText="Förnamn"
+
+    let firstnameInput = document.createElement("input")
+    firstnameInput.id="firstinput"
+    firstnameInput.classList.add("form-control","col")
+    firstnameInput.placeholder="Förnamn"
+
+    //Efternamn
+    let lastnameform = document.createElement("div")
+    lastnameform.classList.add("form-group","col")
+
+    let lastnamelabel = document.createElement("label")
+    lastnamelabel.innerText="Efternamn"
+
+    let lastnamnInput = document.createElement("input")
+    lastnamnInput.id="lastnamnInput"
+    lastnamnInput.classList.add("form-control","col")
+    lastnamnInput.placeholder="Efternamn"
+
+    //Adress
+    let adressform = document.createElement("div")
+    adressform.classList.add("form-group","col")
+
+    let adresslabel = document.createElement("label")
+    adresslabel.innerText="Adress"
+
+    let adressinput = document.createElement("input")
+    adressinput.id="inputAddress"
+    adressinput.classList.add("form-control","col")
+    adressinput.placeholder="Adress"
+
+    //Adresstwo
+    let adresstwoform = document.createElement("div")
+    adresstwoform.classList.add("form-group","col")
+
+    let adresstwolabel = document.createElement("label")
+    adresstwolabel.innerText="Adress 2"
+
+    let adresstwoInput = document.createElement("input")
+    adresstwoInput.id="adresstwoInput"
+    adresstwoInput.classList.add("form-control","col")
+    adresstwoInput.placeholder="Adress 2"
+
+    //Country
+    let countryform = document.createElement("div")
+    countryform.classList.add("form-group","col")
+
+    let countrylabel = document.createElement("label")
+    countrylabel.innerText="Land"
+
+    let countryInput = document.createElement("input")
+    countryInput.id="countryInput"
+    countryInput.classList.add("form-control","col")
+    countryInput.placeholder="Land"
+
+    //City
+    let cityform = document.createElement("div")
+    cityform.classList.add("form-group","col")
+
+    let citylabel = document.createElement("label")
+    citylabel.innerText="Stad"
+
+    let cityinput = document.createElement("input")
+    cityinput.id="inputCity"
+    cityinput.classList.add("form-control","col")
+    cityinput.placeholder="Stad"
+
+    //state
+    let stateform = document.createElement("div")
+    stateform.classList.add("form-group","col")
+
+    let statelabel = document.createElement("label")
+    statelabel.innerText="Region"
+
+    let stateinput = document.createElement("input")
+    stateinput.id="inputState"
+    stateinput.classList.add("form-control","col")
+    stateinput.placeholder="Region"
+    
+    //zip Code
+    let zipform = document.createElement("div")
+    zipform.classList.add("form-group","col")
+
+    let ziplabel = document.createElement("label")
+    ziplabel.innerText="Postkod"
+
+    let zipinput = document.createElement("input")
+    zipinput.id="inputZip"
+    zipinput.classList.add("form-control","col")
+    zipinput.placeholder="Postkod"
+
+    let usernameToSave = document.createElement("input")
+    usernameToSave.id = "usernameToSave"
+    usernameToSave.placeholder ="6 characters"
+
+    let passwordToSave = document.createElement("input")
+    passwordToSave.id = "passwordToSave"
+    passwordToSave.type="password"
+    passwordToSave.placeholder ="6 characters"
+    
+    let createaccbtn = document.createElement("button")
+    createaccbtn.id="createaccbtn"
+    createaccbtn.classList.add("btn","btn-primary")
+    createaccbtn.style.backgroundColor ="rgb(28, 58, 28)"
+    createaccbtn.innerText ="Skapa Konto"
+
+    /* createaccbtn.addEventListener("click",registerUser) */
+
+    //create Acc
+    /* createform.append(usernameToSave)
+    createform.append(passwordToSave)
+    createform.append(createaccbtn) */
+
+    userform.append(userlabel)
+    userform.append(userInput)
+
+    
+    passwordform.append(passwordlabel)
+    passwordform.append(passwordinput)
+    
+    passwordCheckform.append(passwordChecklabel)
+    passwordCheckform.append(passwordCheckinput)
+
+
+    checkform.append(checkbox)
+    checkform.append(checklabel)
+
+    phoneform.append(phonelabel)
+    phoneform.append(phoneInput)
+
+
+    emaillabel.append(checkform)
+    emailform.append(emaillabel)
+    emailform.append(emailInput)
+
+    firstnameform.append(firstnamelabel)
+    firstnameform.append(firstnameInput)
+
+    lastnameform.append(lastnamelabel)
+    lastnameform.append(lastnamnInput)
+
+    countryform.append(countrylabel)
+    countryform.append(countryInput)
+
+    adressform.append(adresslabel)
+    adressform.append(adressinput)
+
+    adresstwoform.append(adresstwolabel)
+    adresstwoform.append(adresstwoInput)
+
+    stateform.append(statelabel)
+    stateform.append(stateinput)
+
+    cityform.append(citylabel)
+    cityform.append(cityinput)
+
+    zipform.append(ziplabel)
+    zipform.append(zipinput)
+
+    
+    credentials.append(userform)
+    credentials.append(passwordform)
+    credentials.append(passwordCheckform)
+    contactinfo.append(emailform)
+    
+    fullName.append(firstnameform)
+    fullName.append(lastnameform)
+    fullName.append(phoneform)
+
+    location.append(countryform)
+    location.append(stateform)
+    location.append(cityform)
+    location.append(adressform)
+    location.append(adresstwoform)
+    location.append(zipform)
+
+    createform.append(credentials)
+    createform.append(contactinfo)
+    createform.append(fullName)
+    createform.append(location)
+    
+    //render
+
+    accountform.append(pagetitle)
+    accountform.append(createform)
+    renderCard.append(accountform)
+    accountform.append(createaccbtn)
+
+    document.getElementById("productCard").appendChild(renderCard);
+    return renderCard
+ 
+}
+
 function renderProducts(products) {
     //Function will get the list of products and render them onto page
     document.getElementById("productCard").innerHTML = "";
-
-
+    
+    
     products.forEach((product => {
         
         let renderCard = document.createElement("div")
@@ -21,7 +427,7 @@ function renderProducts(products) {
         renderCard.style.width = "15%"
         renderCard.style.height = "auto"
         renderCard.style.margin = "2px"
-
+        
         let cardBody = document.createElement("div");
         cardBody.classList.add("card-body", "text-center")
         
@@ -65,6 +471,7 @@ function renderProducts(products) {
 }
 
 async function getAllProducts() {
+    document.getElementById("productCardCart").innerHTML = "";
     var url = new URL("http://localhost/api/recievers/productReciever.php")
     var params = {action: "getAllProducts"} 
     url.search = new URLSearchParams(params);
