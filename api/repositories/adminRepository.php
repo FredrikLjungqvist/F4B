@@ -28,6 +28,22 @@ function addProduct($product){
 
 }
 
+function getListPending(){
+    $db = new Database();
+    return $db->fetchQuery("SELECT id, name, role FROM user WHERE role = 'pending';");
+}
+
+function getListAdmin(){
+    $db = new Database();
+    return $db->fetchQuery("SELECT id, name, role FROM user WHERE role = 'admin';");
+}
+
+function approveAdmin($id){
+    
+    $db = new Database();
+    return $db->runQuery("UPDATE user SET role = 'admin' WHERE id = :id;", $id);
+
+}
 
 
 ?>
