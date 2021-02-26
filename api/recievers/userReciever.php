@@ -3,17 +3,12 @@ require ("../repositories/loginRepository.php");
 session_start();
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     
-            if(isset($_POST["usernameToSave"]) && isset($_POST["passwordToSave"])) {
-                $password = $_POST["passwordToSave"];
-                $password_hash = password_hash($password, PASSWORD_DEFAULT);
-                $userinfo = [
-                    "name"=>$_POST["usernameToSave"],
-                    "password"=> password_hash($_POST["passwordToSave"], PASSWORD_DEFAULT),
-                    "isAdmin"=>0
-                ];
-
-                echo json_encode(addUser($userinfo));
+            if(isset($_POST["userCreation"])) {
                 
+                $userinfo = json_decode($_POST["userCreation"], true);
+                $userinfo["password"] = password_hash($userinfo["password"], PASSWORD_DEFAULT);
+                echo json_encode(adduser($userinfo));
+                /* echo json_encode(addUser($userinfo)); */
                 exit;
             
             }elseif (isset($_POST["username"]) && isset($_POST["password"])) {
