@@ -192,6 +192,18 @@ function renderAccountCreation(){
     emailInput.classList.add("form-control")
     emailInput.placeholder="Example@f4b.se"
 
+    //phone
+    let phoneform = document.createElement("div")
+    phoneform.classList.add("form-group","col")
+
+    let phonelabel = document.createElement("label")
+    phonelabel.innerText="Telefonnummer"
+
+    let phoneInput = document.createElement("input")
+    phoneInput.id="phoneInput"
+    phoneInput.classList.add("form-control","col")
+    phoneInput.placeholder="+46 xxxxxxx"
+
     // chekcbox newsletter
     let checkform = document.createElement("div")
     checkform.classList.add("col","ml-3")
@@ -241,6 +253,18 @@ function renderAccountCreation(){
     adressinput.classList.add("form-control","col")
     adressinput.placeholder="Adress"
 
+    //Adresstwo
+    let adresstwoform = document.createElement("div")
+    adresstwoform.classList.add("form-group","col")
+
+    let adresstwolabel = document.createElement("label")
+    adresstwolabel.innerText="Adress 2"
+
+    let adresstwoInput = document.createElement("input")
+    adresstwoInput.id="adresstwoInput"
+    adresstwoInput.classList.add("form-control","col")
+    adresstwoInput.placeholder="Adress 2"
+
     //Country
     let countryform = document.createElement("div")
     countryform.classList.add("form-group","col")
@@ -248,10 +272,10 @@ function renderAccountCreation(){
     let countrylabel = document.createElement("label")
     countrylabel.innerText="Land"
 
-    let countryinput = document.createElement("input")
-    countryinput.id="countryinput"
-    countryinput.classList.add("form-control","col")
-    countryinput.placeholder="Land"
+    let countryInput = document.createElement("input")
+    countryInput.id="countryInput"
+    countryInput.classList.add("form-control","col")
+    countryInput.placeholder="Land"
 
     //City
     let cityform = document.createElement("div")
@@ -325,8 +349,11 @@ function renderAccountCreation(){
     checkform.append(checkbox)
     checkform.append(checklabel)
 
-    emaillabel.append(checkform)
+    phoneform.append(phonelabel)
+    phoneform.append(phoneInput)
 
+
+    emaillabel.append(checkform)
     emailform.append(emaillabel)
     emailform.append(emailInput)
 
@@ -337,10 +364,13 @@ function renderAccountCreation(){
     lastnameform.append(lastnamnInput)
 
     countryform.append(countrylabel)
-    countryform.append(countryinput)
+    countryform.append(countryInput)
 
     adressform.append(adresslabel)
     adressform.append(adressinput)
+
+    adresstwoform.append(adresstwolabel)
+    adresstwoform.append(adresstwoInput)
 
     stateform.append(statelabel)
     stateform.append(stateinput)
@@ -356,15 +386,16 @@ function renderAccountCreation(){
     credentials.append(passwordform)
     credentials.append(passwordCheckform)
     contactinfo.append(emailform)
-    /* contactinfo.append(checkform) */
     
     fullName.append(firstnameform)
     fullName.append(lastnameform)
+    fullName.append(phoneform)
 
     location.append(countryform)
     location.append(stateform)
     location.append(cityform)
     location.append(adressform)
+    location.append(adresstwoform)
     location.append(zipform)
 
     createform.append(credentials)
