@@ -1,10 +1,11 @@
 <?php
 require ("../handlers/databaseHandler.php");
 
-function sendOrder(){
-$db = new
+function sendOrder($order){
+$db = new Database;
+return $db->runQuery("INSERT INTO orders (userID, date, status) VALUES (:userID, :date, :status)", $order);
 
-}
+};
 
 
 ?>

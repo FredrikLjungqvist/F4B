@@ -1,5 +1,5 @@
 <?php
-
+require ("../repositories/orderRepository.php");
 try {
 
     if(isset($_SERVER["REQUEST_METHOD"])) {
@@ -19,7 +19,12 @@ try {
         } else if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if($_POST["action"] == "sendOrder") {
-                //MAKES ORDER FOR USER
+                $order=[
+                    "userID"=>2,
+                    "date"=>date("Y-m-d H:i:s"),
+                    "status"=>"1"
+                ];
+                echo json_encode($order);
             } else if($_POST["action"] == "approveOrder") {
                 //MARKS ORDER AS SENT (ADMIN)
             }
