@@ -1,8 +1,8 @@
-window.addEventListener("load", initsite)
+/* window.addEventListener("load", initsite)
 function initsite(){
     document.getElementById("logincard").innerHTML=""
     loginCheck()
-}
+} */
 
 async function loginCheck(){
     console.log("loginCheck")
@@ -22,20 +22,37 @@ async function loginCheck(){
         render(response.username)
     } else {
         console.log("ingen user")
-        renderLogin()
+        /* renderLogin() */
+        
     }
 }
 
 
 async function registerUser(){
     console.log("registerUser")
+
+    /* const username = document.getElementById("usernameToSave").value
+    const password = document.getElementById("passwordToSave").value */
     
-    const username = document.getElementById("usernameToSave").value
-    const password = document.getElementById("passwordToSave").value
+    let userCreation = {
+        role:"user",
+        username: document.getElementById("usernameToSave").value,
+        password: document.getElementById("passwordToSave").value,
+        firstName: document.getElementById("firstnameinput").value,
+        lastName: document.getElementById("lastnamnInput").value,
+        email: document.getElementById("inputEmail4").value,
+        mobilePhone: document.getElementById("phoneInput").value,
+        country: document.getElementById("countryInput").value,
+        
+        city: document.getElementById("inputCity").value,
+        address1: document.getElementById("inputAddress").value,
+        address2: document.getElementById("adresstwoInput").value,
+        zipCode: document.getElementById("inputZip").value
+    }
 
     const body = new FormData()
-    body.append("usernameToSave", username)
-    body.append("passwordToSave", password)
+    
+    body.append("userCreation", JSON.stringify(userCreation))
 
     let response = await makeRequest("./api/recievers/userReciever.php", "POST", body)
     console.log(response)
@@ -46,7 +63,7 @@ async function registerUser(){
 
 async function loginUser(){
     console.log("loginUser")
-
+    $('#myModal').modal('hide')
     const username = document.getElementById("username").value
     const password = document.getElementById("password").value
 
@@ -65,8 +82,10 @@ async function loginUser(){
 
 function renderAdmin(user){
     console.log("renderAdmin")
-    document.getElementById("logincard").innerHTML= ""
+    document.getElementById("productCard").innerHTML= ""
     
+
+
     let logoutbtn = document.createElement("button")
     logoutbtn.id="logoutbtn"
     logoutbtn.innerText = "logout"
@@ -105,8 +124,27 @@ function renderAdmin(user){
     cardupload.style.marginBottom = "30px"
     cardupload.style.padding="20px"
     cardupload.style.background ="rgb(28, 58, 28)"
-    
 
+    //admin
+    let adminApprove = document.createElement("div")
+    adminApprove.classList.add("col","card", "text-center","rounded")
+    adminApprove.style.marginBottom = "30px"
+    adminApprove.style.padding="20px"
+    adminApprove.style.background ="rgb(28, 58, 28)"
+    let headerAdminApprove = document.createElement("h3")
+    headerAdminApprove.innerText = "Pending admins:"
+    headerAdminApprove.style.color = "white"
+    adminApprove.append(headerAdminApprove)
+
+    let listAdmin = document.createElement("div")
+    listAdmin.classList.add("col","card", "text-center","rounded")
+    listAdmin.style.marginBottom = "30px"
+    listAdmin.style.padding="20px"
+    listAdmin.style.background ="rgb(28, 58, 28)"
+    let headerListAdmin = document.createElement("h3")
+    headerListAdmin.innerText = "Admins:"
+    headerListAdmin.style.color = "white"
+    listAdmin.append(headerListAdmin)
 
     let cardText = document.createElement("h4")
     cardText.innerText ="Välkommen Admin " + user
@@ -192,6 +230,7 @@ function renderAdmin(user){
     uploadbtn.innerText = "UPLOAD"
     uploadbtn.addEventListener("click", addProduct)
 
+
     //Delete Input
     let deleteprod = document.createElement("input")
     deleteprod.id = "deleteprod"
@@ -222,7 +261,10 @@ function renderAdmin(user){
     cardupload.append(newqtyinput)
     cardupload.append(imagefile)
     cardupload.append(uploadbtn)
-    
+
+    listAdmins()
+    listPendingUsers()
+
     carddelete.append(deleteprod)
     carddelete.append(deletebtn)
     
@@ -230,16 +272,106 @@ function renderAdmin(user){
     cardBody.append(cardupdate)
     cardBody.append(cardupdatecategory)
     cardBody.append(cardupload)
+    cardBody.append(listAdmin)
+    cardBody.append(adminApprove)
     cardBody.append(carddelete)
     cardBody.append(logoutbtn)
     renderCard.append(cardBody)
-    document.getElementById("logincard").appendChild(renderCard);
+    document.getElementById("productCard").appendChild(renderCard);
+    
+
+    //add new admin
+    //(En administratör behöver godkännas av en tidigare administratör innan man kan logga in fösta gången (VG))
+    async function listPendingUsers() {
+        console.log("listPendingUsers")
+        
+        let url = new URL("http://localhost/api/recievers/adminReciever.php")
+        
+        let params = {action: "getListPending"}
+        url.search = new URLSearchParams(params)
+        
+        let response = await makeRequest(url, "GET")
+        
+        response.forEach(row => {
+
+            let divPendingUser = document.createElement("div")
+            divPendingUser.style.display = "flex"
+            
+            let pendingUser = document.createElement("p")
+            pendingUser.innerText = "ID: " + row.id + ", Username: " + row.name + ", Status: " + row.role
+            pendingUser.style.backgroundColor = "white"
+            
+            let approveButton = document.createElement("button")
+            approveButton.innerText = "Make admin"
+            approveButton.addEventListener("click", approveAdmin)
+            approveButton.data = row.id
+
+            divPendingUser.append(pendingUser, approveButton)
+            adminApprove.append(divPendingUser)
+
+        });
+    }
+
+    async function listAdmins() {
+        console.log("listAdmins")
+        
+        let url = new URL("http://localhost/api/recievers/adminReciever.php")
+        
+        let params = {action: "getListAdmin"}
+        url.search = new URLSearchParams(params)
+        
+        let response = await makeRequest(url, "GET")
+        
+        response.forEach(row => {
+
+            let divPendingUser = document.createElement("div")
+            divPendingUser.style.display = "flex"
+            divPendingUser.style.backgroundColor = "white"
+            
+            let pendingUser = document.createElement("p")
+            pendingUser.innerText = "ID: " + row.id + ", Username: " + row.name + ", Status: " + row.role
+
+            divPendingUser.append(pendingUser)
+            listAdmin.append(divPendingUser)
+
+        });
+    }
     
 }
+
+async function approveAdmin() {
+    console.log("approveAdmin")
+
+    const userID = {
+        id : this.data 
+    }
+
+    const body = new FormData()
+    body.append("action", "approveAdmin")
+    body.append("userID", JSON.stringify(userID))
+
+    let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
+    console.log(response)
+    loginCheck()
+
+}
+
+//see list of users with newsletter 
+//(Administratörer ska kunna se en lista över personer som vill ha nyhetsbrevet och deras epost adresser (G))
+
+
+//write newsletter
+//(Administratörer ska kunna skicka nyhetsbrev från sitt gränssnitt, nyhetsbrevet ska sparas i databasen samt innehålla en titel och en brödtext (VG))
+
+
+//Administratörer ska kunna se en lista på alla gjorda beställningar (G)
+//Administratörer ska kunna markera beställningar som skickade (VG)
+
 function confirmCheck(){
     console.log("work")
     window.confirm("are you sure want to delete this");
 }
+
 async function updateqty() {
     console.log("updateqty")
     const prodid = document.getElementById("prodIDinput").value
@@ -305,7 +437,7 @@ function renderLogin(){
     //render
     renderCard.append(loginform)
     renderCard.append(createform)
-    document.getElementById("logincard").appendChild(renderCard);
+    /* document.getElementById("logincard").appendChild(renderCard); */
     return renderCard
 }
 
@@ -338,7 +470,7 @@ async function addProduct() {
 
 async function logout() {
     console.log("Logout")
-    document.getElementById("logincard").innerHTML=""
+    document.getElementById("productCard").innerHTML=""
     let url = new URL("http://localhost/api/recievers/userReciever.php")
     
     let params = {action: "logout"}
@@ -369,7 +501,7 @@ async function deleteProduct(){
 
 function render(user){
     console.log("render")
-    document.getElementById("logincard").innerHTML= ""
+    document.getElementById("productCard").innerHTML= ""
     
     let logoutbtn = document.createElement("button")
     logoutbtn.id="logoutbtn"
@@ -384,7 +516,7 @@ function render(user){
     
     renderCard.append(logoutbtn)
     renderCard.append(cardText)
-    document.getElementById("logincard").appendChild(renderCard);
+    document.getElementById("productCard").appendChild(renderCard);
     
 }
 

@@ -11,6 +11,12 @@ try {
 
             if($_GET["action"] == "listNewsletter") {
                 //GET LIST OF USERS WITH NEWSLETTER (ADMIN)
+            } else if($_GET["action"] == "getListPending") {
+                //GET LIST OF PENDING ADMINS (ADMIN)
+                echo json_encode(getListPending());
+            } else if($_GET["action"] == "getListAdmin") {
+                //GET LIST OF ADMINS (ADMIN)
+                echo json_encode(getListAdmin());
             }
 
         } else if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -25,8 +31,11 @@ try {
                 echo json_encode(adminUpdate($product));
                 exit;
 
-            }else if($_POST["action"] == "authAdmin") {
+            }else if($_POST["action"] == "approveAdmin") {
                 //GIVE SPECIFIC USER ADMIN RIGHTS (ADMIN)
+                $id = json_decode($_POST["userID"], true);
+                
+                echo json_encode(approveAdmin($id));
                 
             } else if($_POST["action"] == "setCategory") {
                 //SET CATEGORY FOR SPECIFIC PRODUCT (ADMIN)

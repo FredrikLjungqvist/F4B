@@ -13,8 +13,9 @@ function initsite(){
     document.getElementById("modalpop").innerHTML = ""; */
     /* getProduct("30002") */
     /* getCategory("3") */
-   /*  getAllProducts()
-    updateCartCounter(1) */
+    getAllProducts()
+    updateCartCounter(1)
+    loginCheck()
 }
 
 
@@ -76,9 +77,9 @@ function loginModal(){
     loginbtn.classList.add("btn","btn-primary")
     loginbtn.style.backgroundColor ="rgb(28, 58, 28)"
     loginbtn.innerText = "Logga in"
-    loginbtn.addEventListener("click", /* loginUser */ ()=>{
+    loginbtn.addEventListener("click", loginUser/*  ()=>{
         window.location.href ="login.html"
-    })
+    } */)
     
     let createaccbtn = document.createElement("button")
     createaccbtn.id="createaccbtn"
@@ -226,7 +227,7 @@ function renderAccountCreation(){
     firstnamelabel.innerText="Förnamn"
 
     let firstnameInput = document.createElement("input")
-    firstnameInput.id="firstinput"
+    firstnameInput.id="firstnameinput"
     firstnameInput.classList.add("form-control","col")
     firstnameInput.placeholder="Förnamn"
 
@@ -314,22 +315,21 @@ function renderAccountCreation(){
     zipinput.classList.add("form-control","col")
     zipinput.placeholder="Postkod"
 
-    let usernameToSave = document.createElement("input")
+    /* let usernameToSave = document.createElement("input")
     usernameToSave.id = "usernameToSave"
     usernameToSave.placeholder ="6 characters"
 
     let passwordToSave = document.createElement("input")
     passwordToSave.id = "passwordToSave"
     passwordToSave.type="password"
-    passwordToSave.placeholder ="6 characters"
+    passwordToSave.placeholder ="6 characters" */
     
     let createaccbtn = document.createElement("button")
     createaccbtn.id="createaccbtn"
     createaccbtn.classList.add("btn","btn-primary")
     createaccbtn.style.backgroundColor ="rgb(28, 58, 28)"
     createaccbtn.innerText ="Skapa Konto"
-
-    /* createaccbtn.addEventListener("click",registerUser) */
+    createaccbtn.addEventListener("click",registerUser)
 
     //create Acc
     /* createform.append(usernameToSave)
