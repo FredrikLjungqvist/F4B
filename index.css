@@ -29,7 +29,14 @@ body {
     align-items: center;
     height: 70px;
 }
-
+#loginPopUp{
+    display:block;
+    background-color: rgb(28, 58, 28);
+    border:none;
+}
+#loginPopUp:hover{
+    cursor: pointer;
+}
 .containerOne {
     background-color: rgb(28, 58, 28);
     display: flex;
