@@ -32,9 +32,9 @@ function loginUser($username, $password){
              $_SESSION["loggedin"] = true;
              $_SESSION["id"] = $response[0]["id"];
              $_SESSION["username"] = $response[0]["name"];  
-             $_SESSION["admin"] = $response[0]["isAdmin"];
+             $_SESSION["role"] = $response[0]["role"];
              
-             return $_SESSION["username"];
+             return $_SESSION["username"] . " " . $_SESSION["role"];
 
         }else{
             return "fel password";
