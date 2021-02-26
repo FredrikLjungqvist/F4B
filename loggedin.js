@@ -1,8 +1,8 @@
-window.addEventListener("load", initsite)
+/* window.addEventListener("load", initsite)
 function initsite(){
     document.getElementById("logincard").innerHTML=""
     loginCheck()
-}
+} */
 
 async function loginCheck(){
     console.log("loginCheck")
@@ -22,20 +22,37 @@ async function loginCheck(){
         render(response.username)
     } else {
         console.log("ingen user")
-        renderLogin()
+        /* renderLogin() */
+        
     }
 }
 
 
 async function registerUser(){
     console.log("registerUser")
+
+    /* const username = document.getElementById("usernameToSave").value
+    const password = document.getElementById("passwordToSave").value */
     
-    const username = document.getElementById("usernameToSave").value
-    const password = document.getElementById("passwordToSave").value
+    let userCreation = {
+        role:"user",
+        username: document.getElementById("usernameToSave").value,
+        password: document.getElementById("passwordToSave").value,
+        firstName: document.getElementById("firstnameinput").value,
+        lastName: document.getElementById("lastnamnInput").value,
+        email: document.getElementById("inputEmail4").value,
+        mobilePhone: document.getElementById("phoneInput").value,
+        country: document.getElementById("countryInput").value,
+        
+        city: document.getElementById("inputCity").value,
+        address1: document.getElementById("inputAddress").value,
+        address2: document.getElementById("adresstwoInput").value,
+        zipCode: document.getElementById("inputZip").value
+    }
 
     const body = new FormData()
-    body.append("usernameToSave", username)
-    body.append("passwordToSave", password)
+    
+    body.append("userCreation", JSON.stringify(userCreation))
 
     let response = await makeRequest("./api/recievers/userReciever.php", "POST", body)
     console.log(response)
@@ -46,7 +63,7 @@ async function registerUser(){
 
 async function loginUser(){
     console.log("loginUser")
-
+    $('#myModal').modal('hide')
     const username = document.getElementById("username").value
     const password = document.getElementById("password").value
 
@@ -65,7 +82,7 @@ async function loginUser(){
 
 function renderAdmin(user){
     console.log("renderAdmin")
-    document.getElementById("logincard").innerHTML= ""
+    document.getElementById("productCard").innerHTML= ""
     
     let logoutbtn = document.createElement("button")
     logoutbtn.id="logoutbtn"
@@ -233,7 +250,7 @@ function renderAdmin(user){
     cardBody.append(carddelete)
     cardBody.append(logoutbtn)
     renderCard.append(cardBody)
-    document.getElementById("logincard").appendChild(renderCard);
+    document.getElementById("productCard").appendChild(renderCard);
     
 }
 function confirmCheck(){
@@ -305,7 +322,7 @@ function renderLogin(){
     //render
     renderCard.append(loginform)
     renderCard.append(createform)
-    document.getElementById("logincard").appendChild(renderCard);
+    /* document.getElementById("logincard").appendChild(renderCard); */
     return renderCard
 }
 
@@ -338,7 +355,7 @@ async function addProduct() {
 
 async function logout() {
     console.log("Logout")
-    document.getElementById("logincard").innerHTML=""
+    document.getElementById("productCard").innerHTML=""
     let url = new URL("http://localhost/api/recievers/userReciever.php")
     
     let params = {action: "logout"}
@@ -369,7 +386,7 @@ async function deleteProduct(){
 
 function render(user){
     console.log("render")
-    document.getElementById("logincard").innerHTML= ""
+    document.getElementById("productCard").innerHTML= ""
     
     let logoutbtn = document.createElement("button")
     logoutbtn.id="logoutbtn"
@@ -384,7 +401,7 @@ function render(user){
     
     renderCard.append(logoutbtn)
     renderCard.append(cardText)
-    document.getElementById("logincard").appendChild(renderCard);
+    document.getElementById("productCard").appendChild(renderCard);
     
 }
 
