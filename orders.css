@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+
+}
+
+body {
+    /* background-image: url("hiking.jpg"); */
+    margin: 0;
+}
+
+/* rgba(128, 128, 128, 0.308) */
+table, th td {
+    background-color: #FFFFFF;
+    border: 1px solid #FFFFFF;
+}
+
+td {
+    padding: 1%;
+}
+
+th {
+    padding: 1%;
+}
+
+table {
+    width: 60%;
+    font-size: 11px;
+    margin: 20px;
+}

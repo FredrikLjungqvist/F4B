@@ -7,13 +7,14 @@ $('#myModal').modal('hide')                // initializes and invokes show immed
 
 function initsite(){
    
-    document.getElementById("productCard").innerHTML = "";
+    renderOrders()
+    /* document.getElementById("productCard").innerHTML = "";
     document.getElementById("productCardCart").innerHTML = "";
-    document.getElementById("modalpop").innerHTML = "";
+    document.getElementById("modalpop").innerHTML = ""; */
     /* getProduct("30002") */
     /* getCategory("3") */
-    getAllProducts()
-    updateCartCounter(1)
+   /*  getAllProducts()
+    updateCartCounter(1) */
 }
 
 
