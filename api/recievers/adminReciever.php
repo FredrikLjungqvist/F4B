@@ -31,11 +31,17 @@ try {
                 echo json_encode(adminUpdate($product));
                 exit;
 
-            }else if($_POST["action"] == "approveAdmin") {
+            } else if($_POST["action"] == "approveAdmin") {
                 //GIVE SPECIFIC USER ADMIN RIGHTS (ADMIN)
                 $id = json_decode($_POST["userID"], true);
                 
                 echo json_encode(approveAdmin($id));
+                
+            } else if($_POST["action"] == "denyAdmin") {
+                //GIVE SPECIFIC USER ADMIN RIGHTS (ADMIN)
+                $id = json_decode($_POST["userID"], true);
+                
+                echo json_encode(denyAdmin($id));
                 
             } else if($_POST["action"] == "setCategory") {
                 //SET CATEGORY FOR SPECIFIC PRODUCT (ADMIN)
