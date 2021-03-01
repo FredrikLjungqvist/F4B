@@ -103,6 +103,7 @@ function renderAdmin(user){
     hidelogin()
     console.log("renderAdmin")
 
+    
     let logoutbtn = document.createElement("button")
     logoutbtn.id="logoutbtn"
     logoutbtn.innerText = "logout"
@@ -622,8 +623,10 @@ function render(user){
     
     
     renderCard.append(cardText)
-    document.getElementById("productCard").appendChild(renderCard);
+    document.getElementById("productCard").appendChild(renderCard)
+    
     hidelogin()
+    main
 }
 
 async function setCategory() {
