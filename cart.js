@@ -110,6 +110,7 @@ function renderCart(cart) {
     buyBtn.classList.add("btn", "text-white")
     buyBtn.style.background = "rgb(28, 58, 28)"
     buyBtn.style.width = "200px"
+    buyBtn.addEventListener("click", orderCart)
 
     totalDiv.append(totalDivTwo)
     totalDiv.append(totalText)
@@ -117,6 +118,17 @@ function renderCart(cart) {
     totalDiv.append(buyBtn)
     document.getElementById("productCardCart").appendChild(totalDiv);
 }
+
+
+ async function orderCart() {
+    cart= await getCart()
+    console.log(cart)
+    body= new FormData
+    body.append("action", "sendOrder")
+    body.append("cart", JSON.stringify(cart))
+    let response = await makeRequest("./api/recievers/orderReciever.php", "POST", body)
+    console.log(response)
+}  
 
 async function getCart() {
     var url = new URL("http://localhost/api/recievers/productReciever.php")
@@ -126,6 +138,7 @@ async function getCart() {
     let cart = await makeRequest(url, "GET")
     console.log(cart)
     renderCart(cart)
+    return cart
 }
 
 async function deleteCartItem() {
