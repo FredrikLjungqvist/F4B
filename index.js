@@ -8,9 +8,9 @@ $('#myModal').modal('hide')                // initializes and invokes show immed
 
 function initsite(){
 
-renderOrders()
-    /* document.getElementById("productCard").innerHTML = "";
-    document.getElementById("productCardCart").innerHTML = ""; */
+
+    document.getElementById("productCard").innerHTML = "";
+    document.getElementById("productCardCart").innerHTML = "";
     document.getElementById("modalpop").innerHTML = "";
     /* getProduct("30002") */
     /* getCategory("3") */
