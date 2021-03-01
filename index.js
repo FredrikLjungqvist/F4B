@@ -14,7 +14,7 @@ function initsite(){
     document.getElementById("modalpop").innerHTML = "";
     /* getProduct("30002") */
     /* getCategory("3") */
-    getAllProducts()
+    //getAllProducts()
     updateCartCounter(1)
     loginCheck()
 }
