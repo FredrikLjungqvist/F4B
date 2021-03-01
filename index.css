@@ -51,7 +51,7 @@ img{
     background-color: rgb(28, 58, 28);
     display: flex;
     margin-right:2%;
-    justify-content:space-evenly;
+    justify-content:space-around;
     align-items: center;
     height: 70px;
 }
@@ -66,6 +66,7 @@ img{
 }
 
 #userpages{
+    margin:5px;
     font-weight: bold;
 }
 .btnBackground{
@@ -76,7 +77,7 @@ img{
 .containerOne {
     background-color: rgb(28, 58, 28);
     display: flex;
-    margin: 10px;
+    margin: 5px;
     text-align: center;
     flex-grow:2;
 }@media only screen and (max-width: 285px) {
@@ -88,7 +89,7 @@ img{
 .containerTwo {
     min-width:265px;
     background-color: rgb(28, 58, 28);
-    margin:10px;
+    margin:5px;
     text-align: center;
     font-size: 15px;
     flex-grow:2;
