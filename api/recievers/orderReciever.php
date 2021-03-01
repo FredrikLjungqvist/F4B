@@ -19,12 +19,8 @@ try {
         } else if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if($_POST["action"] == "sendOrder") {
-                $order=[
-                    "userID"=>2,
-                    "date"=>date("Y-m-d H:i:s"),
-                    "status"=>"1"
-                ];
-                echo json_encode($order);
+                $cart=json_decode($_POST["cart"], true);
+                echo json_encode(makeOrder($cart));
             } else if($_POST["action"] == "approveOrder") {
                 //MARKS ORDER AS SENT (ADMIN)
             }

@@ -121,8 +121,11 @@ function renderCart(cart) {
 
 
  async function orderCart() {
+    cart= await getCart()
+    console.log(cart)
     body= new FormData
     body.append("action", "sendOrder")
+    body.append("cart", JSON.stringify(cart))
     let response = await makeRequest("./api/recievers/orderReciever.php", "POST", body)
     console.log(response)
 }  
@@ -135,6 +138,7 @@ async function getCart() {
     let cart = await makeRequest(url, "GET")
     console.log(cart)
     renderCart(cart)
+    return cart
 }
 
 async function deleteCartItem() {

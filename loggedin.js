@@ -15,7 +15,8 @@ async function loginCheck(){
     let response = await makeRequest(url, "GET")
 
     if (response.username && response.role == "admin") {
-        console.log("admin finns")
+        console.log(response)
+
         renderAdmin(response.username)
     }else if (response.username && response.role == "user") {
         console.log("user finns")
