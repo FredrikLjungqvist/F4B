@@ -4,8 +4,11 @@
 }
 
 body {
-    /* background-image: url("hiking.jpg"); */
     margin: 0;
+}
+
+#productCardOrder {
+    margin: 50px;
 }
 
 /* rgba(128, 128, 128, 0.308) */
@@ -14,16 +17,18 @@ table, th td {
     border: 1px solid #FFFFFF;
 }
 
-td {
-    padding: 1%;
+th {
+    font-size: 15px;
 }
 
-th {
-    padding: 1%;
+td {
+    font-size: 15px;
 }
 
 table {
     width: 60%;
     font-size: 11px;
     margin: 20px;
+    padding: 20px;
 }
+
