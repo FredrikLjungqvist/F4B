@@ -9,10 +9,10 @@ try {
         
         if($_SERVER["REQUEST_METHOD"] == "GET") {
 
-            if($_GET["action"] == "getCustomer") 
+            if($_GET["action"] == "getCustomer") {
             
                 //kundnfo hämta här:
-                echo json_encode(getCustomer($_GET["Id"]));
+                echo json_encode(getCustomer());
                 exit;
                
 

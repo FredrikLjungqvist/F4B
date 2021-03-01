@@ -3,9 +3,11 @@
     require("../classes/userClass.php");
 
     //get customer info from db user 
-    function getcustomer($userId) { 
+    function getcustomer() { 
+        session_start();
+        $userId = $_SESSION["id"];
         $db = new Database();
-        return $db->fetchQuery("SELECT * FROM user WHERE id = $userId");
+        return $db->fetchQuery("SELECT * FROM user WHERE id = '$userId'");
     }
 
     
@@ -14,7 +16,7 @@
         $customerList = [];
 
         foreach($customers as $customer) {
-           $customerInstance = new customer($customer["id"], $customer["firstName"], $customer["lastName"], $customer["address1"], $customer["address2"],
+           $customerInstance = new User($customer["id"], $customer["firstName"], $customer["lastName"], $customer["address1"], $customer["address2"],
            $customer["zipCode"], $customer["city"], $customer["country"], $customer["email"], $customer["mobilePhone"]);
             
             array_push($customerList, $customerInstance);

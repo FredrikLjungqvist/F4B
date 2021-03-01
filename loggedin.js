@@ -517,6 +517,8 @@ function render(user){
     renderCard.append(logoutbtn)
     renderCard.append(cardText)
     document.getElementById("productCard").appendChild(renderCard);
+
+    initCustomer()
     
 }
 

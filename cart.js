@@ -7,8 +7,9 @@ function initCart() {
 }
 
 function initCustomer() {
+    console.log("initCustomer")
     document.getElementById("customerInfo").innerHTML=""
-    getAllCustomers()
+    getCustomer()
 }
 
 function renderCart(cart) {
@@ -145,10 +146,12 @@ async function deleteCartItem() {
     updateCartCounter(1)
 }
 
+renderCustomer()
 
-/* function renderCustomer(customer) {
-    document.getElementById("customerInfo").innerHTML="" */
-
+async function renderCustomer() {
+    //document.getElementById("customerInfo").innerHTML="" */
+    let customer = await getCustomer()
+    console.log(customer)
     //kunduppgifter
     let renderCustomerCard = document.createElement("div")
     //renderCustomerCard.className = "card";
@@ -174,7 +177,7 @@ async function deleteCartItem() {
 
     let fullnameInput = document.createElement("td")
     fullnameInput.classList.add("form-control", "col")
-    fullnameInput.innerText = "Susan" + " " + "Isaksson" 
+    fullnameInput.innerText = customer[0].firstName + " " + customer[0].lastName
 
     //adress1
     let addressOneLabel = document.createElement("tr")
@@ -183,7 +186,7 @@ async function deleteCartItem() {
 
     let addressOneInput = document.createElement("td")
     addressOneInput.classList.add("form-control", "col")
-    addressOneInput.innerText = "F4Bvägen 25" 
+    addressOneInput.innerText = customer[0].address1
 
     //address2
     let addressTwoLabel = document.createElement("tr")
@@ -191,7 +194,7 @@ async function deleteCartItem() {
 
     let addressTwoInput = document.createElement("td")
     addressTwoInput.classList.add("form-control", "col")
-    addressTwoInput.innerText = "" 
+    addressTwoInput.innerText = customer[0].address2
 
     //zipCode + city
     let zipCodeCityLabel = document.createElement("tr")
@@ -199,7 +202,7 @@ async function deleteCartItem() {
 
     let zipCodeCityInput = document.createElement("td")
     zipCodeCityInput.classList.add("form-control", "col")
-    zipCodeCityInput.innerText = "123 45" + " " + "F4Bstad"
+    zipCodeCityInput.innerText = customer[0].zipCode + " " + customer[0].city
 
     //country
     let countryLabel = document.createElement("tr")
@@ -207,7 +210,7 @@ async function deleteCartItem() {
 
     let countryInput = document.createElement("td")
     countryInput.classList.add("form-control", "col")
-    countryInput.innerText = "Sverige"
+    countryInput.innerText = customer[0].country
     
     //email
     let customerEmailLabel = document.createElement("tr")
@@ -215,7 +218,7 @@ async function deleteCartItem() {
 
     let customerEmailInput = document.createElement("td")
     customerEmailInput.classList.add("form-control", "col")
-    customerEmailInput.innerText = "susan.isaksson@medieinstitutet.se"
+    customerEmailInput.innerText = customer[0].email
 
     //mobilephone
     let customerMobileLabel = document.createElement("tr")
@@ -223,7 +226,7 @@ async function deleteCartItem() {
 
     let customerMobileInput = document.createElement("td")
     customerMobileInput.classList.add("form-control", "col" )
-    customerMobileInput.innerText = "+46 (0)705123456" 
+    customerMobileInput.innerText = customer[0].mobilePhone
 
     
     //append kunduppgifter   
@@ -380,16 +383,16 @@ async function deleteCartItem() {
     console.log(user)
     renderCustomer(user)
 } */
-/*}*/
+}
 
 async function getCustomer() {
-    var url = new URL("http://localhost/api/receivers/customerReceiver.php")
-    var params = {action: "getCustomer", userID: 1} 
+    var url = new URL("http://localhost/api/recievers/customerReceiver.php")
+    var params = {action: "getCustomer"} 
     url.search = new URLSearchParams(params);
 
-    let user = await makeRequest(url, "GET")
-    console.log(user)
-    rendercustomer(user)
+    let customer = await makeRequest(url, "GET")
+    return customer
+   
 }
 
 
