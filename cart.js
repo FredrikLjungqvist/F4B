@@ -123,7 +123,6 @@ function renderCart(cart) {
     buyBtn.style.width = "200px"
     buyBtn.addEventListener("click", orderCart)
 
-   main
     totalDiv.append(totalDivTwo)
     totalDiv.append(totalText)
     totalDiv.append(totalTextTwo)
