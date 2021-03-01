@@ -1,17 +1,31 @@
 <?php
-class Orderitem{
-    function __construct($productId, $quantity) {
-        $this->productId = $productId;
-        $this->quantity = $quantity;    
+class OrderItem{
+    function __construct($productID, $orderID, $quantity, $price) {
+        $this->productID = $productID;
+        $this->quantity = $quantity; 
+        $this->orderID = $orderID;  
+        $this->price = $price; 
     }
 
-    public $product;
     public $quantity;
 }
 
 class Order{
-    function __construct($orderItems) {
+    
+    public $orderItems;
+    public $date; 
+    public $totalPrice;
+    public $totalWeight;
+
+    
+    function __construct($orderItems, $orderID, $userID, $totalPrice, $totalWeight) {
         $this->orderItems = $orderItems;
+        $this->orderID = $orderID;
+        $this->totalPrice = $totalPrice;
+        $this->userID=$userID;
+        $this->totalWeight = $totalWeight;
+        $this->date=date("Y-m-d H:i:s");
     }
+
 } 
-1?>
+?>
