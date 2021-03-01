@@ -20,7 +20,7 @@ public function runQuery($query, $entity){
     $preparedQuery = $this->prepareQuery($query);
     $status = $preparedQuery->execute($entity);
    /*  return $status; */
-    return array("status" => $status, "message" => $preparedQuery->errorInfo());
+    return array("status" => $status, "message" => $preparedQuery->errorInfo(), "index" => $this->db->lastInsertId());
 
     
 }

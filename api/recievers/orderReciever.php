@@ -1,5 +1,5 @@
 <?php
-
+require ("../repositories/orderRepository.php");
 try {
 
     if(isset($_SERVER["REQUEST_METHOD"])) {
@@ -19,7 +19,8 @@ try {
         } else if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if($_POST["action"] == "sendOrder") {
-                //MAKES ORDER FOR USER
+                $cart=json_decode($_POST["cart"], true);
+                echo json_encode(makeOrder($cart));
             } else if($_POST["action"] == "approveOrder") {
                 //MARKS ORDER AS SENT (ADMIN)
             }
