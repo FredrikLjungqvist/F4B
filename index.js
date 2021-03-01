@@ -7,7 +7,8 @@ $('#myModal').modal({ keyboard: false })   // initialized with no keyboard
 $('#myModal').modal('hide')                // initializes and invokes show immediately
 
 function initsite(){
-   
+
+
     document.getElementById("productCard").innerHTML = "";
     document.getElementById("productCardCart").innerHTML = "";
     document.getElementById("modalpop").innerHTML = "";
@@ -524,8 +525,8 @@ async function getProduct(product) {
     var params = {action: "getProduct", productID: product } 
     url.search = new URLSearchParams(params);
 
-let products = await makeRequest(url, "GET")
-console.log(products)
+    let products = await makeRequest(url, "GET")
+    console.log(products)
 
 }
 

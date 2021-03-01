@@ -140,6 +140,7 @@ function renderCart(cart) {
     body.append("cart", JSON.stringify(cart))
     let response = await makeRequest("./api/recievers/orderReciever.php", "POST", body)
     console.log(response)
+    return response
 }  
 
 async function getCart() {
