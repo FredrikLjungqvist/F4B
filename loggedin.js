@@ -103,6 +103,14 @@ function renderAdmin(user){
     hidelogin()
     console.log("renderAdmin")
 
+    
+
+    let newsletterBtn = document.createElement("button")
+    newsletterBtn.id="logoutbtn"
+    newsletterBtn.style.marginBottom = "15px"
+    newsletterBtn.innerText = "newsletter"
+    newsletterBtn.classList.add("btn-secondary")
+    newsletterBtn.addEventListener("click", newsletter)
     document.getElementById("productCard").innerHTML= ""
     
     let renderCard = document.createElement("div")
@@ -285,12 +293,15 @@ function renderAdmin(user){
     carddelete.append(deletebtn)
     
     cardBody.append(cardText)
+    cardBody.append(newsletterBtn)
     cardBody.append(cardupdate)
     cardBody.append(cardupdatecategory)
     cardBody.append(cardupload)
     cardBody.append(listAdmin)
     cardBody.append(adminApprove)
     cardBody.append(carddelete)
+    cardBody.append(logoutbtn)
+
     renderCard.append(cardBody)
     document.getElementById("productCard").appendChild(renderCard);
     
@@ -317,11 +328,13 @@ function renderAdmin(user){
             pendingUser.style.backgroundColor = "white"
             
             let approveButton = document.createElement("button")
+            approveButton.classList.add("btn-warning")
             approveButton.innerText = "Make admin"
             approveButton.addEventListener("click", approveAdmin)
             approveButton.data = row.id
 
             let denyButton = document.createElement("button")
+            denyButton.classList.add("btn-danger")
             denyButton.innerText = "Deny admin"
             denyButton.addEventListener("click", denyAdmin)
             denyButton.data = row.id
@@ -392,14 +405,6 @@ async function denyAdmin() {
     loginCheck()
 
 }
-
-//see list of users with newsletter 
-//(Administratörer ska kunna se en lista över personer som vill ha nyhetsbrevet och deras epost adresser (G))
-
-
-//write newsletter
-//(Administratörer ska kunna skicka nyhetsbrev från sitt gränssnitt, nyhetsbrevet ska sparas i databasen samt innehålla en titel och en brödtext (VG))
-
 
 //Administratörer ska kunna se en lista på alla gjorda beställningar (G)
 //Administratörer ska kunna markera beställningar som skickade (VG)
@@ -474,6 +479,113 @@ async function logout() {
     let response = await makeRequest(url, "GET")
     console.log(response)
     initsite()
+}
+
+//see list of users with newsletter 
+//(Administratörer ska kunna se en lista över personer som vill ha nyhetsbrevet och deras epost adresser (G))
+
+//write newsletter
+//(Administratörer ska kunna skicka nyhetsbrev från sitt gränssnitt, nyhetsbrevet ska sparas i databasen samt innehålla en titel och en brödtext (VG))
+
+async function newsletter() {
+    console.log("newsletter")
+
+    let productCard = document.getElementById("productCard")
+    productCard.innerHTML = ""
+
+    let renderCard = document.createElement("div")
+    renderCard.classList.add =("card text-center");
+
+    let cardBody = document.createElement("div");
+    cardBody.classList.add("card-body", "text-center","rounded")
+    cardBody.style.width ="400px"
+
+    let cardText = document.createElement("h4")
+    cardText.innerText = "Newsletter"
+
+    let backBtn = document.createElement("button")
+    backBtn.id="backBtn"
+    backBtn.style.marginBottom = "15px"
+    backBtn.innerText = "Back"
+    backBtn.classList.add("btn-block", "btn-secondary")
+    backBtn.addEventListener("click", loginCheck)
+
+    let newsletterListBtn = document.createElement("button")
+    newsletterListBtn.id="newsletterListBtn"
+    newsletterListBtn.style.marginBottom = "15px"
+    newsletterListBtn.innerText = "Users with newsletter"
+    newsletterListBtn.classList.add("btn-block", "btn-secondary")
+    newsletterListBtn.addEventListener("click", listNewsletter)
+
+    let addNewsletterBtn = document.createElement("button")
+    addNewsletterBtn.id="addNewsletterBtn"
+    addNewsletterBtn.style.marginBottom = "15px"
+    addNewsletterBtn.innerText = "Add newsletter"
+    addNewsletterBtn.classList.add("btn-block", "btn-secondary")
+    addNewsletterBtn.addEventListener("click", addNewsletter)
+
+    productCard.append(renderCard)
+    renderCard.append(cardBody)
+    cardBody.append(cardText, backBtn, newsletterListBtn, addNewsletterBtn)
+         
+}
+
+function listNewsletter() {
+    console.log("listNewsletter")
+
+    let productCard = document.getElementById("productCard")
+    productCard.innerHTML = ""
+
+    let renderCard = document.createElement("div")
+    renderCard.classList.add =("card text-center");
+
+    let cardBody = document.createElement("div");
+    cardBody.classList.add("card-body", "text-center","rounded")
+    cardBody.style.width ="400px"
+
+    let cardText = document.createElement("h4")
+    cardText.innerText = "List of users with newsletter"
+
+    let backBtn = document.createElement("button")
+    backBtn.id="backBtn"
+    backBtn.style.marginBottom = "15px"
+    backBtn.innerText = "Back"
+    backBtn.classList.add("btn-block", "btn-secondary")
+    backBtn.addEventListener("click", newsletter)
+
+    
+
+    productCard.append(renderCard)
+    renderCard.append(cardBody)
+    cardBody.append(cardText, backBtn)
+}
+
+function addNewsletter() {
+    let productCard = document.getElementById("productCard")
+    productCard.innerHTML = ""
+
+    let renderCard = document.createElement("div")
+    renderCard.classList.add =("card text-center");
+
+    let cardBody = document.createElement("div");
+    cardBody.classList.add("card-body", "text-center","rounded")
+    cardBody.style.width ="400px"
+
+    let cardText = document.createElement("h4")
+    cardText.innerText = "Add newsletter"
+
+    let backBtn = document.createElement("button")
+    backBtn.id="backBtn"
+    backBtn.style.marginBottom = "15px"
+    backBtn.innerText = "Back"
+    backBtn.classList.add("btn-block", "btn-secondary")
+    backBtn.addEventListener("click", newsletter)
+
+    
+
+    productCard.append(renderCard)
+    renderCard.append(cardBody)
+    cardBody.append(cardText, backBtn)
 }
 
 async function deleteProduct(){
