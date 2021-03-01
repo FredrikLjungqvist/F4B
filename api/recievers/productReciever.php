@@ -29,7 +29,7 @@ try {
                 //ECHOS BACK CARTITEM FROM SPECIFIC USERID
                 
                 
-                $cart = makeOrderItem(getCart($_GET["userID"]));
+                $cart = makeCartItem(getCart($_GET["userID"]));
                 
                 echo json_encode($cart);
                 

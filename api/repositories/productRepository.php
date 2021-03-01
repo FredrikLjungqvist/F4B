@@ -45,14 +45,14 @@ function getCart($userID){
     return $db->fetchQuery("SELECT * FROM cartitem WHERE userID = $userID");
 }
 
-function makeOrderItem($response){
-$orderItemList = [];
+function makeCartItem($response){
+$cartItemList = [];
 foreach ($response as $item) {
     $product = getProduct($item["prodID"]);
-    $orderItemInstance = new cartItem($product, $item["quantity"]);
-    array_push($orderItemList, $orderItemInstance);
+    $cartItemInstance = new cartItem($product, $item["quantity"]);
+    array_push($cartItemList, $cartItemInstance);
 }
-$cart = new cart($orderItemList);
+$cart = new cart($cartItemList);
 
 return $cart;
 };

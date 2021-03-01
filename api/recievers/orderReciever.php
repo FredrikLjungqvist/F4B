@@ -9,7 +9,7 @@ try {
         if($_SERVER["REQUEST_METHOD"] == "GET") {
             
             if($_GET["action"] == "listOrder") {
-                // GET ORDER DETAILS
+                
             } else if($_GET["action"] == "listPreviousOrders") {
                 //GET ORDER HISTORY
             } else if($_GET["action"] == "listAllOrders") {
