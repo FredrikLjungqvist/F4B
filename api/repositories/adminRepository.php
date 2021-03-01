@@ -30,7 +30,7 @@ function addProduct($product){
 
 function getListPending(){
     $db = new Database();
-    return $db->fetchQuery("SELECT id, name, role FROM user WHERE role = 'pending';");
+    return $db->fetchQuery("SELECT id, name, role FROM user WHERE pendingAdmin = 1;");
 }
 
 function getListAdmin(){
@@ -41,7 +41,16 @@ function getListAdmin(){
 function approveAdmin($id){
     
     $db = new Database();
-    return $db->runQuery("UPDATE user SET role = 'admin' WHERE id = :id;", $id);
+    $db->runQuery("UPDATE user SET role = 'admin' WHERE id = :id;", $id);
+    return $db->runQuery("UPDATE user SET pendingAdmin = 0 WHERE id = :id;", $id);
+
+}
+
+function denyAdmin($id){
+    
+    $db = new Database();
+    $db->runQuery("UPDATE user SET role = 'user' WHERE id = :id;", $id);
+    return $db->runQuery("UPDATE user SET pendingAdmin = 0 WHERE id = :id;", $id);
 
 }
 

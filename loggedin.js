@@ -321,7 +321,12 @@ function renderAdmin(user){
             approveButton.addEventListener("click", approveAdmin)
             approveButton.data = row.id
 
-            divPendingUser.append(pendingUser, approveButton)
+            let denyButton = document.createElement("button")
+            denyButton.innerText = "Deny admin"
+            denyButton.addEventListener("click", denyAdmin)
+            denyButton.data = row.id
+
+            divPendingUser.append(pendingUser, approveButton, denyButton)
             adminApprove.append(divPendingUser)
 
         });
@@ -363,6 +368,23 @@ async function approveAdmin() {
 
     const body = new FormData()
     body.append("action", "approveAdmin")
+    body.append("userID", JSON.stringify(userID))
+
+    let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
+    console.log(response)
+    loginCheck()
+
+}
+
+async function denyAdmin() {
+    console.log("denyAdmin")
+
+    const userID = {
+        id : this.data 
+    }
+
+    const body = new FormData()
+    body.append("action", "denyAdmin")
     body.append("userID", JSON.stringify(userID))
 
     let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
