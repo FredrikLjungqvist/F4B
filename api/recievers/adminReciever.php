@@ -17,6 +17,9 @@ try {
             } else if($_GET["action"] == "getListAdmin") {
                 //GET LIST OF ADMINS (ADMIN)
                 echo json_encode(getListAdmin());
+            } else if($_GET["action"] == "getListNewsletter") {
+                //GET LIST OF ADMINS (ADMIN)
+                echo json_encode(getListNewsletter());
             }
 
         } else if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -69,8 +72,13 @@ try {
                 echo json_encode(addProduct($product));
 
 
-            } else if($_POST["action"] == "sendNewsletter") {
+            } else if($_POST["action"] == "submitNewsletter") {
                 //SENDS NEWSLETTER TO REGISTERED USERS, AND SAVES NEWSLETTER IN DATABASE (ADMIN)
+
+                $newsletter = json_decode($_POST["newsletter"], true);
+                
+                echo json_encode(submitNewsletter($newsletter));
+
             }
 
         } else {

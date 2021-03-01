@@ -529,7 +529,7 @@ async function newsletter() {
          
 }
 
-function listNewsletter() {
+async function listNewsletter() {
     console.log("listNewsletter")
 
     let productCard = document.getElementById("productCard")
@@ -552,14 +552,46 @@ function listNewsletter() {
     backBtn.classList.add("btn-block", "btn-secondary")
     backBtn.addEventListener("click", newsletter)
 
-    
+    let divListNewsletter = document.createElement("div")
+    divListNewsletter.classList.add ("col","card","text-center");
+    divListNewsletter.style.marginBottom = "30px"
+    divListNewsletter.style.padding="20px"
+    divListNewsletter.style.background ="rgb(28, 58, 28)"
 
     productCard.append(renderCard)
     renderCard.append(cardBody)
-    cardBody.append(cardText, backBtn)
+    cardBody.append(cardText, backBtn, divListNewsletter)
+
+    getListNewsletter()
+
+    async function getListNewsletter() {
+        console.log("getListNewsletter")
+        
+        let url = new URL("http://localhost/api/recievers/adminReciever.php")
+        
+        let params = {action: "getListNewsletter"}
+        url.search = new URLSearchParams(params)
+        
+        let response = await makeRequest(url, "GET")
+        
+        response.forEach(row => {
+
+            let divNewsletterRows = document.createElement("div")
+            divNewsletterRows.style.display = "flex"
+            divNewsletterRows.style.backgroundColor = "white"
+            
+            let NewsletterRow = document.createElement("p")
+            NewsletterRow.innerText = "ID: " + row.ID + ", Username: " + row.email_adress
+
+            divNewsletterRows.append(NewsletterRow)
+            divListNewsletter.append(divNewsletterRows)
+
+        });
+    }
+
 }
 
-function addNewsletter() {
+async function addNewsletter() {
     let productCard = document.getElementById("productCard")
     productCard.innerHTML = ""
 
@@ -580,11 +612,62 @@ function addNewsletter() {
     backBtn.classList.add("btn-block", "btn-secondary")
     backBtn.addEventListener("click", newsletter)
 
+    let divTitleNewsletter = document.createElement("div")
+    divTitleNewsletter.classList.add ("col","card","text-center");
+    divTitleNewsletter.style.marginBottom = "30px"
+    divTitleNewsletter.style.padding="20px"
+    divTitleNewsletter.style.background ="rgb(28, 58, 28)"
+
+    let titleNewsletter = document.createElement("div")
+    titleNewsletter.innerText = "Titel:"
+    titleNewsletter.style.color = "white"
     
+    let titleInput = document.createElement("input")
+
+    divTitleNewsletter.append(titleNewsletter, titleInput)
+
+    let divTextNewsletter = document.createElement("div")
+    divTextNewsletter.classList.add ("col","card","text-center");
+    divTextNewsletter.style.marginBottom = "30px"
+    divTextNewsletter.style.padding="20px"
+    divTextNewsletter.style.background ="rgb(28, 58, 28)"
+
+    let textNewsletter = document.createElement("div")
+    textNewsletter.innerText = "Text:"
+    textNewsletter.style.color = "white"
+    
+    let textInput = document.createElement("textarea")
+    textInput.rows = 20
+
+    let submitBtn = document.createElement("button")
+    submitBtn.id="submitBtn"
+    submitBtn.style.marginBottom = "15px"
+    submitBtn.innerText = "Submit newsletter"
+    submitBtn.classList.add("btn-block", "btn-secondary")
+    submitBtn.addEventListener("click", submitNewsletter)
+
+    divTextNewsletter.append(textNewsletter, textInput)
 
     productCard.append(renderCard)
     renderCard.append(cardBody)
-    cardBody.append(cardText, backBtn)
+    cardBody.append(cardText, backBtn, divTitleNewsletter, divTextNewsletter, submitBtn)
+
+    async function submitNewsletter(){
+        console.log("submitNewsletter")
+
+        const newsletter = {
+            title : titleInput.value,
+            text : textInput.value
+        }
+        let body = new FormData()
+        body.append("action", "submitNewsletter")
+        body.append("newsletter", JSON.stringify(newsletter))
+        
+        const result = await makeRequest("http://localhost/api/recievers/adminReciever.php", "POST",body)
+        console.log(result)
+    }
+
+    
 }
 
 async function deleteProduct(){
