@@ -92,33 +92,49 @@ async function renderOrders() {
     renderCard.style.height = "auto"
     renderCard.style.margin = "2px"
 
-    let cardBody = document.createElement("div");
-    cardBody.classList.add("card-body")
+    let orderBody = document.createElement("div");
+    orderBody.classList.add("row")
+    orderBody.style.maxWidth = "65%"
 
-    /* order.orderItems.forEach((orderItem) => { */
+    console.log(order.orderItems)
+    order.orderItems.forEach((orderItem) => {
+
+        let quantityToSave = orderItem.quantity
+        let orderID = orderItem.orderID
+
+    orderItem.product.forEach((product) => {
+
+    let cardBodyOrder = document.createElement("div")
+    cardBodyOrder.classList.add("card-body")
+    cardBodyOrder.style.maxWidth = "150px"
+    cardBodyOrder.style.margin = "5px"
+
     let orderImage = document.createElement("img")
     orderImage.classList.add("card-img-top", "img-fluid")
-    orderImage.style.width = "140px"
-    orderImage.style.height = "140px"
-    orderImage.src = "./pictures/" + product[0].image
-    orderImage.style.maxHeight = "150px"
-    orderImage.style.background = "rgb(28, 58, 28)"
+    orderImage.style.width = "auto"
+    orderImage.style.height = "100%"
+    orderImage.src = "./pictures/" + product.image
+    orderImage.style.maxWidth = "100px"
+    orderImage.style.maxHeight = "100px"
 
     let orderTitle = document.createElement("p")
     orderTitle.classList.add("card-title")
-    orderTitle.innerText = "F4B-FRILUFT Bärsystem-30"
+    orderTitle.innerText = product.name
     orderTitle.style.fontWeight = "bold"
     orderTitle.style.fontSize = "11px"
 
    
     let orderQuant = document.createElement("p")
     orderQuant.classList.add("card-text")
-    orderQuant.innerText = "Antal:"
+    orderQuant.innerText = "Antal: " + quantityToSave
     orderQuant.style.marginTop = "10px"
     orderQuant.style.fontSize = "12px"
 
+    cardBodyOrder.append(orderImage, orderTitle, orderQuant)
+    orderBody.append(cardBodyOrder)
+})
 //kör foorloop för bild
-/* }) */
+})
     let line = document.createElement("hr")
     line.style.borderTop = "2px solid rgb(28, 58, 28)"
     line.style.width = "58%"
@@ -127,8 +143,8 @@ async function renderOrders() {
 
     tableProductRow.append(tbOrderPrice, tdOrderDate, tdOrdStat)
     table.append(tableProductRow)
-    cardBody.append(orderImage, orderTitle, orderQuant)
-    renderCardOrder.append(cardBody)
+    
+    renderCardOrder.append(orderBody)
     renderCardOrder.append(line)
 
 }
