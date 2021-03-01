@@ -113,7 +113,7 @@ function renderCart(cart) {
     let totalTextTwo = document.createElement("h5")
     totalTextTwo.innerText = "Total Pris: " + cart.totalPrice + " kr"
 
-   #113-update-varukorgen
+   
     //append Total vikt och totalt pris
 
     let buyBtn = document.createElement("button")
@@ -123,7 +123,7 @@ function renderCart(cart) {
     buyBtn.style.width = "200px"
     buyBtn.addEventListener("click", orderCart)
 
-   main
+   
     totalDiv.append(totalDivTwo)
     totalDiv.append(totalText)
     totalDiv.append(totalTextTwo)
@@ -200,7 +200,7 @@ async function renderCustomer() {
 
     let fullnameInput = document.createElement("td")
     fullnameInput.classList.add("form-control", "col")
-    fullnameInput.innerText = customer[0].firstName + " " + customer[0].lastName
+    fullnameInput.innerText = customer.firstName + " " + customer.lastName
 
     //adress1
     let addressOneLabel = document.createElement("tr")

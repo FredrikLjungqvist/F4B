@@ -626,7 +626,7 @@ function render(user){
     document.getElementById("productCard").appendChild(renderCard)
     
     hidelogin()
-    main
+    
 }
 
 async function setCategory() {
