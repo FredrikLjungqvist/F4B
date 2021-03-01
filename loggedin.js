@@ -618,8 +618,10 @@ function render(user){
     
     
     renderCard.append(cardText)
-    document.getElementById("productCard").appendChild(renderCard);
+    document.getElementById("productCard").appendChild(renderCard)
+    
     hidelogin()
+    main
 }
 
 async function setCategory() {
