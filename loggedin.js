@@ -13,15 +13,16 @@ async function loginCheck(){
     url.search = new URLSearchParams(params)
 
     let response = await makeRequest(url, "GET")
-
+    console.log(response)
     if (response.username && response.role == "admin") {
         console.log("admin finns")
         renderAdmin(response.username)
     }else if (response.username && response.role == "user") {
         console.log("user finns")
         render(response.username)
+
     } else {
-        console.log("ingen user")
+        console.log("ingen user")        
         /* renderLogin() */
         
     }
@@ -77,36 +78,55 @@ async function loginUser(){
      
     
     console.log(response)
-    initsite() 
+    initsite()
+    
 }
 
-function renderAdmin(user){
-    console.log("renderAdmin")
-    document.getElementById("productCard").innerHTML= ""
-    
+function usersite(){
+    render(response.username)
+}
 
+function adminsite(){
+    renderAdmin(response.username)
+}
+
+function showLogout(){
+    console.log("showLogout")
+    document.getElementById("logout").innerText=""
+    document.getElementById("logout").style.display="block"
 
     let logoutbtn = document.createElement("button")
     logoutbtn.id="logoutbtn"
     logoutbtn.innerText = "logout"
-    logoutbtn.classList.add("btn-secondary")
+    logoutbtn.classList.add("btn")
+    logoutbtn.style.padding="3px"
     logoutbtn.addEventListener("click", logout)
+
+    document.getElementById("logout").append(logoutbtn)
+}
+
+function renderAdmin(user){
+    console.log("renderAdmin")
+    showLogout()
+
+    document.getElementById("productCard").innerHTML= ""
     
     let renderCard = document.createElement("div")
-    renderCard.classList.add =("card text-center");
+    renderCard.classList.add =("card");
 
     let cardBody = document.createElement("div");
-    cardBody.classList.add("card-body", "text-center","rounded")
-    cardBody.style.width ="400px"
+    cardBody.style.justifyContent="space-evenly"
+    cardBody.classList.add("card-body","text-center","rounded","flex-wrap")
 
     let cardupdatecategory = document.createElement("div")
-    cardupdatecategory.classList.add ("card","text-center");
+    cardupdatecategory.classList.add ("col","card","text-center");
     cardupdatecategory.style.marginBottom = "30px"
     cardupdatecategory.style.padding="20px"
     cardupdatecategory.style.background ="rgb(28, 58, 28)"
     
     let cardupdate = document.createElement("div")
     cardupdate.classList.add("col","card", "text-center","rounded");
+    cardupdate.style.flexDirection ="column"
     cardupdate.style.marginBottom = "30px"
     cardupdate.style.padding="20px"
     cardupdate.style.background ="rgb(28, 58, 28)"
@@ -118,7 +138,7 @@ function renderAdmin(user){
     carddelete.style.background ="rgb(28, 58, 28)"
 
     let cardupload = document.createElement("div")
-    cardupload.classList.add = ("card","text-center","rounded");
+    cardupload.classList.add = ("col","card","text-center","rounded");
     cardupload.style.display ="flex"
     cardupload.style.flexDirection ="column"
     cardupload.style.marginBottom = "30px"
@@ -147,11 +167,13 @@ function renderAdmin(user){
     listAdmin.append(headerListAdmin)
 
     let cardText = document.createElement("h4")
+    cardText.classList.add("col-12")
     cardText.innerText ="Välkommen Admin " + user
 
     //Update Input
     let prodIDinput = document.createElement("input")
     prodIDinput.id = "prodIDinput"
+    prodIDinput.style.width="100%"
     prodIDinput.placeholder = "prodIDinput"
 
     let qtyinput = document.createElement("input")
@@ -242,7 +264,7 @@ function renderAdmin(user){
     deletebtn.id="deletebtn"
     deletebtn.innerText = "DELETE"
     deletebtn.classList.add("btn-danger")
-    deletebtn.addEventListener("click", confirmCheck)
+    deletebtn.addEventListener("click", deleteProduct)
 
     cardupdate.append(prodIDinput)
     cardupdate.append(qtyinput)
@@ -275,7 +297,6 @@ function renderAdmin(user){
     cardBody.append(listAdmin)
     cardBody.append(adminApprove)
     cardBody.append(carddelete)
-    cardBody.append(logoutbtn)
     renderCard.append(cardBody)
     document.getElementById("productCard").appendChild(renderCard);
     
@@ -367,10 +388,20 @@ async function approveAdmin() {
 //Administratörer ska kunna se en lista på alla gjorda beställningar (G)
 //Administratörer ska kunna markera beställningar som skickade (VG)
 
-function confirmCheck(){
+/* function confirmCheck(){
     console.log("work")
-    window.confirm("are you sure want to delete this");
-}
+    check = window.confirm("är du säker på att du vill ta bort")
+    if(check == true){
+        deleteProduct()
+        alert("product raderad from database")
+
+    }else if(check == false){
+        console.log()
+        
+    }
+} */
+    
+
 
 async function updateqty() {
     console.log("updateqty")
@@ -389,6 +420,7 @@ async function updateqty() {
 }
 
 function renderLogin(){
+
     console.log("renderLogin")
     document.getElementById("logincard").innerHTML =""
 
@@ -470,6 +502,7 @@ async function addProduct() {
 
 async function logout() {
     console.log("Logout")
+    document.getElementById("logout").style.display="none"
     document.getElementById("productCard").innerHTML=""
     let url = new URL("http://localhost/api/recievers/userReciever.php")
     
@@ -501,7 +534,6 @@ async function deleteProduct(){
 
 function render(user){
     console.log("render")
-    document.getElementById("productCard").innerHTML= ""
     
     let logoutbtn = document.createElement("button")
     logoutbtn.id="logoutbtn"
@@ -514,9 +546,10 @@ function render(user){
     let cardText = document.createElement("p")
     cardText.innerText ="Välkommen " + user
     
-    renderCard.append(logoutbtn)
+    renderCard.append(logoutbtn) 
     renderCard.append(cardText)
     document.getElementById("productCard").appendChild(renderCard);
+    showLogout()
     
 }
 

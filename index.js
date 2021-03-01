@@ -25,6 +25,17 @@ function loginModal(){
     let renderModal = document.createElement("div")
     renderModal.id="myModal"
     renderModal.classList.add("modal")
+    renderModal.style.minWidth="180px"
+    renderModal.tabIndex="-1"
+    
+    
+    let modaldialog = document.createElement("div")
+    modaldialog.classList.add=("modal-dialog")
+    
+    let modalContent = document.createElement("div")
+    modalContent.classList.add("modal-content","modal-sm")
+    modalContent.style.marginTop ="100px"
+    modalContent.style.Width="180px"
     
     //header of modal
     let header = document.createElement("div")
@@ -37,15 +48,6 @@ function loginModal(){
     //footer of modal
     let modalfooter = document.createElement("div")
     modalfooter.classList.add("modal-footer")
-    
-    let modaldialog = document.createElement("div")
-    modaldialog.classList.add="modal-dialog","modal-dialog-centered"
-    
-    let modalContent = document.createElement("div")
-    /* modalContent.style.width="200px" */
-    modalContent.classList.add("modal-sm","modal-content")
-    modalContent.style.marginTop ="100px"
-    modalContent.style.left="45%"
     
     // in header
     let title = document.createElement("h3")
@@ -85,7 +87,7 @@ function loginModal(){
     createaccbtn.classList.add("btn","btn-primary")
     createaccbtn.style.backgroundColor ="rgb(28, 58, 28)"
     createaccbtn.innerText ="Registrera"
-    createaccbtn.addEventListener("click",/* registerUser */ ()=>{
+    createaccbtn.addEventListener("click",()=>{
         $('#myModal').modal('toggle')
         renderAccountCreation()
         
@@ -125,13 +127,13 @@ function renderAccountCreation(){
     pagetitle.innerText ="Registrering"
     
     let accountform = document.createElement("form")
-    accountform.classList.add("form-row","m-4")
+    accountform.classList.add("form-row","m-2")
 
     let createform = document.createElement("div")
     createform.classList.add("form-group","form-control",)
 
     let credentials = document.createElement("div")
-    credentials.classList.add("row","col")
+    credentials.classList.add("row","col","flex-wrap","order-3")
 
     let fullName = document.createElement("div")
     fullName.classList.add("row","col")
@@ -140,7 +142,7 @@ function renderAccountCreation(){
     contactinfo.classList.add("row","col")
 
     let location = document.createElement("div")
-    location.classList.add("row","col")
+    location.classList.add("row","col","flex-nowwrap")
 
     //username
     let userform = document.createElement("div")
@@ -151,6 +153,7 @@ function renderAccountCreation(){
     
     let userInput = document.createElement("input")
     userInput.id="usernameToSave"
+    userInput.style.minWidth = "200px"
     userInput.classList.add("form-control")
     userInput.placeholder="Användarnamn"
 
@@ -164,6 +167,7 @@ function renderAccountCreation(){
     let passwordinput = document.createElement("input")
     passwordinput.type ="password"
     passwordinput.id="passwordToSave"
+    passwordinput.style.minWidth = "200px"
     passwordinput.classList.add("form-control")
     passwordinput.placeholder="Lösenord"
 
@@ -177,6 +181,7 @@ function renderAccountCreation(){
     let passwordCheckinput = document.createElement("input")
     passwordCheckinput.type ="password"
     passwordCheckinput.id="passwordToSaveCheck"
+    passwordCheckinput.style.minWidth = "200px"
     passwordCheckinput.classList.add("form-control")
     passwordCheckinput.placeholder="Skriv samma Lösenord"
 
@@ -190,6 +195,7 @@ function renderAccountCreation(){
     
     let emailInput = document.createElement("input")
     emailInput.id="inputEmail4"
+    emailInput.style.minWidth = "200px"
     emailInput.classList.add("form-control")
     emailInput.placeholder="Example@f4b.se"
 
@@ -202,6 +208,7 @@ function renderAccountCreation(){
 
     let phoneInput = document.createElement("input")
     phoneInput.id="phoneInput"
+    phoneInput.style.minWidth = "200px"
     phoneInput.classList.add("form-control","col")
     phoneInput.placeholder="+46 xxxxxxx"
 
@@ -227,6 +234,7 @@ function renderAccountCreation(){
 
     let firstnameInput = document.createElement("input")
     firstnameInput.id="firstnameinput"
+    firstnameInput.style.minWidth = "200px"
     firstnameInput.classList.add("form-control","col")
     firstnameInput.placeholder="Förnamn"
 
@@ -239,6 +247,7 @@ function renderAccountCreation(){
 
     let lastnamnInput = document.createElement("input")
     lastnamnInput.id="lastnamnInput"
+    lastnamnInput.style.minWidth = "200px"
     lastnamnInput.classList.add("form-control","col")
     lastnamnInput.placeholder="Efternamn"
 
@@ -251,6 +260,8 @@ function renderAccountCreation(){
 
     let adressinput = document.createElement("input")
     adressinput.id="inputAddress"
+    adressinput.style.maxWidth= "200px"
+    adressinput.style.minWidth = "200px"
     adressinput.classList.add("form-control","col")
     adressinput.placeholder="Adress"
 
@@ -263,6 +274,8 @@ function renderAccountCreation(){
 
     let adresstwoInput = document.createElement("input")
     adresstwoInput.id="adresstwoInput"
+    adresstwoInput.style.maxWidth= "200px"
+    adresstwoInput.style.minWidth = "200px"
     adresstwoInput.classList.add("form-control","col")
     adresstwoInput.placeholder="Adress 2"
 
@@ -275,6 +288,8 @@ function renderAccountCreation(){
 
     let countryInput = document.createElement("input")
     countryInput.id="countryInput"
+    countryInput.style.maxWidth= "200px"
+    countryInput.style.minWidth = "200px"
     countryInput.classList.add("form-control","col")
     countryInput.placeholder="Land"
 
@@ -287,21 +302,11 @@ function renderAccountCreation(){
 
     let cityinput = document.createElement("input")
     cityinput.id="inputCity"
+    cityinput.style.maxWidth= "200px"
+    cityinput.style.minWidth = "200px"
     cityinput.classList.add("form-control","col")
     cityinput.placeholder="Stad"
 
-    //state
-    let stateform = document.createElement("div")
-    stateform.classList.add("form-group","col")
-
-    let statelabel = document.createElement("label")
-    statelabel.innerText="Region"
-
-    let stateinput = document.createElement("input")
-    stateinput.id="inputState"
-    stateinput.classList.add("form-control","col")
-    stateinput.placeholder="Region"
-    
     //zip Code
     let zipform = document.createElement("div")
     zipform.classList.add("form-group","col")
@@ -311,6 +316,8 @@ function renderAccountCreation(){
 
     let zipinput = document.createElement("input")
     zipinput.id="inputZip"
+    zipinput.style.maxWidth= "200px"
+    zipinput.style.minWidth = "200px"
     zipinput.classList.add("form-control","col")
     zipinput.placeholder="Postkod"
 
@@ -372,9 +379,6 @@ function renderAccountCreation(){
     adresstwoform.append(adresstwolabel)
     adresstwoform.append(adresstwoInput)
 
-    stateform.append(statelabel)
-    stateform.append(stateinput)
-
     cityform.append(citylabel)
     cityform.append(cityinput)
 
@@ -392,7 +396,6 @@ function renderAccountCreation(){
     fullName.append(phoneform)
 
     location.append(countryform)
-    location.append(stateform)
     location.append(cityform)
     location.append(adressform)
     location.append(adresstwoform)
@@ -423,18 +426,19 @@ function renderProducts(products) {
     products.forEach((product => {
         
         let renderCard = document.createElement("div")
-        renderCard.classList.add("card", "mx-3", "my-3", "py-2")
-        renderCard.style.width = "15%"
+        renderCard.classList.add("card","my-3","py-2","row")
         renderCard.style.height = "auto"
         renderCard.style.margin = "2px"
         
         let cardBody = document.createElement("div");
+        cardBody.style.width = "250px"
         cardBody.classList.add("card-body", "text-center")
         
         let image = document.createElement("img")
         image.classList.add("card-img-top", "img-fluid")    
-        image.style.width = "auto"
-        image.style.height = "80%"
+        image.style.width = "100%"
+        image.style.height = "100%"
+        image.style.objectFit ="contain"
         image.src = "./pictures/" + product.image
         image.style.maxHeight = "150px"
 
