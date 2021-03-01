@@ -100,10 +100,10 @@ async function renderOrders() {
     orderImage.classList.add("card-img-top", "img-fluid")
     orderImage.style.width = "140px"
     orderImage.style.height = "140px"
-    /* orderImage.src = "./pictures/" + product.image */
+    orderImage.src = "./pictures/" + product[0].image
     orderImage.style.maxHeight = "150px"
     orderImage.style.background = "rgb(28, 58, 28)"
-/* }) */
+
     let orderTitle = document.createElement("p")
     orderTitle.classList.add("card-title")
     orderTitle.innerText = "F4B-FRILUFT Bärsystem-30"
@@ -116,6 +116,7 @@ async function renderOrders() {
     orderQuant.innerText = "Antal:"
     orderQuant.style.marginTop = "10px"
     orderQuant.style.fontSize = "12px"
+
 //kör foorloop för bild
 /* }) */
     let line = document.createElement("hr")
