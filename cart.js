@@ -113,7 +113,7 @@ function renderCart(cart) {
     let totalTextTwo = document.createElement("h5")
     totalTextTwo.innerText = "Total Pris: " + cart.totalPrice + " kr"
 
-   #113-update-varukorgen
+   
     //append Total vikt och totalt pris
 
     let buyBtn = document.createElement("button")
