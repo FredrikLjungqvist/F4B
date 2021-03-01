@@ -10,7 +10,7 @@ body {
 }
 main{
     margin-top:70px;
-} @media only screen and (max-width: 931px) {
+} @media only screen and (max-width: 949px) {
     main {
         margin-top:140px;
     }
@@ -27,10 +27,11 @@ img{
     flex-wrap: wrap;
     align-items: flex-start;
     background-color: rgb(28, 58, 28);
-} @media only screen and (max-width: 937px) {
+} @media only screen and (max-width: 960px) {
     .header {
         justify-content: space-around;
     }
+    
   }
 
 .bigcontainer{
@@ -94,7 +95,7 @@ img{
     font-size: 15px;
     flex-grow:2;
 
-} @media only screen and (max-width: 630px) {
+} @media only screen and (max-width: 661px) {
     .containerTwo {
       display:none;
     }
