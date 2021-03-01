@@ -499,18 +499,13 @@ function render(user){
     document.getElementById("productCardCart").innerHTML=""
     document.getElementById("productCard").innerText=""
 
-    let logoutbtn = document.createElement("button")
-    logoutbtn.id="logoutbtn"
-    logoutbtn.innerText = "logout"
-    logoutbtn.addEventListener("click", logout)
-    
     let renderCard = document.createElement("div")
     renderCard.className = "card text-center";
     
-    let cardText = document.createElement("p")
+    let cardText = document.createElement("h3")
     cardText.innerText ="Välkommen " + user
     
-    renderCard.append(logoutbtn) 
+    
     renderCard.append(cardText)
     document.getElementById("productCard").appendChild(renderCard);
     hidelogin()
