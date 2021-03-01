@@ -3,7 +3,8 @@ function initsite(){
     document.getElementById("logincard").innerHTML=""
     loginCheck()
 } */
-
+document.getElementById("userpages").addEventListener("click",loginCheck)
+document.getElementById("logout").addEventListener("click", logout)
 async function loginCheck(){
     console.log("loginCheck")
     
@@ -13,15 +14,18 @@ async function loginCheck(){
     url.search = new URLSearchParams(params)
 
     let response = await makeRequest(url, "GET")
-
+    console.log(response)
     if (response.username && response.role == "admin") {
-        console.log("admin finns")
+        console.log(response)
+
         renderAdmin(response.username)
     }else if (response.username && response.role == "user") {
         console.log("user finns")
         render(response.username)
+
     } else {
         console.log("ingen user")
+        showLogin()
         /* renderLogin() */
         
     }
@@ -77,36 +81,54 @@ async function loginUser(){
      
     
     console.log(response)
-    initsite() 
+    initsite()
+    
+}
+
+
+function hidelogin(){
+    console.log("hidelogin")
+    document.getElementById("loginPopUp").style.display="none"
+    document.getElementById("logout").style.display="block"
+    document.getElementById("userpages").style.display="block"
+}
+function showLogin(){
+    console.log("Showlogin")
+    document.getElementById("loginPopUp").style.display="block"
+    document.getElementById("logout").style.display="none"
+    document.getElementById("userpages").style.display="none"
 }
 
 function renderAdmin(user){
+    hidelogin()
     console.log("renderAdmin")
+
+    
+
+    let newsletterBtn = document.createElement("button")
+    newsletterBtn.id="newsletterBtn"
+    newsletterBtn.style.marginBottom = "15px"
+    newsletterBtn.innerText = "newsletter"
+    newsletterBtn.classList.add("btn-secondary")
+    newsletterBtn.addEventListener("click", newsletter)
     document.getElementById("productCard").innerHTML= ""
     
-
-
-    let logoutbtn = document.createElement("button")
-    logoutbtn.id="logoutbtn"
-    logoutbtn.innerText = "logout"
-    logoutbtn.classList.add("btn-secondary")
-    logoutbtn.addEventListener("click", logout)
-    
     let renderCard = document.createElement("div")
-    renderCard.classList.add =("card text-center");
+    renderCard.classList.add =("card");
 
     let cardBody = document.createElement("div");
-    cardBody.classList.add("card-body", "text-center","rounded")
-    cardBody.style.width ="400px"
+    cardBody.style.justifyContent="space-evenly"
+    cardBody.classList.add("card-body","text-center","rounded","flex-wrap")
 
     let cardupdatecategory = document.createElement("div")
-    cardupdatecategory.classList.add ("card","text-center");
+    cardupdatecategory.classList.add ("col","card","text-center");
     cardupdatecategory.style.marginBottom = "30px"
     cardupdatecategory.style.padding="20px"
     cardupdatecategory.style.background ="rgb(28, 58, 28)"
     
     let cardupdate = document.createElement("div")
     cardupdate.classList.add("col","card", "text-center","rounded");
+    cardupdate.style.flexDirection ="column"
     cardupdate.style.marginBottom = "30px"
     cardupdate.style.padding="20px"
     cardupdate.style.background ="rgb(28, 58, 28)"
@@ -118,7 +140,7 @@ function renderAdmin(user){
     carddelete.style.background ="rgb(28, 58, 28)"
 
     let cardupload = document.createElement("div")
-    cardupload.classList.add = ("card","text-center","rounded");
+    cardupload.classList.add = ("col","card","text-center","rounded");
     cardupload.style.display ="flex"
     cardupload.style.flexDirection ="column"
     cardupload.style.marginBottom = "30px"
@@ -147,11 +169,13 @@ function renderAdmin(user){
     listAdmin.append(headerListAdmin)
 
     let cardText = document.createElement("h4")
+    cardText.classList.add("col-12")
     cardText.innerText ="Välkommen Admin " + user
 
     //Update Input
     let prodIDinput = document.createElement("input")
     prodIDinput.id = "prodIDinput"
+    prodIDinput.style.width="100%"
     prodIDinput.placeholder = "prodIDinput"
 
     let qtyinput = document.createElement("input")
@@ -242,7 +266,7 @@ function renderAdmin(user){
     deletebtn.id="deletebtn"
     deletebtn.innerText = "DELETE"
     deletebtn.classList.add("btn-danger")
-    deletebtn.addEventListener("click", confirmCheck)
+    deletebtn.addEventListener("click", deleteProduct)
 
     cardupdate.append(prodIDinput)
     cardupdate.append(qtyinput)
@@ -269,13 +293,14 @@ function renderAdmin(user){
     carddelete.append(deletebtn)
     
     cardBody.append(cardText)
+    cardBody.append(newsletterBtn)
     cardBody.append(cardupdate)
     cardBody.append(cardupdatecategory)
     cardBody.append(cardupload)
     cardBody.append(listAdmin)
     cardBody.append(adminApprove)
     cardBody.append(carddelete)
-    cardBody.append(logoutbtn)
+
     renderCard.append(cardBody)
     document.getElementById("productCard").appendChild(renderCard);
     
@@ -302,11 +327,18 @@ function renderAdmin(user){
             pendingUser.style.backgroundColor = "white"
             
             let approveButton = document.createElement("button")
+            approveButton.classList.add("btn-warning")
             approveButton.innerText = "Make admin"
             approveButton.addEventListener("click", approveAdmin)
             approveButton.data = row.id
 
-            divPendingUser.append(pendingUser, approveButton)
+            let denyButton = document.createElement("button")
+            denyButton.classList.add("btn-danger")
+            denyButton.innerText = "Deny admin"
+            denyButton.addEventListener("click", denyAdmin)
+            denyButton.data = row.id
+
+            divPendingUser.append(pendingUser, approveButton, denyButton)
             adminApprove.append(divPendingUser)
 
         });
@@ -356,21 +388,40 @@ async function approveAdmin() {
 
 }
 
-//see list of users with newsletter 
-//(Administratörer ska kunna se en lista över personer som vill ha nyhetsbrevet och deras epost adresser (G))
+async function denyAdmin() {
+    console.log("denyAdmin")
 
+    const userID = {
+        id : this.data 
+    }
 
-//write newsletter
-//(Administratörer ska kunna skicka nyhetsbrev från sitt gränssnitt, nyhetsbrevet ska sparas i databasen samt innehålla en titel och en brödtext (VG))
+    const body = new FormData()
+    body.append("action", "denyAdmin")
+    body.append("userID", JSON.stringify(userID))
 
+    let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
+    console.log(response)
+    loginCheck()
+
+}
 
 //Administratörer ska kunna se en lista på alla gjorda beställningar (G)
 //Administratörer ska kunna markera beställningar som skickade (VG)
 
-function confirmCheck(){
+/* function confirmCheck(){
     console.log("work")
-    window.confirm("are you sure want to delete this");
-}
+    check = window.confirm("är du säker på att du vill ta bort")
+    if(check == true){
+        deleteProduct()
+        alert("product raderad from database")
+
+    }else if(check == false){
+        console.log()
+        
+    }
+} */
+    
+
 
 async function updateqty() {
     console.log("updateqty")
@@ -386,59 +437,6 @@ async function updateqty() {
 
     let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
     console.log(response)
-}
-
-function renderLogin(){
-    console.log("renderLogin")
-    document.getElementById("logincard").innerHTML =""
-
-    let renderCard = document.createElement("div")
-    let loginform = document.createElement("div")
-    let createform = document.createElement("div")
-
-    let userInput = document.createElement("input")
-    userInput.id = "username"
-    userInput.placeholder ="username"
-
-    let usernameToSave = document.createElement("input")
-    usernameToSave.id = "usernameToSave"
-    usernameToSave.placeholder ="6 characters"
-
-    let passwordToSave = document.createElement("input")
-    passwordToSave.id = "passwordToSave"
-    passwordToSave.type="password"
-    passwordToSave.placeholder ="6 characters"
-
-    let passwordInput = document.createElement("input")
-    passwordInput.id = "password"
-    passwordInput.type="password"
-    passwordInput.placeholder ="password"
-
-    let loginbtn = document.createElement("button")
-    loginbtn.id="loginbtn"
-    loginbtn.innerText = "login"
-    loginbtn.addEventListener("click", loginUser)
-
-    let createaccbtn = document.createElement("button")
-    createaccbtn.id="createaccbtn"
-    createaccbtn.innerText ="create account"
-    createaccbtn.addEventListener("click",registerUser)
-
-    //login
-    loginform.append(userInput)
-    loginform.append(passwordInput)
-    loginform.append(loginbtn)
-    
-    //create Acc
-    createform.append(usernameToSave)
-    createform.append(passwordToSave)
-    createform.append(createaccbtn)
-    
-    //render
-    renderCard.append(loginform)
-    renderCard.append(createform)
-    /* document.getElementById("logincard").appendChild(renderCard); */
-    return renderCard
 }
 
 async function addProduct() {
@@ -470,6 +468,7 @@ async function addProduct() {
 
 async function logout() {
     console.log("Logout")
+    document.getElementById("logout").style.display="none"
     document.getElementById("productCard").innerHTML=""
     let url = new URL("http://localhost/api/recievers/userReciever.php")
     
@@ -479,6 +478,113 @@ async function logout() {
     let response = await makeRequest(url, "GET")
     console.log(response)
     initsite()
+}
+
+//see list of users with newsletter 
+//(Administratörer ska kunna se en lista över personer som vill ha nyhetsbrevet och deras epost adresser (G))
+
+//write newsletter
+//(Administratörer ska kunna skicka nyhetsbrev från sitt gränssnitt, nyhetsbrevet ska sparas i databasen samt innehålla en titel och en brödtext (VG))
+
+async function newsletter() {
+    console.log("newsletter")
+
+    let productCard = document.getElementById("productCard")
+    productCard.innerHTML = ""
+
+    let renderCard = document.createElement("div")
+    renderCard.classList.add =("card text-center");
+
+    let cardBody = document.createElement("div");
+    cardBody.classList.add("card-body", "text-center","rounded")
+    cardBody.style.width ="400px"
+
+    let cardText = document.createElement("h4")
+    cardText.innerText = "Newsletter"
+
+    let backBtn = document.createElement("button")
+    backBtn.id="backBtn"
+    backBtn.style.marginBottom = "15px"
+    backBtn.innerText = "Back"
+    backBtn.classList.add("btn-block", "btn-secondary")
+    backBtn.addEventListener("click", loginCheck)
+
+    let newsletterListBtn = document.createElement("button")
+    newsletterListBtn.id="newsletterListBtn"
+    newsletterListBtn.style.marginBottom = "15px"
+    newsletterListBtn.innerText = "Users with newsletter"
+    newsletterListBtn.classList.add("btn-block", "btn-secondary")
+    newsletterListBtn.addEventListener("click", listNewsletter)
+
+    let addNewsletterBtn = document.createElement("button")
+    addNewsletterBtn.id="addNewsletterBtn"
+    addNewsletterBtn.style.marginBottom = "15px"
+    addNewsletterBtn.innerText = "Add newsletter"
+    addNewsletterBtn.classList.add("btn-block", "btn-secondary")
+    addNewsletterBtn.addEventListener("click", addNewsletter)
+
+    productCard.append(renderCard)
+    renderCard.append(cardBody)
+    cardBody.append(cardText, backBtn, newsletterListBtn, addNewsletterBtn)
+         
+}
+
+function listNewsletter() {
+    console.log("listNewsletter")
+
+    let productCard = document.getElementById("productCard")
+    productCard.innerHTML = ""
+
+    let renderCard = document.createElement("div")
+    renderCard.classList.add =("card text-center");
+
+    let cardBody = document.createElement("div");
+    cardBody.classList.add("card-body", "text-center","rounded")
+    cardBody.style.width ="400px"
+
+    let cardText = document.createElement("h4")
+    cardText.innerText = "List of users with newsletter"
+
+    let backBtn = document.createElement("button")
+    backBtn.id="backBtn"
+    backBtn.style.marginBottom = "15px"
+    backBtn.innerText = "Back"
+    backBtn.classList.add("btn-block", "btn-secondary")
+    backBtn.addEventListener("click", newsletter)
+
+    
+
+    productCard.append(renderCard)
+    renderCard.append(cardBody)
+    cardBody.append(cardText, backBtn)
+}
+
+function addNewsletter() {
+    let productCard = document.getElementById("productCard")
+    productCard.innerHTML = ""
+
+    let renderCard = document.createElement("div")
+    renderCard.classList.add =("card text-center");
+
+    let cardBody = document.createElement("div");
+    cardBody.classList.add("card-body", "text-center","rounded")
+    cardBody.style.width ="400px"
+
+    let cardText = document.createElement("h4")
+    cardText.innerText = "Add newsletter"
+
+    let backBtn = document.createElement("button")
+    backBtn.id="backBtn"
+    backBtn.style.marginBottom = "15px"
+    backBtn.innerText = "Back"
+    backBtn.classList.add("btn-block", "btn-secondary")
+    backBtn.addEventListener("click", newsletter)
+
+    
+
+    productCard.append(renderCard)
+    renderCard.append(cardBody)
+    cardBody.append(cardText, backBtn)
 }
 
 async function deleteProduct(){
@@ -501,25 +607,21 @@ async function deleteProduct(){
 
 function render(user){
     console.log("render")
-    document.getElementById("productCard").innerHTML= ""
-    
-    let logoutbtn = document.createElement("button")
-    logoutbtn.id="logoutbtn"
-    logoutbtn.innerText = "logout"
-    logoutbtn.addEventListener("click", logout)
-    
+    document.getElementById("productCardCart").innerHTML=""
+    document.getElementById("productCard").innerText=""
+
     let renderCard = document.createElement("div")
     renderCard.className = "card text-center";
     
-    let cardText = document.createElement("p")
+    let cardText = document.createElement("h3")
     cardText.innerText ="Välkommen " + user
     
-    renderCard.append(logoutbtn)
-    renderCard.append(cardText)
-    document.getElementById("productCard").appendChild(renderCard);
-
-    initCustomer()
     
+    renderCard.append(cardText)
+    document.getElementById("productCard").appendChild(renderCard)
+    
+    hidelogin()
+    main
 }
 
 async function setCategory() {
