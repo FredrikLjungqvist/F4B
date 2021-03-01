@@ -5,14 +5,16 @@ function initOrder() {
     document.getElementById("productCard").innerHTML = "";
     document.getElementById("productCardCart").innerHTML = "";
 
-    /* const orders = await request("./api/recievers/orderReciever.php", "GET")
-    console.log(orders) */
+    /* const order = await request("./api/recievers/orderReciever.php", "GET")
+    console.log(order) */
     renderOrders()
 
 }
 
-function renderOrders() {
+async function renderOrders() {
     document.getElementById("productCardOrder").innerHTML = "";
+    let order = await orderCart()
+    console.log(order)
 
     /* if (!orders) {
         let emptyOrder = document.createElement("h3")
@@ -32,133 +34,114 @@ function renderOrders() {
     imagePicTwo.style.maxWidth = "50%"
     imagePicTwo.style.height = "auto"
 
-    let orderText = document.createElement("h2")
-    orderText.style.padding = "20px"
-    orderText.innerText = "Mina beställningar"
-    orderText.style.justifyContent = "center"
+    let orderHeadText = document.createElement("h2")
+    orderHeadText.innerText = "Din beställning"
+    orderHeadText.style.padding = "20px"
+    orderHeadText.style.justifyContent = "center"
 
-    /* orders.forEach((orders) => { */
 
+    //order
     let renderCardOrder = document.createElement("div")
 
     let orderNum = document.createElement("h4")
     orderNum.style.padding = "20px"
-    orderNum.innerText = "Beställningsnummer" + " #3446757686"
+    orderNum.innerText = "Beställningsnummer" + " #" + order.orderID
 
     let table = document.createElement("table")
 
     let tableHeadRow = document.createElement("tr")
 
-    /* let tableHeadName = document.createElement("th")
-    tableHeadName.innerText = "Produkt"
-    tableHeadName.style.padding = "10px" */
-
-
-    let tableTotalPrice = document.createElement("th")
-    tableTotalPrice.innerText = "Totalsumma"
-    tableTotalPrice.fontSize = "20px"
+    let orderTotPrice = document.createElement("th")
+    orderTotPrice.innerText = "Totalsumma"
+    orderTotPrice.fontSize = "20px"
 
     let orderDate = document.createElement("th")
     orderDate.innerText = "Beställningsdatum"
 
-    let tableOrderStat = document.createElement("th")
-    tableOrderStat.innerText = "Order Status"
+    let orderStat = document.createElement("th")
+    orderStat.innerText = "Order Status"
 
 
-    renderCardOrder.append(imagePic, imagePicTwo, orderText, orderNum)
-    table.append(tableTotalPrice, orderDate, tableOrderStat)
+    renderCardOrder.append(imagePic, imagePicTwo, orderHeadText, orderNum)
+    table.append(orderTotPrice, orderDate, orderStat)
     table.append(tableHeadRow)
     renderCardOrder.append(table)
 
-
-
     document.getElementById("productCardOrder").appendChild(renderCardOrder);
 
-    /* orders.orderItem.forEach((orderItem) => { */
+
+    /* orderItems.forEach((orderItem) => {   */
 
     let tableProductRow = document.createElement("tr")
 
-    /* let tableDescName = document.createElement("td")
-    tableDescName.innerText = "F4B-FRILUFT Bärsystem-30" */
+    let tbOrderPrice = document.createElement("td")
+    tbOrderPrice.innerText = order.totalPrice + " kr"
 
-    let tableDescPrice = document.createElement("td")
-    tableDescPrice.innerText = "1233kr"
+    let tdOrderDate = document.createElement("td")
+    tdOrderDate.innerText = order.date
 
-    let tabOrderDate = document.createElement("td")
-    tabOrderDate.innerText = "2021-03-12"
-
-    let tabOrdStat = document.createElement("td")
-    tabOrdStat.innerText = "Skickad"
-
-    /*  let image = document.createElement("img")
-      image.classList.add("card-img-top", "img-fluid", "d-flex")    
-      image.style.width = "150px"
-      image.style.height = "200px"
-      image.style.background = "rgb(28, 58, 28)" */
+    let tdOrdStat = document.createElement("td")
+    tdOrdStat.innerText = "Skickad"
 
 
+    //loopa över order.orderItems för bild/quant
+    
+    let renderCard = document.createElement("div")
+    renderCard.classList.add("card", "mx-3", "my-3", "py-2")
+    renderCard.style.width = "15%"
+    renderCard.style.height = "auto"
+    renderCard.style.margin = "2px"
+
+    let cardBody = document.createElement("div");
+    cardBody.classList.add("card-body")
+
+    /* order.orderItems.forEach((orderItem) => { */
+    let orderImage = document.createElement("img")
+    orderImage.classList.add("card-img-top", "img-fluid")
+    orderImage.style.width = "140px"
+    orderImage.style.height = "140px"
+    /* orderImage.src = "./pictures/" + product.image */
+    orderImage.style.maxHeight = "150px"
+    orderImage.style.background = "rgb(28, 58, 28)"
+/* }) */
+    let orderTitle = document.createElement("p")
+    orderTitle.classList.add("card-title")
+    orderTitle.innerText = "F4B-FRILUFT Bärsystem-30"
+    orderTitle.style.fontWeight = "bold"
+    orderTitle.style.fontSize = "11px"
+
+   
+    let orderQuant = document.createElement("p")
+    orderQuant.classList.add("card-text")
+    orderQuant.innerText = "Antal:"
+    orderQuant.style.marginTop = "10px"
+    orderQuant.style.fontSize = "12px"
+//kör foorloop för bild
+/* }) */
     let line = document.createElement("hr")
     line.style.borderTop = "2px solid rgb(28, 58, 28)"
     line.style.width = "58%"
     line.style.marginLeft = "0px"
 
-    
-    tableProductRow.append(tableDescPrice, tabOrderDate, tabOrdStat)
+
+    tableProductRow.append(tbOrderPrice, tdOrderDate, tdOrdStat)
     table.append(tableProductRow)
-    cardBody.append(image)
-    cardBody.append(title)
-    cardBody.append(cardText)
+    cardBody.append(orderImage, orderTitle, orderQuant)
     renderCardOrder.append(cardBody)
     renderCardOrder.append(line)
 
-    /* let tableDescQuantity = document.createElement("td")
-    tableDescQuantity.innerText = "10" */
-
-    /* let tableHeadQuant = document.createElement("th")
-tableHeadQuant.innerText = "Antal" */
-
-    /* image.src = "./pictures/" + product.image
-    image.style.maxHeight = "150px" */
-
-    /* }) */
-
-
-    /*   }); */
 }
 
+/* async function getOrder(order) {
+    var url = new URL("http://localhost/api/recievers/productReciever.php")
+    var params = {action: "getOrder", userID: 1} 
+    url.search = new URLSearchParams(params);
 
-//dessa rader ska upp
-let renderCard = document.createElement("div")
-renderCard.classList.add("card", "mx-3", "my-3", "py-2")
-renderCard.style.width = "15%"
-renderCard.style.height = "auto"
-renderCard.style.margin = "2px"
-
-let cardBody = document.createElement("div");
-cardBody.classList.add("card-body")
-
-let image = document.createElement("img")
-image.classList.add("card-img-top", "img-fluid")
-image.style.width = "140px"
-image.style.height = "140px"
-/* image.src = "./pictures/" + product.image */
-image.style.maxHeight = "150px"
-image.style.background = "rgb(28, 58, 28)"
-
-let title = document.createElement("p")
-title.classList.add("card-title")
-title.innerText = "F4B-FRILUFT Bärsystem-30"
-title.style.fontWeight = "bold"
-title.style.fontSize = "11px"
-
-let cardText = document.createElement("p")
-cardText.classList.add("card-text")
-cardText.innerText = "Antal: 10"
-cardText.style.marginTop = "10px"
-cardText.style.fontSize = "12px"
-
-
-
+    let order = await makeRequest(url, "GET")
+    console.log(order)
+    renderOrders(order)
+    return order
+} */
 
 async function makeRequest(url, method, body) {
     // Using fetch to send REST method and body (if set) to set path. Returns response or error
