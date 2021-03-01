@@ -1,10 +1,10 @@
 <?php
 class OrderItem{
-    function __construct($productID, $orderID, $quantity, $price) {
-        $this->productID = $productID;
-        $this->quantity = $quantity; 
+    function __construct($product, $orderID, $quantity) {
+        $this->product = $product;
         $this->orderID = $orderID;  
-        $this->price = $price; 
+        $this->quantity = $quantity; 
+         
     }
 
     public $quantity;
