@@ -3,7 +3,8 @@ function initsite(){
     document.getElementById("logincard").innerHTML=""
     loginCheck()
 } */
-
+document.getElementById("userpages").addEventListener("click",loginCheck)
+document.getElementById("logout").addEventListener("click", logout)
 async function loginCheck(){
     console.log("loginCheck")
     
@@ -23,7 +24,8 @@ async function loginCheck(){
         render(response.username)
 
     } else {
-        console.log("ingen user")        
+        console.log("ingen user")
+        showLogin()
         /* renderLogin() */
         
     }
@@ -83,32 +85,23 @@ async function loginUser(){
     
 }
 
-function usersite(){
-    render(response.username)
-}
 
-function adminsite(){
-    renderAdmin(response.username)
-}
-
-function showLogout(){
-    console.log("showLogout")
-    document.getElementById("logout").innerText=""
+function hidelogin(){
+    console.log("hidelogin")
+    document.getElementById("loginPopUp").style.display="none"
     document.getElementById("logout").style.display="block"
-
-    let logoutbtn = document.createElement("button")
-    logoutbtn.id="logoutbtn"
-    logoutbtn.innerText = "logout"
-    logoutbtn.classList.add("btn")
-    logoutbtn.style.padding="3px"
-    logoutbtn.addEventListener("click", logout)
-
-    document.getElementById("logout").append(logoutbtn)
+    document.getElementById("userpages").style.display="block"
+}
+function showLogin(){
+    console.log("Showlogin")
+    document.getElementById("loginPopUp").style.display="block"
+    document.getElementById("logout").style.display="none"
+    document.getElementById("userpages").style.display="none"
 }
 
 function renderAdmin(user){
+    hidelogin()
     console.log("renderAdmin")
-    showLogout()
 
     document.getElementById("productCard").innerHTML= ""
     
@@ -420,60 +413,6 @@ async function updateqty() {
     console.log(response)
 }
 
-function renderLogin(){
-
-    console.log("renderLogin")
-    document.getElementById("logincard").innerHTML =""
-
-    let renderCard = document.createElement("div")
-    let loginform = document.createElement("div")
-    let createform = document.createElement("div")
-
-    let userInput = document.createElement("input")
-    userInput.id = "username"
-    userInput.placeholder ="username"
-
-    let usernameToSave = document.createElement("input")
-    usernameToSave.id = "usernameToSave"
-    usernameToSave.placeholder ="6 characters"
-
-    let passwordToSave = document.createElement("input")
-    passwordToSave.id = "passwordToSave"
-    passwordToSave.type="password"
-    passwordToSave.placeholder ="6 characters"
-
-    let passwordInput = document.createElement("input")
-    passwordInput.id = "password"
-    passwordInput.type="password"
-    passwordInput.placeholder ="password"
-
-    let loginbtn = document.createElement("button")
-    loginbtn.id="loginbtn"
-    loginbtn.innerText = "login"
-    loginbtn.addEventListener("click", loginUser)
-
-    let createaccbtn = document.createElement("button")
-    createaccbtn.id="createaccbtn"
-    createaccbtn.innerText ="create account"
-    createaccbtn.addEventListener("click",registerUser)
-
-    //login
-    loginform.append(userInput)
-    loginform.append(passwordInput)
-    loginform.append(loginbtn)
-    
-    //create Acc
-    createform.append(usernameToSave)
-    createform.append(passwordToSave)
-    createform.append(createaccbtn)
-    
-    //render
-    renderCard.append(loginform)
-    renderCard.append(createform)
-    /* document.getElementById("logincard").appendChild(renderCard); */
-    return renderCard
-}
-
 async function addProduct() {
 
    
@@ -535,7 +474,9 @@ async function deleteProduct(){
 
 function render(user){
     console.log("render")
-    
+    document.getElementById("productCardCart").innerHTML=""
+    document.getElementById("productCard").innerText=""
+
     let logoutbtn = document.createElement("button")
     logoutbtn.id="logoutbtn"
     logoutbtn.innerText = "logout"
@@ -550,8 +491,7 @@ function render(user){
     renderCard.append(logoutbtn) 
     renderCard.append(cardText)
     document.getElementById("productCard").appendChild(renderCard);
-    showLogout()
-    
+    hidelogin()
 }
 
 async function setCategory() {
