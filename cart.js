@@ -8,6 +8,7 @@ function initCart() {
 
 function initCustomer() {
     console.log("initCustomer")
+    //document.getElementById("customerInfo").innerHTML=""
     document.getElementById("customerInfo").innerHTML=""
     getCustomer()
 }
@@ -171,12 +172,12 @@ async function deleteCartItem() {
 renderCustomer()
 
 async function renderCustomer() {
-    //document.getElementById("customerInfo").innerHTML="" */
+ 
     let customer = await getCustomer()
     console.log(customer)
+
     //kunduppgifter
     let renderCustomerCard = document.createElement("div")
-    //renderCustomerCard.className = "card";
     renderCustomerCard.classList.add("container")
     renderCustomerCard.style.width = "80%"
     renderCustomerCard.style.height = "5.5rem"
@@ -254,31 +255,25 @@ async function renderCustomer() {
     //append kunduppgifter   
     customerAccountForm.append(customerPageTitle)
 
-    customerAccountForm.append(fullnameLabel)
-    customerAccountForm.append(fullnameInput)
+    customerAccountForm.append(fullnameLabel, fullnameInput)
 
-    customerAccountForm.append(addressOneLabel)
-    customerAccountForm.append(addressOneInput)
+    customerAccountForm.append(addressOneLabel,addressOneInput) 
 
-    customerAccountForm.append(addressTwoLabel)
-    customerAccountForm.append(addressTwoInput)
+    customerAccountForm.append(addressTwoLabel, addressTwoInput)
+   
+    customerAccountForm.append(zipCodeCityLabel, zipCodeCityInput)
 
-    customerAccountForm.append(zipCodeCityLabel)
-    customerAccountForm.append(zipCodeCityInput)
+    customerAccountForm.append(countryLabel, countryInput)
 
-    customerAccountForm.append(countryLabel)
-    customerAccountForm.append(countryInput)
-
-    customerAccountForm.append(customerEmailLabel)
-    customerAccountForm.append(customerEmailInput)
-
-    customerAccountForm.append(customerMobileLabel)
-    customerAccountForm.append(customerMobileInput)
+    customerAccountForm.append(customerEmailLabel, customerEmailInput)
+    
+    customerAccountForm.append(customerMobileLabel, customerMobileInput)
 
     //renderCustomerCard.append(customerAccountForm)
 
+   
     document.getElementById("customerInfo").appendChild(renderCustomerCard);
-    
+   
     
     //leveransalternativ
     let renderShipOptions = document.createElement("div")
@@ -288,7 +283,7 @@ async function renderCustomer() {
     shipOptionTitle.innerText ="Välj leveransalternativ"
 
     let shipOptionText = document.createElement("h6")
-    shipOptionText.innerText = "angivet fraktpris gäller vid beställning UNDER 495 kr, annars fraktfritt"
+    shipOptionText.innerText = "Paketet hämtas på närmaste utlämningsställe som anges i sms-aviseringen."
     
     let shipOptionForm = document.createElement("table")
     shipOptionForm.classList.add("table-row","m-6")
@@ -302,10 +297,11 @@ async function renderCustomer() {
     shipperOneRadioInput.name = "frakt"
 
     let shipperOneName = document.createElement("h6")
-    shipperOneName.innerText = "Bring"
+    shipperOneName.innerText = shipper[0].companyName
+   // shipperOneName.innerText = "Bring"
 
-    let shipperOneText = document.createElement("td")
-    shipperOneText.innerText = "Fraktpris: 150" + " kr" 
+    /* let shipperOneText = document.createElement("td")
+    shipperOneText.innerText = "Fraktpris: 150" + " kr"  */
 
     //shipperOptionTwo
     let shipperTwoLabel = document.createElement("tr")
@@ -318,8 +314,8 @@ async function renderCustomer() {
     let shipperTwoName = document.createElement("h6")
     shipperTwoName.innerText = "PostNord"
 
-    let shipperTwoText = document.createElement("td")
-    shipperTwoText.innerText = "Fraktpris: 75" + " kr" 
+    /* let shipperTwoText = document.createElement("td")
+    shipperTwoText.innerText = "Fraktpris: 75" + " kr"  */
 
     //shipperOptionThree
     let shipperThreeLabel = document.createElement("tr")
@@ -332,9 +328,10 @@ async function renderCustomer() {
     let shipperThreeName = document.createElement("h6")
     shipperThreeName.innerText = "DHL"
 
-    let shipperThreeText = document.createElement("td")
-    shipperThreeText.innerText = "Fraktpris: 125" + " kr" 
+    /* let shipperThreeText = document.createElement("td")
+    shipperThreeText.innerText = "Fraktpris: 125" + " kr"  */
 
+    
     //newsletter 
     let checkformTwo = document.createElement("div")
     checkformTwo.classList.add("col","ml-3")
@@ -362,54 +359,31 @@ async function renderCustomer() {
     buyBtn.style.margin.bottom = "100px"
     buyBtn.addEventListener("click", orderCart)
 
-    
     //append levernasalternativ
-    shipOptionForm.append(shipOptionTitle)
-    shipOptionForm.append(shipOptionText)
+    shipOptionForm.append(shipOptionTitle, shipOptionText)
 
-    shipOptionForm.append(shipperOneLabel)
-    shipOptionForm.append(shipperOneRadioInput)
-    shipOptionForm.append(shipperOneName)
-    shipOptionForm.append(shipperOneText)
+    //append shipper1
+    shipOptionForm.append(shipperOneLabel, shipperOneRadioInput, shipperOneName)
+    /*shipOptionForm.append(shipperOneText)*/
 
-    //shipOptionForm.append(shipperTwoInput)
-    shipOptionForm.append(shipperTwoLabel)       
-    shipOptionForm.append(shipperTwoRadioInput)
-    shipOptionForm.append(shipperTwoName)
-    shipOptionForm.append(shipperTwoText)
+    //append shipper2
+    shipOptionForm.append(shipperTwoLabel, shipperTwoRadioInput, shipperTwoName)       
+    /*shipOptionForm.append(shipperTwoText)*/
 
-    shipOptionForm.append(shipperThreeLabel)
-    shipOptionForm.append(shipperThreeRadioInput)
-    shipOptionForm.append(shipperThreeName)
-    shipOptionForm.append(shipperThreeText)
+    //append shipper3
+    shipOptionForm.append(shipperThreeLabel, shipperThreeRadioInput, shipperThreeName )
+    /*shipOptionForm.append(shipperThreeText)*/
 
     //newsletter
-    checkformTwo.append(checkText)
-    checkformTwo.append(checkboxTwo)
-    checkformTwo.append(checklabelTwo)
+    checkformTwo.append(checkText, checkboxTwo, checklabelTwo)
         
     //bekräfta knappen
     buyBtnForm.append(buyBtn)
 
     renderShipOptions.append(customerAccountForm, shipOptionForm, checkformTwo, buyBtnForm)
-
-
    
     document.getElementById("shippingInfo").appendChild(renderShipOptions);
-    //return renderCustomerCart    
-     
-    
-/* async function getAllCustomers() {   
-    document.getElementsById("customerInfo").innerHTML = "";
-
-    var url = new URL("http://localhost/api/receivers/customerReceiver.php")
-    let params = {action: "getAllCustomers", user: 1}
-    url.search = new URLSearchParams(params);
-
-    let user = await makeRequest(url, "GET") 
-    console.log(user)
-    renderCustomer(user)
-} */
+   
 }
 
 async function getCustomer() {
@@ -419,7 +393,15 @@ async function getCustomer() {
 
     let customer = await makeRequest(url, "GET")
     return customer
-   
+}
+
+async function getShipper() {
+    var url = new URL("http://localhost/api/recievers/customerReceiver.php")
+    var params = {action: "getShipper"}
+    url.search = new URLSearchParams(params);
+
+    let shipper = await makeRequest(url, "GET")
+    return shipper
 }
 
 
