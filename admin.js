@@ -205,10 +205,11 @@ async function listNewsletter() {
 
             let divNewsletterRows = document.createElement("div")
             divNewsletterRows.style.display = "flex"
+            divNewsletterRows.style.borderBottom = "solid black 1px"
             divNewsletterRows.style.backgroundColor = "white"
             
             let NewsletterRow = document.createElement("p")
-            NewsletterRow.innerText = "ID: " + row.ID + ", Username: " + row.email_adress
+            NewsletterRow.innerText = "ID: " + row.ID + ", Name: " + row.name + ", Email: " + row.email_adress
 
             divNewsletterRows.append(NewsletterRow)
             divListNewsletter.append(divNewsletterRows)
@@ -282,18 +283,17 @@ async function addNewsletter() {
     async function submitNewsletter(){
         console.log("submitNewsletter")
 
-        const newsletter = {
-            title : titleInput.value,
-            text : textInput.value
-        }
+        let title = titleInput.value
+        let text = textInput.value
+
         let body = new FormData()
         body.append("action", "submitNewsletter")
-        body.append("newsletter", JSON.stringify(newsletter))
+        body.append("title", title)
+        body.append("text", text)
         
-        const result = await makeRequest("http://localhost/api/recievers/adminReciever.php", "POST",body)
+        const result = await makeRequest("http://localhost/api/recievers/adminReciever.php","POST", body)
         console.log(result)
     }
-
 }
 
 async function orders() {
@@ -395,6 +395,7 @@ async function approveOrders() {
             let divOrderRows = document.createElement("div")
             divOrderRows.style.display = "flex"
             divOrderRows.style.backgroundColor = "white"
+            divOrderRows.style.borderBottom = "solid black 1px"
             
             let orderRow = document.createElement("p")
             orderRow.innerText = "ID: " + row.id + ", userID: " + row.userID + ", date: " + row.date + ", status: " + row.status  
@@ -479,6 +480,7 @@ async function listShippedOrders() {
             let divOrderRows = document.createElement("div")
             divOrderRows.style.display = "flex"
             divOrderRows.style.backgroundColor = "white"
+            divOrderRows.style.borderBottom = "solid black 1px"
             
             let orderRow = document.createElement("p")
             orderRow.innerText = "ID: " + row.id + ", userID: " + row.userID + ", date: " + row.date + ", status: " + row.status  
@@ -541,6 +543,7 @@ async function listCompleteOrders() {
             let divOrderRows = document.createElement("div")
             divOrderRows.style.display = "flex"
             divOrderRows.style.backgroundColor = "white"
+            divOrderRows.style.borderBottom = "solid black 1px"
             
             let orderRow = document.createElement("p")
             orderRow.innerText = "ID: " + row.id + ", userID: " + row.userID + ", date: " + row.date + ", status: " + row.status  
