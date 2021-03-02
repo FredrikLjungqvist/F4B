@@ -278,7 +278,8 @@ async function renderCustomer() {
     //renderCustomerCard.append(customerAccountForm)
 
     document.getElementById("customerInfo").appendChild(renderCustomerCard);
-       
+    
+    
     //leveransalternativ
     let renderShipOptions = document.createElement("div")
     renderShipOptions.classList.add("container")
@@ -298,6 +299,7 @@ async function renderCustomer() {
 
     let shipperOneRadioInput = document.createElement("INPUT");
     shipperOneRadioInput.setAttribute("type", "radio");
+    shipperOneRadioInput.name = "frakt"
 
     let shipperOneName = document.createElement("h6")
     shipperOneName.innerText = "Bring"
@@ -311,6 +313,7 @@ async function renderCustomer() {
 
     let shipperTwoRadioInput = document.createElement("INPUT");
     shipperTwoRadioInput.setAttribute("type", "radio");
+    shipperTwoRadioInput.name = "frakt"
 
     let shipperTwoName = document.createElement("h6")
     shipperTwoName.innerText = "PostNord"
@@ -324,6 +327,7 @@ async function renderCustomer() {
 
     let shipperThreeRadioInput = document.createElement("INPUT");
     shipperThreeRadioInput.setAttribute("type", "radio");
+    shipperThreeRadioInput.name = "frakt"
 
     let shipperThreeName = document.createElement("h6")
     shipperThreeName.innerText = "DHL"
