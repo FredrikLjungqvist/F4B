@@ -44,8 +44,7 @@ async function renderOrders(response) {
     orderHeadText.style.padding = "20px"
     orderHeadText.style.justifyContent = "center"
 
-
-    //order
+//ordercard
     let renderCardOrder = document.createElement("div")
 
     let orderNum = document.createElement("h4")

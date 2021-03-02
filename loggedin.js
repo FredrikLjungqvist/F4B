@@ -126,6 +126,8 @@ function render(user){
     document.getElementById("productCard").appendChild(renderCard);
     hidelogin()
 
+
+    
 }
 
 function loginModal(){
