@@ -21,8 +21,8 @@ try {
                 //GET LIST OF USERS WITH NEWSLETTER (ADMIN)
                 echo json_encode(getListNewsletter());
             } else if($_GET["action"] == "getListOrders") {
-                //GET LIST OF COMPLETE ORDERS (ADMIN)
-                echo json_encode(getListOrders());
+                //GET LIST OF SHIPPED/COMPLETE ORDERS (DEPENDING ON STATUS)(ADMIN)
+                echo json_encode(getListOrders($_GET["status"]));
             }
 
         } else if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -81,6 +81,14 @@ try {
                 $newsletter = json_decode($_POST["newsletter"], true);
                 
                 echo json_encode(submitNewsletter($newsletter));
+
+            } else if($_POST["action"] == "approveOrder") {
+                //CHANGES STATUS OF ORDER TO 2 (SHIPPED) OF ORDER WITH MATCHING ID($_POST["id"]) (ADMIN)
+
+                $id = json_decode($_POST["id"], true);
+                
+                /* echo json_encode($id); */
+                echo json_encode(approveOrder($id));
 
             }
 

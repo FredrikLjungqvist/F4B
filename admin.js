@@ -319,27 +319,180 @@ async function orders() {
     backBtn.classList.add("btn-block", "btn-secondary")
     backBtn.addEventListener("click", loginCheck)
 
-    let orderListBtn = document.createElement("button")
-    orderListBtn.id="newsletterListBtn"
-    orderListBtn.style.marginBottom = "15px"
-    orderListBtn.innerText = "List of complete orders"
-    orderListBtn.classList.add("btn-block", "btn-secondary")
-    orderListBtn.addEventListener("click", listOrders)
-
     let orderApproveBtn = document.createElement("button")
-    orderApproveBtn.id="addNewsletterBtn"
+    orderApproveBtn.id="orderApproveBtn"
     orderApproveBtn.style.marginBottom = "15px"
-    orderApproveBtn.innerText = "List of orders to approve"
+    orderApproveBtn.innerText = "Orders to approve"
     orderApproveBtn.classList.add("btn-block", "btn-secondary")
-    orderApproveBtn.addEventListener("click", addNewsletter)
+    orderApproveBtn.addEventListener("click", approveOrders)
+
+    let ordersShippedBtn = document.createElement("button")
+    ordersShippedBtn.id="ordersShippedBtn"
+    ordersShippedBtn.style.marginBottom = "15px"
+    ordersShippedBtn.innerText = "Shipped orders"
+    ordersShippedBtn.classList.add("btn-block", "btn-secondary")
+    ordersShippedBtn.addEventListener("click", listShippedOrders)
+
+    let ordersCompleteBtn = document.createElement("button")
+    ordersCompleteBtn.id="ordersCompleteBtn"
+    ordersCompleteBtn.style.marginBottom = "15px"
+    ordersCompleteBtn.innerText = "Complete orders"
+    ordersCompleteBtn.classList.add("btn-block", "btn-secondary")
+    ordersCompleteBtn.addEventListener("click", listCompleteOrders)
 
     productCard.append(renderCard)
     renderCard.append(cardBody)
-    cardBody.append(cardText, backBtn, orderListBtn, orderApproveBtn)
+    cardBody.append(cardText, backBtn, orderApproveBtn, ordersShippedBtn, ordersCompleteBtn)
 }
 
-async function listOrders() {
-    console.log("listOrders")
+async function approveOrders() {
+    console.log("approveOrders")
+
+    let productCard = document.getElementById("productCard")
+    productCard.innerHTML = ""
+
+    let renderCard = document.createElement("div")
+    renderCard.classList.add =("card text-center");
+
+    let cardBody = document.createElement("div");
+    cardBody.classList.add("card-body", "text-center","rounded")
+    cardBody.style.width ="400px"
+
+    let cardText = document.createElement("h4")
+    cardText.innerText = "Orders to approve"
+
+    let backBtn = document.createElement("button")
+    backBtn.id="backBtn"
+    backBtn.style.marginBottom = "15px"
+    backBtn.innerText = "Back"
+    backBtn.classList.add("btn-block", "btn-secondary")
+    backBtn.addEventListener("click", orders)
+
+    let divListOrders = document.createElement("div")
+    divListOrders.classList.add ("col","card","text-center");
+    divListOrders.style.marginBottom = "30px"
+    divListOrders.style.padding="20px"
+    divListOrders.style.background ="rgb(28, 58, 28)"
+
+    productCard.append(renderCard)
+    renderCard.append(cardBody)
+    cardBody.append(cardText, backBtn, divListOrders)
+
+    getListOrders(1)
+
+    async function getListOrders(status) {
+        console.log("getListOrders")
+        
+        let url = new URL("http://localhost/api/recievers/adminReciever.php")
+        
+        let params = {action: "getListOrders", status: status}
+        url.search = new URLSearchParams(params)
+        
+        let response = await makeRequest(url, "GET")
+        
+        response.forEach(row => {
+
+            let divOrderRows = document.createElement("div")
+            divOrderRows.style.display = "flex"
+            divOrderRows.style.backgroundColor = "white"
+            
+            let orderRow = document.createElement("p")
+            orderRow.innerText = "ID: " + row.id + ", userID: " + row.userID + ", date: " + row.date + ", status: " + row.status  
+
+            let approveButton = document.createElement("button")
+            approveButton.classList.add("btn-warning")
+            approveButton.innerText = "Approve"
+            approveButton.addEventListener("click", approveOrder)
+            approveButton.data = row.id
+
+            divOrderRows.append(orderRow, approveButton)
+            divListOrders.append(divOrderRows)
+
+        });
+    }
+
+}
+
+async function approveOrder() {
+    console.log("approveOrder")
+
+    const id = {
+        id : this.data 
+    }
+
+    const body = new FormData()
+    body.append("action", "approveOrder")
+    body.append("id", JSON.stringify(id))
+
+    let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
+    console.log(response)
+    approveOrders()
+}
+
+async function listShippedOrders() {
+    console.log("listShippedOrders")
+
+    let productCard = document.getElementById("productCard")
+    productCard.innerHTML = ""
+
+    let renderCard = document.createElement("div")
+    renderCard.classList.add =("card text-center");
+
+    let cardBody = document.createElement("div");
+    cardBody.classList.add("card-body", "text-center","rounded")
+    cardBody.style.width ="400px"
+
+    let cardText = document.createElement("h4")
+    cardText.innerText = "List of shipped orders"
+
+    let backBtn = document.createElement("button")
+    backBtn.id="backBtn"
+    backBtn.style.marginBottom = "15px"
+    backBtn.innerText = "Back"
+    backBtn.classList.add("btn-block", "btn-secondary")
+    backBtn.addEventListener("click", orders)
+
+    let divListOrders = document.createElement("div")
+    divListOrders.classList.add ("col","card","text-center");
+    divListOrders.style.marginBottom = "30px"
+    divListOrders.style.padding="20px"
+    divListOrders.style.background ="rgb(28, 58, 28)"
+
+    productCard.append(renderCard)
+    renderCard.append(cardBody)
+    cardBody.append(cardText, backBtn, divListOrders)
+
+    getListOrders(2)
+
+    async function getListOrders(status) {
+        console.log("getListOrders")
+        
+        let url = new URL("http://localhost/api/recievers/adminReciever.php")
+        
+        let params = {action: "getListOrders", status: status}
+        url.search = new URLSearchParams(params)
+        
+        let response = await makeRequest(url, "GET")
+        
+        response.forEach(row => {
+
+            let divOrderRows = document.createElement("div")
+            divOrderRows.style.display = "flex"
+            divOrderRows.style.backgroundColor = "white"
+            
+            let orderRow = document.createElement("p")
+            orderRow.innerText = "ID: " + row.id + ", userID: " + row.userID + ", date: " + row.date + ", status: " + row.status  
+
+            divOrderRows.append(orderRow)
+            divListOrders.append(divOrderRows)
+
+        });
+    }
+
+}
+
+async function listCompleteOrders() {
+    console.log("listCompleteOrders")
 
     let productCard = document.getElementById("productCard")
     productCard.innerHTML = ""
@@ -359,7 +512,7 @@ async function listOrders() {
     backBtn.style.marginBottom = "15px"
     backBtn.innerText = "Back"
     backBtn.classList.add("btn-block", "btn-secondary")
-    backBtn.addEventListener("click", newsletter)
+    backBtn.addEventListener("click", orders)
 
     let divListOrders = document.createElement("div")
     divListOrders.classList.add ("col","card","text-center");
@@ -371,14 +524,14 @@ async function listOrders() {
     renderCard.append(cardBody)
     cardBody.append(cardText, backBtn, divListOrders)
 
-    getListOrders()
+    getListOrders(3)
 
-    async function getListOrders() {
+    async function getListOrders(status) {
         console.log("getListOrders")
         
         let url = new URL("http://localhost/api/recievers/adminReciever.php")
         
-        let params = {action: "getListOrders"}
+        let params = {action: "getListOrders", status: status}
         url.search = new URLSearchParams(params)
         
         let response = await makeRequest(url, "GET")
