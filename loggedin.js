@@ -699,17 +699,30 @@ function render(user){
     document.getElementById("productCardCart").innerHTML=""
     document.getElementById("productCard").innerText=""
 
+    let houseimage = document.createElement("img")
+    houseimage.append("img-fluid")
+    houseimage.src = "./pictures/vandring2.png"
+    houseimage.style.maxWidth = "100%"
+    houseimage.style.height = "auto"
+    houseimage.style.marginTop = "5%"
+
+
     let renderCard = document.createElement("div")
-    renderCard.className = "card text-center";
+    renderCard.style.width = "100%"
+
+    let houseHeadtitle = document.createElement("h1")
+    houseHeadtitle.innerText = "Välkommen " + user
+    houseHeadtitle.style.padding = "5%"
+    houseHeadtitle.style.marginTop = "-10%"
+    houseHeadtitle.style.color = "white"
     
-    let cardText = document.createElement("h3")
-    cardText.innerText ="Välkommen " + user
-    
-    
-    renderCard.append(cardText)
+    productCard.append(houseimage, renderCard)
+    renderCard.append(houseHeadtitle)
     document.getElementById("productCard").appendChild(renderCard);
     hidelogin()
+
 }
+
 
 async function setCategory() {
     console.log("setCategory")
