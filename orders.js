@@ -21,7 +21,6 @@ async function renderOrders(response) {
     let order = response 
     console.log(order)
 
-
     let imagePic = document.createElement("img")
     imagePic.append("img-fluid")
     imagePic.src = "./pictures/hikingBoot.png"
@@ -86,7 +85,7 @@ async function renderOrders(response) {
 
 
     //loopa över order.orderItems för bild/quant
-    
+
     let renderCard = document.createElement("div")
     renderCard.classList.add("card", "mx-3", "my-3", "py-2")
     renderCard.style.width = "15%"
@@ -103,6 +102,7 @@ async function renderOrders(response) {
         let quantityToSave = orderItem.quantity
         let orderID = orderItem.orderID
 
+    //loopar över bild/antal
     orderItem.product.forEach((product) => {
 
     let cardBodyOrder = document.createElement("div")
@@ -140,7 +140,6 @@ async function renderOrders(response) {
     line.style.borderTop = "2px solid rgb(28, 58, 28)"
     line.style.width = "58%"
     line.style.marginLeft = "0px"
-
 
     tableProductRow.append(tbOrderPrice, tdOrderDate, tdOrdStat)
     table.append(tableProductRow)
