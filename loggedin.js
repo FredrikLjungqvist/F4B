@@ -103,6 +103,8 @@ function render(user){
     console.log("render")
     document.getElementById("productCardCart").innerHTML=""
     document.getElementById("productCard").innerText=""
+    document.getElementById("customerInfo").innerText=""
+    document.getElementById("shippingInfo").innerText=""
 
     let renderCard = document.createElement("div")
     renderCard.className = "card text-center";
