@@ -1,7 +1,6 @@
 window.addEventListener("load", initsite)
 document.getElementById("loginPopUp").addEventListener("click",loginModal)
 
-
 $('#myModal').modal()                      // initialized with defaults
 $('#myModal').modal({ keyboard: false })   // initialized with no keyboard
 $('#myModal').modal('hide')                // initializes and invokes show immediately
@@ -17,8 +16,6 @@ function initsite(){
     updateCartCounter(1)
     loginCheck()
 }
-
-
 function loginModal(){
     document.getElementById("modalpop").innerHTML = "";
     console.log("LoginModal")
