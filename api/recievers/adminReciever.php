@@ -18,8 +18,11 @@ try {
                 //GET LIST OF ADMINS (ADMIN)
                 echo json_encode(getListAdmin());
             } else if($_GET["action"] == "getListNewsletter") {
-                //GET LIST OF ADMINS (ADMIN)
+                //GET LIST OF USERS WITH NEWSLETTER (ADMIN)
                 echo json_encode(getListNewsletter());
+            } else if($_GET["action"] == "getListOrders") {
+                //GET LIST OF COMPLETE ORDERS (ADMIN)
+                echo json_encode(getListOrders());
             }
 
         } else if($_SERVER["REQUEST_METHOD"] == "POST") {
