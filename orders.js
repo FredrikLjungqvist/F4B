@@ -4,16 +4,21 @@ function initOrder() {
     document.getElementById("productCardOrder").innerHTML = "";
     document.getElementById("productCard").innerHTML = "";
     document.getElementById("productCardCart").innerHTML = "";
-
+   
+    
     /* const order = await request("./api/recievers/orderReciever.php", "GET")
     console.log(order) */
     renderOrders()
 
 }
 
-async function renderOrders() {
+async function renderOrders(response) {
     document.getElementById("productCardOrder").innerHTML = "";
-    let order = await orderCart()
+    document.getElementById("productCard").innerHTML = "";
+    document.getElementById("productCardCart").innerHTML = "";
+    document.getElementById("customerInfo").innerHTML = "";
+    document.getElementById("shippingInfo").innerHTML = "";
+    let order = response 
     console.log(order)
 
     /* if (!orders) {
