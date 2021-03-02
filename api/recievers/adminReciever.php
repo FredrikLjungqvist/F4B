@@ -78,15 +78,12 @@ try {
             } else if($_POST["action"] == "submitNewsletter") {
                 //SENDS NEWSLETTER TO REGISTERED USERS, AND SAVES NEWSLETTER IN DATABASE (ADMIN)
 
-                /* $newsletter = json_decode($_POST["newsletter"], true); */
-
-                $newsletter = [
+                 $newsletter = [
                     "title"=>$_POST["title"],
                     "text"=>$_POST["text"],
                     "date"=>date("Y-m-d H:i:s"),
                 ];
-                
-                /* echo json_encode($newsletter); */
+
                 echo json_encode(submitNewsletter($newsletter));
 
             } else if($_POST["action"] == "approveOrder") {
