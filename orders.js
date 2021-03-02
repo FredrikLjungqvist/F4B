@@ -21,23 +21,20 @@ async function renderOrders(response) {
     let order = response 
     console.log(order)
 
-    /* if (!orders) {
-        let emptyOrder = document.createElement("h3")
-        emptyOrder.innerText = "Inga ordrar gjorda..."
-        mainElement.appendChild(emptyOrder)
-    } */
 
     let imagePic = document.createElement("img")
     imagePic.append("img-fluid")
     imagePic.src = "./pictures/hikingBoot.png"
     imagePic.style.maxWidth = "50%"
     imagePic.style.height = "auto"
+    imagePic.style.marginTop = "10px"
 
     let imagePicTwo = document.createElement("img")
     imagePicTwo.append("img-fluid")
     imagePicTwo.src = "./pictures/fjällräven.png"
     imagePicTwo.style.maxWidth = "50%"
     imagePicTwo.style.height = "auto"
+    imagePicTwo.style.marginTop = "10px"
 
     let orderHeadText = document.createElement("h2")
     orderHeadText.innerText = "Din beställning"
