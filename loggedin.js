@@ -77,11 +77,13 @@ async function loginUser(){
     body.append("password", password)
 
     let response = await makeRequest("./api/recievers/userReciever.php", "POST", body)
-    
-     
-    
     console.log(response)
-    initsite()
+    if(response ==="loginerror"){
+        alert("Felaktigt användarnamn eller lösenord")
+        return
+    } else{
+        initsite()
+    }
     
 }
 
