@@ -88,7 +88,7 @@ function renderCart(cart) {
             deleteBtn.style.maxHeight = "12px"
           
         deleteBtn.data = value.id
-        deleteBtn.addEventListener("click", "click", function() {deleteCartItem(cartItem)}); 
+        deleteBtn.addEventListener("click", function() {deleteCartItem(cartItem)}); 
           
       
       cardBodyCart.append(image, title, cardText, cardWeight, cardQuant, cardTotWeight, cardTotal, deleteBtn)
