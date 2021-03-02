@@ -300,7 +300,7 @@ function renderAdmin(user){
     cardBody.append(cardText)
     cardBody.append(newsletterBtn)
     cardBody.append(cardupdate)
-    cardBody.append(cardupdatecategory)
+    /* cardBody.append(cardupdatecategory) */
     cardBody.append(cardupload)
     cardBody.append(listAdmin)
     cardBody.append(adminApprove)

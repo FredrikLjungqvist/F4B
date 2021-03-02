@@ -87,10 +87,9 @@ function renderCart(cart) {
             deleteBtn.style.maxWidth = "12px"
             deleteBtn.style.maxHeight = "12px"
           
-        /*deleteBtn.data = value.id
-        deleteBtn.addEventListener("click", deleteCartItem) */ /* ()=>{
-        alert ("you clicked the button"); 
-            });  */
+        deleteBtn.data = value.id
+        deleteBtn.addEventListener("click", "click", function() {deleteCartItem(cartItem)}); 
+          
       
       cardBodyCart.append(image, title, cardText, cardWeight, cardQuant, cardTotWeight, cardTotal, deleteBtn)
       deleteBtn.append(iconCross)
@@ -139,7 +138,8 @@ function renderCart(cart) {
     body.append("cart", JSON.stringify(cart))
     let response = await makeRequest("./api/recievers/orderReciever.php", "POST", body)
     console.log(response)
-    return response
+    renderOrders(response)
+    
 }  
 
 async function getCart() {
@@ -199,7 +199,7 @@ async function renderCustomer() {
 
     let fullnameInput = document.createElement("td")
     fullnameInput.classList.add("form-control", "col")
-    fullnameInput.innerText = customer.firstName + " " + customer.lastName
+    fullnameInput.innerText = customer[0].firstName + " " + customer[0].lastName
 
     //adress1
     let addressOneLabel = document.createElement("tr")
@@ -356,6 +356,7 @@ async function renderCustomer() {
     buyBtn.style.background = "rgb(28, 58, 28)"
     buyBtn.style.width = "300px"
     buyBtn.style.margin.bottom = "100px"
+    buyBtn.addEventListener("click", orderCart)
 
     
     //append levernasalternativ
