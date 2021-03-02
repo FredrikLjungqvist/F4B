@@ -176,14 +176,3 @@ async function renderOrders(response) {
     renderOrders(order)
     return order
 } */
-
-async function makeRequest(url, method, body) {
-    // Using fetch to send REST method and body (if set) to set path. Returns response or error
-    try {
-        const response = await fetch(url, { method, body })
-        return response.json()
-
-    } catch (error) {
-        console.log("det belv fel" + error)
-    }
-}

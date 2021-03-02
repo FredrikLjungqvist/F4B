@@ -66,8 +66,13 @@ function submitNewsletter($newsletter){
 
 }
 
+function getListOrders(){
 
+    $db= new Database;
+    $response = $db->fetchQuery("SELECT * FROM orders WHERE status = 1");
+    return $response;
 
+}
 
 ?>
 
