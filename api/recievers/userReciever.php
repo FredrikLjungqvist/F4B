@@ -14,7 +14,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             }elseif (isset($_POST["username"]) && isset($_POST["password"])) {
                 $user = $_POST["username"];
                 $pass = $_POST["password"];
-                echo json_encode(loginUser($user, $pass));
+                $check= loginUser($user, $pass);
+                if($check === "fel password"||$check === "fel användarnamn"){
+                    echo json_encode("loginerror");
+                    exit;
+                }else{
+                    echo json_encode($check);
+                    exit;
+                }
                 exit;
             }
             
