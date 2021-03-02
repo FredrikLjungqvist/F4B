@@ -54,6 +54,20 @@ function denyAdmin($id){
 
 }
 
+function getListNewsletter(){
+    $db = new Database();
+    return $db->fetchQuery("SELECT * FROM newsletter_users;");
+}
+
+function submitNewsletter($newsletter){
+    
+    $db = new Database();
+    return $db->runQuery("INSERT INTO newsletter (ID, titel, text) VALUES (NULL, :title, :text);", $newsletter);
+
+}
+
+
+
 
 ?>
 
