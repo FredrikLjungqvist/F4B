@@ -104,9 +104,14 @@ function renderAdmin(user){
     console.log("renderAdmin")
 
     
+    let logoutbtn = document.createElement("button")
+    logoutbtn.id="logoutbtn"
+    logoutbtn.innerText = "logout"
+    logoutbtn.classList.add("btn-secondary")
+    logoutbtn.addEventListener("click", logout)
 
     let newsletterBtn = document.createElement("button")
-    newsletterBtn.id="newsletterBtn"
+    newsletterBtn.id="logoutbtn"
     newsletterBtn.style.marginBottom = "15px"
     newsletterBtn.innerText = "newsletter"
     newsletterBtn.classList.add("btn-secondary")
@@ -295,11 +300,12 @@ function renderAdmin(user){
     cardBody.append(cardText)
     cardBody.append(newsletterBtn)
     cardBody.append(cardupdate)
-    cardBody.append(cardupdatecategory)
+    /* cardBody.append(cardupdatecategory) */
     cardBody.append(cardupload)
     cardBody.append(listAdmin)
     cardBody.append(adminApprove)
     cardBody.append(carddelete)
+    cardBody.append(logoutbtn)
 
     renderCard.append(cardBody)
     document.getElementById("productCard").appendChild(renderCard);

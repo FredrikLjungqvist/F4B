@@ -1,6 +1,6 @@
 window.addEventListener("load", initsite)
 document.getElementById("loginPopUp").addEventListener("click",loginModal)
-document.getElementById("logout").addEventListener("click", logout)
+
 
 $('#myModal').modal()                      // initialized with defaults
 $('#myModal').modal({ keyboard: false })   // initialized with no keyboard
