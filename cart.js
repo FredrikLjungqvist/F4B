@@ -290,14 +290,15 @@ async function renderCustomer() {
 
     //shipOptionsOne
     let shipperOneLabel = document.createElement("tr")
-    shipperOneLabel.classList.add("form-check-label", type="radio")
+    shipperOneLabel.classList.add("row", "form-check-label", type="radio")
 
     let shipperOneRadioInput = document.createElement("INPUT");
+    shipperOneRadioInput.classList.add("form-check-input", "m-1")
     shipperOneRadioInput.setAttribute("type", "radio");
     shipperOneRadioInput.name = "frakt"
 
     let shipperOneName = document.createElement("h6")
-    shipperOneName.innerText = shipper[0].companyName
+    shipperOneName.innerText = "Bring"
    // shipperOneName.innerText = "Bring"
 
     /* let shipperOneText = document.createElement("td")
@@ -305,9 +306,10 @@ async function renderCustomer() {
 
     //shipperOptionTwo
     let shipperTwoLabel = document.createElement("tr")
-    shipperTwoLabel.classList.add("form-check-label", type="radio")
+    shipperTwoLabel.classList.add("row", "form-check-label", type="radio")
 
     let shipperTwoRadioInput = document.createElement("INPUT");
+    shipperTwoRadioInput.classList.add("form-check-input", "m-1")
     shipperTwoRadioInput.setAttribute("type", "radio");
     shipperTwoRadioInput.name = "frakt"
 
@@ -319,9 +321,10 @@ async function renderCustomer() {
 
     //shipperOptionThree
     let shipperThreeLabel = document.createElement("tr")
-    shipperThreeLabel.classList.add("form-check-label", type="radio")
+    shipperThreeLabel.classList.add("row","form-check-label", type="radio")
 
     let shipperThreeRadioInput = document.createElement("INPUT");
+    shipperThreeRadioInput.classList.add("form-check-input", "m-1")
     shipperThreeRadioInput.setAttribute("type", "radio");
     shipperThreeRadioInput.name = "frakt"
 

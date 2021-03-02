@@ -21,6 +21,12 @@ try {
             echo json_encode("Funkar inte...");
             exit;
             }
+
+           /*  if($_GET["action"] == "getShipper") {
+
+                echo json_encode(getShipper());
+                exit;
+            } */
     
         } else {
             throw new ErrorException("Endpoint not found...", 404);
