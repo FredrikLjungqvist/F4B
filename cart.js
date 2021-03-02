@@ -13,8 +13,10 @@ function initCustomer() {
 }
 
 function renderCart(cart) {
+    console.log("renderCart")
     document.getElementById("productCardCart").innerHTML=""
     document.getElementById("productCard").innerHTML=""
+    document.getElementById("productCardOrder").innerHTML = "";
     /* if(!cart) {
         let emptyCart = document.createElement(h3)
         emptyCart.innerText = "Det finns inga produkter i varukorgen"
@@ -127,6 +129,7 @@ function renderCart(cart) {
     totalDiv.append(totalTextTwo)
     
     document.getElementById("productCardCart").appendChild(totalDiv); 
+    renderCustomer()
 }
 
 
@@ -295,9 +298,10 @@ async function renderCustomer() {
 
     //shipOptionsOne
     let shipperOneLabel = document.createElement("tr")
-    shipperOneLabel.classList.add("form-check-label", type="radio")
+    shipperOneLabel.classList.add("row","form-check-label", type="radio")
 
     let shipperOneRadioInput = document.createElement("INPUT");
+    shipperOneRadioInput.classList.add("m-1");
     shipperOneRadioInput.setAttribute("type", "radio");
     shipperOneRadioInput.name = "frakt"
 
@@ -312,6 +316,7 @@ async function renderCustomer() {
     shipperTwoLabel.classList.add("form-check-label", type="radio")
 
     let shipperTwoRadioInput = document.createElement("INPUT");
+    shipperTwoRadioInput.classList.add("m-1");
     shipperTwoRadioInput.setAttribute("type", "radio");
     shipperTwoRadioInput.name = "frakt"
 
@@ -326,6 +331,7 @@ async function renderCustomer() {
     shipperThreeLabel.classList.add("form-check-label", type="radio")
 
     let shipperThreeRadioInput = document.createElement("INPUT");
+    shipperThreeRadioInput.classList.add("m-1");
     shipperThreeRadioInput.setAttribute("type", "radio");
     shipperThreeRadioInput.name = "frakt"
 
@@ -365,11 +371,15 @@ async function renderCustomer() {
     
     //append levernasalternativ
     shipOptionForm.append(shipOptionTitle)
-    shipOptionForm.append(shipOptionText)
+    shipOptionForm.append(shipperOneName)
+
+    shipperOneLabel.append(shipperOneRadioInput)
+    shipperOneLabel.append(shipperOneName)
+
 
     shipOptionForm.append(shipperOneLabel)
-    shipOptionForm.append(shipperOneRadioInput)
-    shipOptionForm.append(shipperOneName)
+    /* shipOptionForm.append(shipperOneRadioInput)
+    shipOptionForm.append(shipperOneName) */
     shipOptionForm.append(shipperOneText)
 
     //shipOptionForm.append(shipperTwoInput)
