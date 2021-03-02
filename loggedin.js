@@ -110,6 +110,14 @@ function renderAdmin(user){
     logoutbtn.classList.add("btn-secondary")
     logoutbtn.addEventListener("click", logout)
 
+    let ordersBtn = document.createElement("button")
+    ordersBtn.id="ordersBtn"
+    ordersBtn.style.marginBottom = "15px"
+    ordersBtn.innerText = "orders"
+    ordersBtn.classList.add("btn-secondary")
+    ordersBtn.addEventListener("click", orders)
+    document.getElementById("productCard").innerHTML= ""
+
     let newsletterBtn = document.createElement("button")
     newsletterBtn.id="logoutbtn"
     newsletterBtn.style.marginBottom = "15px"
@@ -196,17 +204,17 @@ function renderAdmin(user){
     //Set category
     let productidset = document.createElement("input")
     productidset.id = "productidset"
-    productidset.placeholder = "productidset"
+    productidset.placeholder = "Product ID"
 
     let prodcategoryset = document.createElement("input")
     prodcategoryset.id ="prodcategoryset"
-    prodcategoryset.placeholder = "prodcategoryset"
+    prodcategoryset.placeholder = "Category ID"
 
     let addcategorybtn = document.createElement("button")
     addcategorybtn.id="addcategorybtn"
     addcategorybtn.innerText = "Add Category"
     addcategorybtn.classList.add("btn-warning")
-    addcategorybtn.innerText = "addcategorybtn"
+    addcategorybtn.innerText = "Add to catergory"
     addcategorybtn.addEventListener("click", setCategory)
 
     //Upload Input
@@ -299,8 +307,9 @@ function renderAdmin(user){
     
     cardBody.append(cardText)
     cardBody.append(newsletterBtn)
+    cardBody.append(ordersBtn)
     cardBody.append(cardupdate)
-    /* cardBody.append(cardupdatecategory) */
+    cardBody.append(cardupdatecategory)
     cardBody.append(cardupload)
     cardBody.append(listAdmin)
     cardBody.append(adminApprove)
@@ -484,6 +493,110 @@ async function logout() {
     let response = await makeRequest(url, "GET")
     console.log(response)
     initsite()
+}
+
+async function orders() {
+    console.log("orders")
+
+    let productCard = document.getElementById("productCard")
+    productCard.innerHTML = ""
+
+    let renderCard = document.createElement("div")
+    renderCard.classList.add =("card text-center");
+
+    let cardBody = document.createElement("div");
+    cardBody.classList.add("card-body", "text-center","rounded")
+    cardBody.style.width ="400px"
+
+    let cardText = document.createElement("h4")
+    cardText.innerText = "Orders"
+
+    let backBtn = document.createElement("button")
+    backBtn.id="backBtn"
+    backBtn.style.marginBottom = "15px"
+    backBtn.innerText = "Back"
+    backBtn.classList.add("btn-block", "btn-secondary")
+    backBtn.addEventListener("click", loginCheck)
+
+    let orderListBtn = document.createElement("button")
+    orderListBtn.id="newsletterListBtn"
+    orderListBtn.style.marginBottom = "15px"
+    orderListBtn.innerText = "List of complete orders"
+    orderListBtn.classList.add("btn-block", "btn-secondary")
+    orderListBtn.addEventListener("click", listOrders)
+
+    let orderApproveBtn = document.createElement("button")
+    orderApproveBtn.id="addNewsletterBtn"
+    orderApproveBtn.style.marginBottom = "15px"
+    orderApproveBtn.innerText = "List of orders to approve"
+    orderApproveBtn.classList.add("btn-block", "btn-secondary")
+    orderApproveBtn.addEventListener("click", addNewsletter)
+
+    productCard.append(renderCard)
+    renderCard.append(cardBody)
+    cardBody.append(cardText, backBtn, orderListBtn, orderApproveBtn)
+}
+
+async function listOrders() {
+    console.log("listOrders")
+
+    let productCard = document.getElementById("productCard")
+    productCard.innerHTML = ""
+
+    let renderCard = document.createElement("div")
+    renderCard.classList.add =("card text-center");
+
+    let cardBody = document.createElement("div");
+    cardBody.classList.add("card-body", "text-center","rounded")
+    cardBody.style.width ="400px"
+
+    let cardText = document.createElement("h4")
+    cardText.innerText = "List of complete orders"
+
+    let backBtn = document.createElement("button")
+    backBtn.id="backBtn"
+    backBtn.style.marginBottom = "15px"
+    backBtn.innerText = "Back"
+    backBtn.classList.add("btn-block", "btn-secondary")
+    backBtn.addEventListener("click", newsletter)
+
+    let divListOrders = document.createElement("div")
+    divListOrders.classList.add ("col","card","text-center");
+    divListOrders.style.marginBottom = "30px"
+    divListOrders.style.padding="20px"
+    divListOrders.style.background ="rgb(28, 58, 28)"
+
+    productCard.append(renderCard)
+    renderCard.append(cardBody)
+    cardBody.append(cardText, backBtn, divListOrders)
+
+    getListOrders()
+
+    async function getListOrders() {
+        console.log("getListOrders")
+        
+        let url = new URL("http://localhost/api/recievers/adminReciever.php")
+        
+        let params = {action: "getListOrders"}
+        url.search = new URLSearchParams(params)
+        
+        let response = await makeRequest(url, "GET")
+        
+        response.forEach(row => {
+
+            let divOrderRows = document.createElement("div")
+            divOrderRows.style.display = "flex"
+            divOrderRows.style.backgroundColor = "white"
+            
+            let orderRow = document.createElement("p")
+            orderRow.innerText = "ID: " + row.id + ", userID: " + row.userID + ", date: " + row.date + ", status: " + row.status  
+
+            divOrderRows.append(orderRow)
+            divListOrders.append(divOrderRows)
+
+        });
+    }
+
 }
 
 //see list of users with newsletter 
