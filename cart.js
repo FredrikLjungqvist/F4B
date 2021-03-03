@@ -1,6 +1,8 @@
 function initCart() {
     document.getElementById("productCardCart").innerHTML=""
     document.getElementById("productCard").innerHTML=""
+    document.getElementById("customerInfo").innerHTML = "";
+    document.getElementById("shippingInfo").innerHTML = "";
     
     getCart()
     
@@ -17,6 +19,8 @@ function renderCart(cart) {
     document.getElementById("productCardCart").innerHTML=""
     document.getElementById("productCard").innerHTML=""
     document.getElementById("productCardOrder").innerHTML = "";
+    document.getElementById("customerInfo").innerHTML = "";
+    document.getElementById("shippingInfo").innerHTML = "";
     /* if(!cart) {
         let emptyCart = document.createElement(h3)
         emptyCart.innerText = "Det finns inga produkter i varukorgen"
@@ -28,8 +32,7 @@ function renderCart(cart) {
             
             let renderCardCart = document.createElement("div")
             renderCardCart.className = "card";
-            renderCardCart.style.width = "80%"
-            renderCardCart.style.height = "5.5rem"
+            renderCardCart.style.minheight = "5.5rem"
             renderCardCart.style.margin = "5px"
       
             let image = document.createElement("img")
@@ -41,7 +44,7 @@ function renderCart(cart) {
             image.style.maxHeight = "60px"
           
             let cardBodyCart = document.createElement("div")
-            cardBodyCart.classList.add("card-body", "d-flex", "justify-content-around", "align-items-center")
+            cardBodyCart.classList.add(/* "card-body", */ "d-flex", "justify-content-around","flex-wrap", "align-items-center")
             cardBodyCart.style.padding = "1rem"
       
             let title = document.createElement("h6");
@@ -285,6 +288,7 @@ async function renderCustomer() {
     
     //leveransalternativ
     let renderShipOptions = document.createElement("div")
+    renderShipOptions.style.maxwidth="800px"
     renderShipOptions.classList.add("container")
 
     let shipOptionTitle = document.createElement("h3")

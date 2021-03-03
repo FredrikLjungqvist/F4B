@@ -120,6 +120,7 @@ async function newsletter() {
     productCard.innerHTML = ""
 
     let renderCard = document.createElement("div")
+    renderCard.style.margin ="auto"
     renderCard.classList.add =("card text-center");
 
     let cardBody = document.createElement("div");
@@ -133,21 +134,21 @@ async function newsletter() {
     backBtn.id="backBtn"
     backBtn.style.marginBottom = "15px"
     backBtn.innerText = "Back"
-    backBtn.classList.add("btn-block", "btn-secondary")
+    backBtn.classList.add("btn","btn-block", "btn-secondary")
     backBtn.addEventListener("click", loginCheck)
 
     let newsletterListBtn = document.createElement("button")
     newsletterListBtn.id="newsletterListBtn"
     newsletterListBtn.style.marginBottom = "15px"
     newsletterListBtn.innerText = "Users with newsletter"
-    newsletterListBtn.classList.add("btn-block", "btn-secondary")
+    newsletterListBtn.classList.add("btn","btn-block", "btn-secondary")
     newsletterListBtn.addEventListener("click", listNewsletter)
 
     let addNewsletterBtn = document.createElement("button")
     addNewsletterBtn.id="addNewsletterBtn"
     addNewsletterBtn.style.marginBottom = "15px"
     addNewsletterBtn.innerText = "Add newsletter"
-    addNewsletterBtn.classList.add("btn-block", "btn-secondary")
+    addNewsletterBtn.classList.add("btn","btn-block", "btn-secondary")
     addNewsletterBtn.addEventListener("click", addNewsletter)
 
     productCard.append(renderCard)
@@ -163,6 +164,7 @@ async function listNewsletter() {
     productCard.innerHTML = ""
 
     let renderCard = document.createElement("div")
+    renderCard.style.margin ="auto"
     renderCard.classList.add =("card text-center");
 
     let cardBody = document.createElement("div");
@@ -205,10 +207,11 @@ async function listNewsletter() {
 
             let divNewsletterRows = document.createElement("div")
             divNewsletterRows.style.display = "flex"
+            divNewsletterRows.style.borderBottom = "solid black 1px"
             divNewsletterRows.style.backgroundColor = "white"
             
             let NewsletterRow = document.createElement("p")
-            NewsletterRow.innerText = "ID: " + row.ID + ", Username: " + row.email_adress
+            NewsletterRow.innerText = "ID: " + row.ID + ", Name: " + row.name + ", Email: " + row.email_adress
 
             divNewsletterRows.append(NewsletterRow)
             divListNewsletter.append(divNewsletterRows)
@@ -223,6 +226,7 @@ async function addNewsletter() {
     productCard.innerHTML = ""
 
     let renderCard = document.createElement("div")
+    renderCard.style.margin ="auto"
     renderCard.classList.add =("card text-center");
 
     let cardBody = document.createElement("div");
@@ -282,18 +286,17 @@ async function addNewsletter() {
     async function submitNewsletter(){
         console.log("submitNewsletter")
 
-        const newsletter = {
-            title : titleInput.value,
-            text : textInput.value
-        }
+        let title = titleInput.value
+        let text = textInput.value
+
         let body = new FormData()
         body.append("action", "submitNewsletter")
-        body.append("newsletter", JSON.stringify(newsletter))
+        body.append("title", title)
+        body.append("text", text)
         
-        const result = await makeRequest("http://localhost/api/recievers/adminReciever.php", "POST",body)
+        const result = await makeRequest("http://localhost/api/recievers/adminReciever.php","POST", body)
         console.log(result)
     }
-
 }
 
 async function orders() {
@@ -303,6 +306,7 @@ async function orders() {
     productCard.innerHTML = ""
 
     let renderCard = document.createElement("div")
+    renderCard.style.margin ="auto"
     renderCard.classList.add =("card text-center");
 
     let cardBody = document.createElement("div");
@@ -352,6 +356,7 @@ async function approveOrders() {
     productCard.innerHTML = ""
 
     let renderCard = document.createElement("div")
+    renderCard.style.margin ="auto"
     renderCard.classList.add =("card text-center");
 
     let cardBody = document.createElement("div");
@@ -395,6 +400,7 @@ async function approveOrders() {
             let divOrderRows = document.createElement("div")
             divOrderRows.style.display = "flex"
             divOrderRows.style.backgroundColor = "white"
+            divOrderRows.style.borderBottom = "solid black 1px"
             
             let orderRow = document.createElement("p")
             orderRow.innerText = "ID: " + row.id + ", userID: " + row.userID + ", date: " + row.date + ", status: " + row.status  
@@ -436,6 +442,7 @@ async function listShippedOrders() {
     productCard.innerHTML = ""
 
     let renderCard = document.createElement("div")
+    renderCard.style.margin ="auto"
     renderCard.classList.add =("card text-center");
 
     let cardBody = document.createElement("div");
@@ -479,6 +486,7 @@ async function listShippedOrders() {
             let divOrderRows = document.createElement("div")
             divOrderRows.style.display = "flex"
             divOrderRows.style.backgroundColor = "white"
+            divOrderRows.style.borderBottom = "solid black 1px"
             
             let orderRow = document.createElement("p")
             orderRow.innerText = "ID: " + row.id + ", userID: " + row.userID + ", date: " + row.date + ", status: " + row.status  
@@ -498,6 +506,7 @@ async function listCompleteOrders() {
     productCard.innerHTML = ""
 
     let renderCard = document.createElement("div")
+    renderCard.style.margin ="auto"
     renderCard.classList.add =("card text-center");
 
     let cardBody = document.createElement("div");
@@ -541,6 +550,7 @@ async function listCompleteOrders() {
             let divOrderRows = document.createElement("div")
             divOrderRows.style.display = "flex"
             divOrderRows.style.backgroundColor = "white"
+            divOrderRows.style.borderBottom = "solid black 1px"
             
             let orderRow = document.createElement("p")
             orderRow.innerText = "ID: " + row.id + ", userID: " + row.userID + ", date: " + row.date + ", status: " + row.status  
@@ -554,6 +564,7 @@ async function listCompleteOrders() {
 }
 
 function renderAdmin(user){
+    document.getElementById("shippingInfo").innerHTML = "";
     hidelogin()
     console.log("renderAdmin")
 
@@ -568,7 +579,7 @@ function renderAdmin(user){
     ordersBtn.id="ordersBtn"
     ordersBtn.style.marginBottom = "15px"
     ordersBtn.innerText = "orders"
-    ordersBtn.classList.add("btn-secondary")
+    ordersBtn.classList.add("btn","btn-secondary","mx-2")
     ordersBtn.addEventListener("click", orders)
     document.getElementById("productCard").innerHTML= ""
 
@@ -576,16 +587,17 @@ function renderAdmin(user){
     newsletterBtn.id="logoutbtn"
     newsletterBtn.style.marginBottom = "15px"
     newsletterBtn.innerText = "newsletter"
-    newsletterBtn.classList.add("btn-secondary")
+    newsletterBtn.classList.add("btn","btn-secondary","mx-2")
     newsletterBtn.addEventListener("click", newsletter)
     document.getElementById("productCard").innerHTML= ""
     
     let renderCard = document.createElement("div")
-    renderCard.classList.add =("card");
+    renderCard.style.margin="auto"
+    renderCard.classList.add =("d-flex");
 
     let cardBody = document.createElement("div");
     cardBody.style.justifyContent="space-evenly"
-    cardBody.classList.add("card-body","text-center","rounded","flex-wrap")
+    cardBody.classList.add("text-center","flex-wrap")
 
     let cardupdatecategory = document.createElement("div")
     cardupdatecategory.classList.add ("col","card","text-center");
@@ -620,7 +632,9 @@ function renderAdmin(user){
     adminApprove.style.marginBottom = "30px"
     adminApprove.style.padding="20px"
     adminApprove.style.background ="rgb(28, 58, 28)"
+
     let headerAdminApprove = document.createElement("h3")
+    headerAdminApprove.style.textAlign="left"
     headerAdminApprove.innerText = "Pending admins:"
     headerAdminApprove.style.color = "white"
     adminApprove.append(headerAdminApprove)
@@ -630,7 +644,9 @@ function renderAdmin(user){
     listAdmin.style.marginBottom = "30px"
     listAdmin.style.padding="20px"
     listAdmin.style.background ="rgb(28, 58, 28)"
+
     let headerListAdmin = document.createElement("h3")
+    headerListAdmin.style.textAlign="left"
     headerListAdmin.innerText = "Admins:"
     headerListAdmin.style.color = "white"
     listAdmin.append(headerListAdmin)
@@ -640,6 +656,12 @@ function renderAdmin(user){
     cardText.innerText ="Välkommen Admin " + user
 
     //Update Input
+
+    let prodIDtitle = document.createElement("h3")
+    prodIDtitle.style.color="white"
+    prodIDtitle.style.textAlign="left"
+    prodIDtitle.innerText="Change in stock"
+    
     let prodIDinput = document.createElement("input")
     prodIDinput.id = "prodIDinput"
     prodIDinput.style.width="100%"
@@ -652,10 +674,16 @@ function renderAdmin(user){
     let addqtybtn = document.createElement("button")
     addqtybtn.id="addqtybtn"
     addqtybtn.innerText = "UPDATE"
-    addqtybtn.classList.add("btn-warning")
+    addqtybtn.classList.add("btn","btn-warning")
     addqtybtn.addEventListener("click", updateqty)
 
     //Set category
+
+    let productidtitle = document.createElement("h3")
+    productidtitle.style.color="white"
+    productidtitle.style.textAlign="left"
+    productidtitle.innerText="Set Category of product"
+
     let productidset = document.createElement("input")
     productidset.id = "productidset"
     productidset.placeholder = "Product ID"
@@ -667,16 +695,16 @@ function renderAdmin(user){
     let addcategorybtn = document.createElement("button")
     addcategorybtn.id="addcategorybtn"
     addcategorybtn.innerText = "Add Category"
-    addcategorybtn.classList.add("btn-warning")
+    addcategorybtn.classList.add("btn","btn-warning")
     addcategorybtn.innerText = "Add to catergory"
     addcategorybtn.addEventListener("click", setCategory)
 
     //Upload Input
 
-    //osäker om behöve beroende increment i db
-   /*  let setProudctID = document.createElement("div")
-    setProudctID.id ="setProudctID"
-    setProudctID.placeholder ="proudctIDset" */
+    let uploadttitle = document.createElement("h3")
+    uploadttitle.style.color="white"
+    uploadttitle.style.textAlign="left"
+    uploadttitle.innerText="Create a new Product"
 
     let descInput = document.createElement("textarea")
     descInput.style.width = "100%"
@@ -717,12 +745,18 @@ function renderAdmin(user){
 
     let uploadbtn = document.createElement("button")
     uploadbtn.id="uploadbtn"
-    uploadbtn.classList.add("btn-warning")
+    uploadbtn.classList.add("btn","btn-warning")
     uploadbtn.innerText = "UPLOAD"
     uploadbtn.addEventListener("click", addProduct)
 
 
     //Delete Input
+
+    let deleteprodtitle = document.createElement("h3")
+    deleteprodtitle.style.color="white"
+    deleteprodtitle.style.textAlign="left"
+    deleteprodtitle.innerText="Delete product"
+
     let deleteprod = document.createElement("input")
     deleteprod.id = "deleteprod"
     deleteprod.placeholder = "Delete Product"
@@ -732,17 +766,19 @@ function renderAdmin(user){
     let deletebtn = document.createElement("button")
     deletebtn.id="deletebtn"
     deletebtn.innerText = "DELETE"
-    deletebtn.classList.add("btn-danger")
+    deletebtn.classList.add("btn","btn-danger")
     deletebtn.addEventListener("click", deleteProduct)
-
+    cardupdate.append(prodIDtitle)
     cardupdate.append(prodIDinput)
     cardupdate.append(qtyinput)
     cardupdate.append(addqtybtn)
     
+    cardupdatecategory.append(productidtitle)
     cardupdatecategory.append(productidset)
     cardupdatecategory.append(prodcategoryset)
     cardupdatecategory.append(addcategorybtn)
     
+    cardupload.append(uploadttitle)
     cardupload.append(descInput)
     cardupload.append(setName)
     /* cardupload.append(setProudctID) */
@@ -756,6 +792,7 @@ function renderAdmin(user){
     listAdmins()
     listPendingUsers()
 
+    carddelete.append(deleteprodtitle)
     carddelete.append(deleteprod)
     carddelete.append(deletebtn)
     
@@ -796,13 +833,13 @@ function renderAdmin(user){
             pendingUser.style.backgroundColor = "white"
             
             let approveButton = document.createElement("button")
-            approveButton.classList.add("btn-warning")
+            approveButton.classList.add("btn","btn-warning")
             approveButton.innerText = "Make admin"
             approveButton.addEventListener("click", approveAdmin)
             approveButton.data = row.id
 
             let denyButton = document.createElement("button")
-            denyButton.classList.add("btn-danger")
+            denyButton.classList.add("btn","btn-danger")
             denyButton.innerText = "Deny admin"
             denyButton.addEventListener("click", denyAdmin)
             denyButton.data = row.id
