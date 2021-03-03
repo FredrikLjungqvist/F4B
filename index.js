@@ -424,13 +424,13 @@ function renderProducts(products) {
     products.forEach((product => {
         
         let renderCard = document.createElement("div")
-        renderCard.classList.add("card","my-3","py-2","row")
+        renderCard.classList.add("card","my-3","py-2")
         renderCard.style.height = "auto"
         renderCard.style.margin = "2px"
         
         let cardBody = document.createElement("div");
         cardBody.style.width = "250px"
-        cardBody.classList.add("card-body", "text-center")
+        cardBody.classList.add("card-body","text-center","mx-4")
         
         let image = document.createElement("img")
         image.classList.add("card-img-top", "img-fluid")    

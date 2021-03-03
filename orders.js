@@ -20,7 +20,7 @@ async function renderOrders(response) {
     document.getElementById("shippingInfo").innerHTML = "";
     let order = response 
     console.log(order)
-
+    console.log(renderOrders)
     /* if (!orders) {
         let emptyOrder = document.createElement("h3")
         emptyOrder.innerText = "Inga ordrar gjorda..."
