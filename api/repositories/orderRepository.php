@@ -37,7 +37,7 @@ function getOrder(){
                 array_push($orderItemList, $orderItemInstance);
                 
             }
-        $order = new Order($orderItemList, $order["ID"], $_SESSION["id"], $order["price"], $order["date"], NULL);
+        $order = new Order($orderItemList, $order["ID"], $_SESSION["id"], $order["price"], $order["date"], $order["status"]);
         array_push($orders, $order);
     
     }

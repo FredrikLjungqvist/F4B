@@ -22,7 +22,7 @@ async function getOrders() {
     
     
     let response = await makeRequest(url, "GET")
-    console.log(response)
+    return response
 
 
 }
