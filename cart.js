@@ -184,7 +184,7 @@ async function renderCustomer() {
     renderCustomerCard.style.margin = "5px"
     
     let cardBodyCustomer = document.createElement("div")
-    cardBodyCustomer.classList.add("card-body", "d-flex", "justify-content-around", "align-items-center")
+    cardBodyCustomer.classList.add("card-body", "d-flex", "justify-content-around", "align-items-center",)
     cardBodyCustomer.style.padding = "1rem"        
 
     let customerPageTitle = document.createElement("h3")
@@ -195,7 +195,7 @@ async function renderCustomer() {
 
     //förnamn + efternamn
     let fullnameLabel = document.createElement("tr")
-    fullnameLabel.classList.add("table", "row", "col")
+    fullnameLabel.classList.add("table", "row", "col", "m-0")
     fullnameLabel.innerText="För- och efternamn"
 
     let fullnameInput = document.createElement("td")
@@ -204,7 +204,7 @@ async function renderCustomer() {
 
     //adress1
     let addressOneLabel = document.createElement("tr")
-    addressOneLabel.classList.add("table", "row", "col")
+    addressOneLabel.classList.add("table", "row", "col", "m-0")
     addressOneLabel.innerText="Adress 1"
 
     let addressOneInput = document.createElement("td")
@@ -213,6 +213,7 @@ async function renderCustomer() {
 
     //address2
     let addressTwoLabel = document.createElement("tr")
+    addressTwoLabel.classList.add("m-0", "mt-1")
     addressTwoLabel.innerText="Adress 2"
 
     let addressTwoInput = document.createElement("td")
@@ -221,6 +222,7 @@ async function renderCustomer() {
 
     //zipCode + city
     let zipCodeCityLabel = document.createElement("tr")
+    zipCodeCityLabel.classList.add("m-0")
     zipCodeCityLabel.innerText="Postnummer och ort"
 
     let zipCodeCityInput = document.createElement("td")
@@ -229,6 +231,7 @@ async function renderCustomer() {
 
     //country
     let countryLabel = document.createElement("tr")
+    countryLabel.classList.add("m-0")
     countryLabel.innerText="Land"
 
     let countryInput = document.createElement("td")
@@ -237,6 +240,7 @@ async function renderCustomer() {
     
     //email
     let customerEmailLabel = document.createElement("tr")
+    customerEmailLabel.classList.add("m-0")
     customerEmailLabel.innerText="Email-adress"
 
     let customerEmailInput = document.createElement("td")
@@ -245,10 +249,11 @@ async function renderCustomer() {
 
     //mobilephone
     let customerMobileLabel = document.createElement("tr")
+    customerMobileLabel.classList.add("m-0")
     customerMobileLabel.innerText = "Mobilnummer"
 
     let customerMobileInput = document.createElement("td")
-    customerMobileInput.classList.add("form-control", "col" )
+    customerMobileInput.classList.add("form-control", "col")
     customerMobileInput.innerText = customer[0].mobilePhone
 
     
