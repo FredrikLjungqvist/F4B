@@ -24,8 +24,8 @@ function renderCart(cart) {
     document.getElementById("productCardCart").innerHTML=""
     document.getElementById("productCard").innerHTML=""
     document.getElementById("productCardOrder").innerHTML = "";
-    document.getElementById("customerInfo").innerHTML = "";
-    document.getElementById("shippingInfo").innerHTML = "";
+   /*  document.getElementById("customerInfo").innerHTML = ""; */
+   /*  document.getElementById("shippingInfo").innerHTML = ""; */
     /* if(!cart) {
         let emptyCart = document.createElement(h3)
         emptyCart.innerText = "Det finns inga produkter i varukorgen"
@@ -142,14 +142,15 @@ function renderCart(cart) {
 
 
  async function orderCart() {
-    cart= await getCart()
-    console.log(cart)
-    body= new FormData
-    body.append("action", "sendOrder")
-    body.append("cart", JSON.stringify(cart))
-    let response = await makeRequest("./api/recievers/orderReciever.php", "POST", body)
-    console.log(response)
-    renderOrders(response)
+     cart= await getCart()
+     console.log(cart)
+     body= new FormData
+     body.append("action", "sendOrder")
+     body.append("cart", JSON.stringify(cart))
+     let response = await makeRequest("./api/recievers/orderReciever.php", "POST", body)
+     console.log(response)
+     renderOrders(response)
+     updateCartCounter()
     
 }  
 
@@ -183,6 +184,7 @@ async function deleteCartItem() {
 
 
 async function renderCustomer() {
+    console.log("jag körs")
     //document.getElementById("customerInfo").innerHTML="" */
     let customer = await getCustomer()
     console.log(customer)

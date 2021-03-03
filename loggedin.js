@@ -120,6 +120,7 @@ function render(user){
     document.getElementById("productCard").innerText=""
     document.getElementById("customerInfo").innerText=""
     document.getElementById("shippingInfo").innerText=""
+    document.getElementById("productCardOrder").innerText=""
 
     let renderCard = document.createElement("div")
     renderCard.className = "card text-center";

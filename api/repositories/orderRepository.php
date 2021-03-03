@@ -77,7 +77,7 @@ function makeOrder($cart){
         $orderItems = [
             "orderID"=>$orderSent["index"],
             "productID"=>$item["product"][0]["id"],
-            "price"=>$item["product"][0]["id"],
+            "price"=>$item["product"][0]["price"],
             "quantity"=>$item["quantity"]
             
         ];
@@ -88,9 +88,17 @@ function makeOrder($cart){
    
     
     $order = new Order($orderItemList, $orderSent["index"], $_SESSION["id"], $cart["totalPrice"],date("Y-m-d H:i:s"), $cart["totalWeight"]);
+    $cartItems=[
+        "userID"=>$_SESSION["id"]
+    ];
+    deleteCartItems($cartItems);
     return $order;
-    };
+};
 
+function deleteCartItems($userID) {
+    $db = new Database();
+    return $db->runQuery("DELETE FROM cartitem WHERE userID = :userID;", $userID);
+}
 
 function updateStock($productID, $quantity){
 $product=[
