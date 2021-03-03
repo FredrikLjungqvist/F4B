@@ -403,13 +403,13 @@ async function approveOrders() {
             divOrderRows.style.borderBottom = "solid black 1px"
             
             let orderRow = document.createElement("p")
-            orderRow.innerText = "ID: " + row.id + ", userID: " + row.userID + ", date: " + row.date + ", status: " + row.status  
+            orderRow.innerText = "ID: " + row.ID + ", userID: " + row.userID + ", date: " + row.date + ", status: " + row.status  
 
             let approveButton = document.createElement("button")
             approveButton.classList.add("btn-warning")
             approveButton.innerText = "Approve"
             approveButton.addEventListener("click", approveOrder)
-            approveButton.data = row.id
+            approveButton.data = row.ID
 
             divOrderRows.append(orderRow, approveButton)
             divListOrders.append(divOrderRows)
@@ -428,7 +428,7 @@ async function approveOrder() {
 
     const body = new FormData()
     body.append("action", "approveOrder")
-    body.append("id", JSON.stringify(id))
+    body.append("ID", JSON.stringify(id))
 
     let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
     console.log(response)
@@ -489,7 +489,7 @@ async function listShippedOrders() {
             divOrderRows.style.borderBottom = "solid black 1px"
             
             let orderRow = document.createElement("p")
-            orderRow.innerText = "ID: " + row.id + ", userID: " + row.userID + ", date: " + row.date + ", status: " + row.status  
+            orderRow.innerText = "ID: " + row.ID + ", userID: " + row.userID + ", date: " + row.date + ", status: " + row.status  
 
             divOrderRows.append(orderRow)
             divListOrders.append(divOrderRows)
@@ -553,7 +553,7 @@ async function listCompleteOrders() {
             divOrderRows.style.borderBottom = "solid black 1px"
             
             let orderRow = document.createElement("p")
-            orderRow.innerText = "ID: " + row.id + ", userID: " + row.userID + ", date: " + row.date + ", status: " + row.status  
+            orderRow.innerText = "ID: " + row.ID + ", userID: " + row.userID + ", date: " + row.date + ", status: " + row.status  
 
             divOrderRows.append(orderRow)
             divListOrders.append(divOrderRows)
