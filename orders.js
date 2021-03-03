@@ -79,9 +79,12 @@ async function renderOrders(response) {
     orderStat.innerText = "Order Status"
 
     let confirmBtn = document.createElement("button")
-    confirmBtn.innerText = "Klart!"
+    confirmBtn.innerText = "Shoppa Vidare!"
+    confirmBtn.classList.add("btn", "text-white")
+    confirmBtn.style.background = "rgb(28, 58, 28)"
     confirmBtn.addEventListener("click", ()=>{
         alert("Bra JOBBAT! Nu blir du snygg och lätt i naturen!")
+        initsite()
     })
 
     renderCardOrder.append(imagePic, imagePicTwo, orderHeadText, orderNum)

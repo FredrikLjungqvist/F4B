@@ -141,6 +141,7 @@ async function render(user){
     
     let renderCardOrder = document.createElement("div")
     
+    
     let houseimage = document.createElement("img")
     houseimage.append("img-fluid")
     houseimage.src = "./pictures/vandring2.png"
@@ -169,9 +170,16 @@ async function render(user){
     orderHeadText.style.marginLeft = "10%"
     orderHeadText.style.marginTop = "30px"
     
-    renderCardOrder.append(orderHeadText)
+
+    let orderStatusCheck  = document.createElement("h6")
+    orderStatusCheck.innerText = "1 = underbehandling | 2 = skickad | 3 = mottagen"
+    orderStatusCheck.style.marginLeft = "10%"
+    orderStatusCheck.style.marginTop = "10px"
+    orderStatusCheck.style.fontSize = "11px"
+    
+    
+    renderCardOrder.append(orderHeadText, orderStatusCheck)
     document.getElementById("productCard").append(renderCardOrder)
-    //ordercard
     
     let orders = await getOrders()
     console.log(orders)
@@ -179,42 +187,38 @@ async function render(user){
         console.log(order)
         console.log(order.orderStatus)
         
-        let orderNum = document.createElement("h4")
-        orderNum.innerText = "Beställningsnummer" + " #" + order.orderID
+        
+        let ordertable = document.createElement("div")
+        ordertable.style.marginLeft = "10%"
+        orderStatusCheck.style.marginBottom = "50px"
+        ordertable.classList.add("d-flex","flex-wrap","m")
         
         
-        let table = document.createElement("table")
+        let orderNum = document.createElement("h6")
+        orderNum.innerText = "Ordernummer" + " #" + order.orderID
+        
+        let table = document.createElement("div")
         table.style.marginLeft = "10%"
+        table.classList.add("d-flex","flex-wrap","flex-column")
         
-        let tableHeadRow = document.createElement("tr")
+        let tableHeadRow = document.createElement("div")
         
-        let orderProd = document.createElement("th")
-        orderProd.innerText = "Produkt"
-        orderProd.fontSize = "20px"
+        let orderProd = document.createElement("h6")
+        orderProd.style.marginTop ="20px"
+        orderProd.innerText = "Produkt"       
         
-        let orderTotQuant = document.createElement("th")
-        orderTotQuant.innerText = "Antal"
-        orderTotQuant.fontSize = "20px"
+        let orderTotPrice = document.createElement("h6")
+        orderTotPrice.style.marginLeft = "10px"
+        orderTotPrice.style.marginRight = "10px"
+        orderTotPrice.innerText = "Totalsumma: " + order.totalPrice + " kr"
         
-        let recivedbtn = document.createElement("input")
-        recivedbtn.type = "checkbox"
-        recivedbtn.style.width="100px"
-        recivedbtn.classList.add("btn")
-        recivedbtn.innertext ="Tagit Mottagen Order"
-
-        let orderTotPrice = document.createElement("h5")
-        orderTotPrice.style.marginLeft = "10%"
-        orderTotPrice.style.marginTop = "30px"
-        orderTotPrice.innerText = "Totalsumma"
-        orderTotPrice.fontSize = "20px"
         
-        let orderDate = document.createElement("h5")
-        orderDate.style.marginLeft = "10%"
-        orderDate.style.marginTop = "30px"
-        orderDate.innerText = order.date//"Beställningsdatum"
+        let orderDate = document.createElement("h6")
+        orderDate.style.marginLeft = "10px"
+        orderDate.innerText =  order.date
         
-        let orderStat = document.createElement("th")
-        orderStat.innerText = "Order Status"
+        let orderStat = document.createElement("h6")
+        orderStat.innerText = "Status " + order.orderStatus
         
        /*  let quantityToSave = orderItem.quantity
         let orderID = orderItem.orderID */
@@ -223,41 +227,44 @@ async function render(user){
             
             let receivedBtn = document.createElement("button")
             receivedBtn.innerText = "Mottagen"
+            receivedBtn.classList.add("btn", "text-white","mx-3")
+            receivedBtn.style.background = "rgb(28, 58, 28)"
             receivedBtn.addEventListener("click", orderReceived)
             receivedBtn.data = order.orderID
 
-            renderCardOrder.append(orderNum, receivedBtn, orderDate, orderTotPrice)
+            ordertable.append(orderNum, orderDate, orderTotPrice,orderStat,receivedBtn)
         } else {
-            renderCardOrder.append(orderNum, orderDate, orderTotPrice)
+            ordertable.append(orderNum, orderDate, orderTotPrice,orderStat)
         }
 
         
-        table.append(orderProd,orderTotQuant, orderStat,recivedbtn)
+        table.append(orderProd)
+        /* ordertable.append(orderNum,orderDate,orderTotPrice) */
+        renderCardOrder.append(ordertable)
+
+        table.append(orderProd)
         table.append(tableHeadRow)
         renderCardOrder.append(table)
         
-        document.getElementById("customerInfo").appendChild(renderCardOrder);
+        document.getElementById("productCardOrder").appendChild(renderCardOrder);
         
-        let tableProductRow = document.createElement("tr")
+        let tableProductRow = document.createElement("div")
+        tableProductRow.classList.add("d-flex","flex-wrap","flex-column")
         
-        let tbOrderPrice = document.createElement("td")
-        tbOrderPrice.innerText = order.totalPrice + " kr"
-        
-        let tdOrderDate = document.createElement("td")
-        tdOrderDate.innerText = order.date
-        
-        let tdOrdStat = document.createElement("td")
-        tdOrdStat.innerText = order.orderStatus
+    
         
         order.orderItems.forEach(orderItem => {  
             
-            let tdProdName = document.createElement("td")
-            tdProdName.innerText = orderItem.product[0].name
+            let tdProdName = document.createElement("p")
+            tdProdName.innerText = orderItem.product[0].name +" - "+ orderItem.quantity +"st"
             
-            let tdOrdQuant = document.createElement("td")
-            tdOrdQuant.innerText = orderItem.quantity
+            /* let tdOrdQuant = document.createElement("p")
+            tdOrdQuant.style.marginLeft
+            tdOrdQuant.innerText = orderItem.quantity +"st" */
+
+
  
-        tableProductRow.append(tdProdName,tdOrdQuant, tbOrderPrice, tdOrderDate, tdOrdStat)
+        tableProductRow.append(tdProdName,/* tdOrdQuant */)
         table.append(tableProductRow)
     
     

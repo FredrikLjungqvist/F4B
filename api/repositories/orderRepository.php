@@ -21,7 +21,7 @@ return $db->runQuery("INSERT INTO orderitems (orderID, productID, price, quantit
 function getOrder(){
     $userID = $_SESSION["id"];
     $db= new Database;
-    $response = $db->fetchQuery("SELECT * FROM orders WHERE userID = '$userID'");
+    $response = $db->fetchQuery("SELECT * FROM orders WHERE userID = '$userID' ORDER BY ID DESC");
     
     $orders=[];
     foreach ($response as $order) {
