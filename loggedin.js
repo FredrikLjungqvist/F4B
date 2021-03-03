@@ -114,6 +114,23 @@ async function logout() {
     initsite()
 }
 
+async function orderReceived() {
+    console.log("orderReceived")
+
+    const ID = {
+        ID : this.data 
+    }
+
+    const body = new FormData()
+    body.append("action", "orderReceived")
+    body.append("ID", JSON.stringify(ID))
+
+    let response = await makeRequest("./api/recievers/orderReciever.php", "POST", body)
+    console.log(response)
+    
+    loginCheck()
+}
+
 async function render(user){
     console.log("render")
     document.getElementById("productCardCart").innerHTML=""
@@ -161,7 +178,10 @@ async function render(user){
     console.log(orders)
     orders.forEach(order => { 
         console.log(order)
+        console.log(order.orderStatus)
         
+        let orderNum = document.createElement("h4")
+        orderNum.innerText = "Beställningsnummer" + " #" + order.orderID
         let ordertable = document.createElement("table")
         ordertable.style.marginLeft = "10%"
         ordertable.classList.add("d-flex","flex-wrap")
@@ -202,7 +222,21 @@ async function render(user){
         
        /*  let quantityToSave = orderItem.quantity
         let orderID = orderItem.orderID */
+
+        if (order.orderStatus == 2) {
+            
+            let receivedBtn = document.createElement("button")
+            receivedBtn.innerText = "Mottagen"
+            receivedBtn.addEventListener("click", orderReceived)
+            receivedBtn.data = order.orderID
+
+            renderCardOrder.append(orderNum, receivedBtn, orderDate, orderTotPrice)
+        } else {
+            renderCardOrder.append(orderNum, orderDate, orderTotPrice)
+        }
+
         
+        table.append(orderProd,orderTotQuant, orderStat,recivedbtn)
         ordertable.append(orderNum,orderDate,orderTotPrice)
         renderCardOrder.append(ordertable)
 

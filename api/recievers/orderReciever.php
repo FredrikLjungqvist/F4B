@@ -22,8 +22,12 @@ try {
             if($_POST["action"] == "sendOrder") {
                 $cart=json_decode($_POST["cart"], true);
                 echo json_encode(makeOrder($cart));
-            } else if($_POST["action"] == "approveOrder") {
-                //MARKS ORDER AS SENT (ADMIN)
+            } else if($_POST["action"] == "orderReceived") {
+                //MARKS ORDER AS RECEIVED
+                $orderID=json_decode($_POST["ID"], true);
+
+                echo json_encode(orderReceived($orderID));
+
             }
 
         } else {

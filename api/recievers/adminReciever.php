@@ -89,7 +89,7 @@ try {
             } else if($_POST["action"] == "approveOrder") {
                 //CHANGES STATUS OF ORDER TO 2 (SHIPPED) OF ORDER WITH MATCHING ID($_POST["id"]) (ADMIN)
 
-                $id = json_decode($_POST["id"], true);
+                $id = json_decode($_POST["ID"], true);
                 
                 /* echo json_encode($id); */
                 echo json_encode(approveOrder($id));

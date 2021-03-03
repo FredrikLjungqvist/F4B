@@ -109,5 +109,11 @@ return $db->runQuery("UPDATE products SET unitInStock = unitInStock - :quantity 
 
 }
 
+function orderReceived($orderID) {
+
+    $db = new Database();
+    return $db->runQuery("UPDATE orders SET status = 3 WHERE ID = :ID;", $orderID);
+
+}
 
 ?>
