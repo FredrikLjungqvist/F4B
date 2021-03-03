@@ -85,7 +85,7 @@ function getListOrders($status) {
 function approveOrder($id) {
 
     $db = new Database();
-    return $db->runQuery("UPDATE orders SET status = 2 WHERE id = :id;", $id);
+    return $db->runQuery("UPDATE orders SET status = 2 WHERE ID = :id;", $id);
 
 }
 
