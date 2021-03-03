@@ -1,0 +1,28 @@
+* {
+    box-sizing: border-box;
+
+}
+
+body {
+    margin: 0;
+}
+
+#renderCardOrder {
+    margin: 20px;
+}
+
+/* rgba(128, 128, 128, 0.308) */
+
+
+th {
+    font-size: 15px;
+}
+
+td {
+    font-size: 15px;
+}
+
+table {
+    width: 60%;
+    font-size: 11px;
+}
