@@ -4,6 +4,7 @@ function initOrder() {
     document.getElementById("productCardOrder").innerHTML = "";
     document.getElementById("productCard").innerHTML = "";
     document.getElementById("productCardCart").innerHTML = "";
+  
    
     
     /* const order = await request("./api/recievers/orderReciever.php", "GET")
@@ -33,6 +34,7 @@ async function renderOrders(response) {
     document.getElementById("productCardCart").innerHTML = "";
     document.getElementById("customerInfo").innerHTML = "";
     document.getElementById("shippingInfo").innerHTML = "";
+    let orderlist = getOrders()
     let order = response 
     console.log(order)
 
@@ -77,8 +79,10 @@ async function renderOrders(response) {
     orderStat.innerText = "Order Status"
 
     let confirmBtn = document.createElement("button")
-    confirmBtn.innerText = "Bekräfta Order"
-    confirmBtn.addEventListener("click", getOrders)
+    confirmBtn.innerText = "Klart!"
+    confirmBtn.addEventListener("click", ()=>{
+        alert("Bra JOBBAT! Nu blir du snygg och lätt i naturen!")
+    })
 
     renderCardOrder.append(imagePic, imagePicTwo, orderHeadText, orderNum)
     table.append(orderTotPrice, orderDate, orderStat)
