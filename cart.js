@@ -1,9 +1,16 @@
-function initCart() {
+async function initCart() {
     document.getElementById("productCardCart").innerHTML=""
-    document.getElementById("productCard").innerHTML=""
-    
-    getCart()
-    
+    user = await getUser()
+    console.log(user)
+    if (user==undefined) {
+        
+        loginModal()
+    }else{
+        document.getElementById("productCard").innerHTML=""
+        getCart()
+        renderCustomer()
+   
+    }
 }
 
 function initCustomer() {
@@ -88,7 +95,7 @@ function renderCart(cart) {
             deleteBtn.style.maxHeight = "12px"
           
         deleteBtn.data = value.id
-        deleteBtn.addEventListener("click", function() {deleteCartItem(cartItem)}); 
+        deleteBtn.addEventListener("click", deleteCartItem) 
           
       
       cardBodyCart.append(image, title, cardText, cardWeight, cardQuant, cardTotWeight, cardTotal, deleteBtn)
@@ -143,8 +150,9 @@ function renderCart(cart) {
 }  
 
 async function getCart() {
+    userID = await getUser()
     var url = new URL("http://localhost/api/recievers/productReciever.php")
-    var params = {action: "getCart", userID: 1} 
+    var params = {action: "getCart", userID: userID} 
     url.search = new URLSearchParams(params);
 
     let cart = await makeRequest(url, "GET")
@@ -155,7 +163,7 @@ async function getCart() {
 
 async function deleteCartItem() {
     const prodID = this.data
-    const userID = 1
+    const userID = await getUser()
 
     let body = new FormData()
     body.append("prodID", prodID)
@@ -165,10 +173,10 @@ async function deleteCartItem() {
     const result = await makeRequest("./api/recievers/productReciever.php", "POST", body)
     console.log(result)
     getCart()
-    updateCartCounter(1)
+    updateCartCounter()
 }
 
-renderCustomer()
+
 
 async function renderCustomer() {
     //document.getElementById("customerInfo").innerHTML="" */

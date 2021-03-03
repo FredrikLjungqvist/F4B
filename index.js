@@ -8,13 +8,13 @@ $('#myModal').modal('hide')                // initializes and invokes show immed
 
 function initsite(){
    
-    document.getElementById("productCard").innerHTML = "";
+    /* document.getElementById("productCard").innerHTML = ""; */
     document.getElementById("productCardCart").innerHTML = "";
     document.getElementById("modalpop").innerHTML = "";
     /* getProduct("30002") */
     /* getCategory("3") */
     getAllProducts()
-    updateCartCounter(1)
+    updateCartCounter()
     loginCheck()
 }
 
@@ -486,7 +486,11 @@ async function getAllProducts() {
 }
 
 
-async function updateCartCounter(userID) {
+async function updateCartCounter() {
+    userID = await getUser()
+    if (userID) {
+        
+    
     console.log("updateCartCounter")
     document.getElementById("cartCounter").innerText = ""
     let url = new URL("http://localhost/api/recievers/productReciever.php")
@@ -494,11 +498,20 @@ async function updateCartCounter(userID) {
     let params = {action: "getCartCounter", userID: userID}
     console.log(params)
     url.search = new URLSearchParams(params)
-    console.log(url)
+    
 
     let cartItem = await makeRequest(url, "GET")
-
-    document.getElementById("cartCounter").innerText = cartItem[0].quant    
+    console.log(cartItem)
+    if (cartItem != undefined) {
+        document.getElementById("cartCounter").innerText = cartItem[0].qty
+    }else{
+        
+    }
+        
+    }else{
+        document.getElementById("cartCounter").innerText = ""
+        
+    }
 }
 
 
@@ -531,11 +544,11 @@ console.log(products)
 
 
 async function addProductToCart(){
-    
+    if (userID){
     const productID = this.data.id
     console.log(productID)
     let cartItemlist = []
-    const userID = 1 // för inställd userID
+    const userID = await getUser() // för inställd userID
     var url = new URL("http://localhost/api/recievers/productReciever.php")
     
     var params = {action: "getcartitem", userID: userID} 
@@ -560,16 +573,17 @@ async function addProductToCart(){
                 const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
 
                 console.log(result)
-                updateCartCounter(1)
+                updateCartCounter()
                 return
 
             } else if(checkID != productID){
                 
             }
         }
-        addNewProduct(1)
+        addNewProduct()
         async function addNewProduct(){
-            const product = {
+            
+            let product = {
                 userID:userID,
                 prodID:productID,
                 quantity:1    
@@ -580,9 +594,10 @@ async function addProductToCart(){
             
             const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
             console.log(result)
-            updateCartCounter(1)
+            updateCartCounter()
             return
-        }
+        
+        }}else{loginModal()}
 }
 
 async function makeRequest(url, method, body) {

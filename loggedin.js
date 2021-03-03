@@ -31,6 +31,16 @@ async function loginCheck(){
     }
 }
 
+async function getUser() {
+
+    let url = new URL("http://localhost/api/recievers/userReciever.php")
+    let params ={action: "getUser"}
+    url.search = new URLSearchParams(params)
+    let user = await makeRequest(url, "GET")
+    return user
+}
+
+
 
 async function registerUser(){
     console.log("registerUser")
@@ -483,6 +493,10 @@ async function logout() {
     
     let response = await makeRequest(url, "GET")
     console.log(response)
+    document.getElementById("productCardCart").innerHTML = ""
+    document.getElementById("customerInfo").innerHTML = ""
+    document.getElementById("productCardOrder").innerHTML = ""
+    document.getElementById("shippingInfo").innerHTML = ""
     initsite()
 }
 

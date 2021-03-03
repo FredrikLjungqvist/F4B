@@ -40,6 +40,12 @@ if($_SERVER["REQUEST_METHOD"] == "GET"){
             echo json_encode("finns ingen");
             exit;
         }
+    }elseif ($_GET["action"]== "getUser") {
+        $id=$_SESSION["id"];
+       
+        echo json_encode($id);
+       
+        
     }
      
 }
