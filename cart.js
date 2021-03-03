@@ -178,9 +178,9 @@ async function renderCustomer() {
 
     //kunduppgifter
     let renderCustomerCard = document.createElement("div")
-    renderCustomerCard.classList.add("container")
+    //renderCustomerCard.classList.add("container")
     renderCustomerCard.style.width = "80%"
-    renderCustomerCard.style.height = "5.5rem"
+    //renderCustomerCard.style.height = "5.5rem"
     renderCustomerCard.style.margin = "5px"
     
     let cardBodyCustomer = document.createElement("div")
@@ -274,67 +274,72 @@ async function renderCustomer() {
    
     document.getElementById("customerInfo").appendChild(renderCustomerCard);
    
+    /*shipper.forEach((shipper) => { */
     
-    //leveransalternativ
-    let renderShipOptions = document.createElement("div")
-    renderShipOptions.classList.add("container")
+        //leveransalternativ
+        let renderShipOptions = document.createElement("div")
+        renderShipOptions.classList.add("container")
 
-    let shipOptionTitle = document.createElement("h3")
-    shipOptionTitle.innerText ="Välj leveransalternativ"
+        let shipOptionTitle = document.createElement("h3")
+        shipOptionTitle.innerText ="Välj leveransalternativ"
 
-    let shipOptionText = document.createElement("h6")
-    shipOptionText.innerText = "Paketet hämtas på närmaste utlämningsställe som anges i sms-aviseringen."
+        let shipOptionText = document.createElement("h6")
+        shipOptionText.innerText = "Paketet hämtas på närmaste utlämningsställe som anges i sms-aviseringen."
     
-    let shipOptionForm = document.createElement("table")
-    shipOptionForm.classList.add("table-row","m-6")
+        let shipOptionForm = document.createElement("table")
+        shipOptionForm.classList.add("table-row","m-6")
 
-    //shipOptionsOne
-    let shipperOneLabel = document.createElement("tr")
-    shipperOneLabel.classList.add("row", "form-check-label", type="radio")
+        //shipOptionsOne
+        let shipperOneLabel = document.createElement("tr")
+        shipperOneLabel.classList.add("row", "form-check-label", type="radio")
 
-    let shipperOneRadioInput = document.createElement("INPUT");
-    shipperOneRadioInput.classList.add("form-check-input", "m-1")
-    shipperOneRadioInput.setAttribute("type", "radio");
-    shipperOneRadioInput.name = "frakt"
+        let shipperOneRadioInput = document.createElement("INPUT");
+        shipperOneRadioInput.classList.add("form-check-input", "m-1")
+        shipperOneRadioInput.setAttribute("type", "radio");
+        shipperOneRadioInput.name = "frakt"
 
-    let shipperOneName = document.createElement("h6")
-    shipperOneName.innerText = "Bring"
-   // shipperOneName.innerText = "Bring"
+        let shipperOneName = document.createElement("h6")
+        shipperOneName.classList.add("row", "ml-4")
+        //shipperOneName.innerText = shipper.companyName
+        shipperOneName.innerText = "Bring"
 
-    /* let shipperOneText = document.createElement("td")
-    shipperOneText.innerText = "Fraktpris: 150" + " kr"  */
+        /* let shipperOneText = document.createElement("td")
+        shipperOneText.innerText = "Fraktpris: 150" + " kr"  */
 
-    //shipperOptionTwo
-    let shipperTwoLabel = document.createElement("tr")
-    shipperTwoLabel.classList.add("row", "form-check-label", type="radio")
+        //shipperOptionTwo
+        let shipperTwoLabel = document.createElement("tr")
+        shipperTwoLabel.classList.add("row", "form-check-label", type="radio")
 
-    let shipperTwoRadioInput = document.createElement("INPUT");
-    shipperTwoRadioInput.classList.add("form-check-input", "m-1")
-    shipperTwoRadioInput.setAttribute("type", "radio");
-    shipperTwoRadioInput.name = "frakt"
+        let shipperTwoRadioInput = document.createElement("INPUT");
+        shipperTwoRadioInput.classList.add("form-check-input", "m-1");
+        shipperTwoRadioInput.setAttribute("type", "radio");
+        shipperTwoRadioInput.name = "frakt"
 
-    let shipperTwoName = document.createElement("h6")
-    shipperTwoName.innerText = "PostNord"
+        let shipperTwoName = document.createElement("h6")
+        shipperTwoName.classList.add("row", "ml-4")
+        shipperTwoName.innerText = "PostNord"
 
-    /* let shipperTwoText = document.createElement("td")
-    shipperTwoText.innerText = "Fraktpris: 75" + " kr"  */
+        /* let shipperTwoText = document.createElement("td")
+        shipperTwoText.innerText = "Fraktpris: 75" + " kr"  */
 
-    //shipperOptionThree
-    let shipperThreeLabel = document.createElement("tr")
-    shipperThreeLabel.classList.add("row","form-check-label", type="radio")
+        //shipperOptionThree
+        let shipperThreeLabel = document.createElement("tr")
+        shipperThreeLabel.classList.add("row","form-check-label", type="radio")
 
-    let shipperThreeRadioInput = document.createElement("INPUT");
-    shipperThreeRadioInput.classList.add("form-check-input", "m-1")
-    shipperThreeRadioInput.setAttribute("type", "radio");
-    shipperThreeRadioInput.name = "frakt"
+        let shipperThreeRadioInput = document.createElement("INPUT");
+        shipperThreeRadioInput.classList.add("form-check-input", "m-1");
+        shipperThreeRadioInput.setAttribute("type", "radio");
+        shipperThreeRadioInput.name = "frakt"
 
-    let shipperThreeName = document.createElement("h6")
-    shipperThreeName.innerText = "DHL"
+        let shipperThreeName = document.createElement("h6")
+        shipperThreeName.classList.add("row", "ml-4")
+        shipperThreeName.innerText = "DHL"
 
-    /* let shipperThreeText = document.createElement("td")
-    shipperThreeText.innerText = "Fraktpris: 125" + " kr"  */
+        /* let shipperThreeText = document.createElement("td")
+        shipperThreeText.innerText = "Fraktpris: 125" + " kr"  */
 
-    
+    /*})*/
+
     //newsletter 
     let checkformTwo = document.createElement("div")
     checkformTwo.classList.add("col","ml-3")
