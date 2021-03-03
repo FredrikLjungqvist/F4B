@@ -95,8 +95,8 @@ function renderCart(cart) {
             let deleteBtn = document.createElement("button")
             deleteBtn.classList.add("btn", "text-grey", "p-0","align-items-center")
             deleteBtn.style.background = "white"
-            deleteBtn.style.maxWidth = "12px"
-            deleteBtn.style.maxHeight = "12px"
+            deleteBtn.style.maxWidth = "20px"
+            deleteBtn.style.maxHeight = "20px"
           
         deleteBtn.data = value.id
         deleteBtn.addEventListener("click", deleteCartItem) 
@@ -130,7 +130,6 @@ function renderCart(cart) {
     buyBtn.innerText = "Gå till betalning"
     buyBtn.classList.add("btn", "text-white")
     buyBtn.style.background = "rgb(28, 58, 28)"
-    /* buyBtn.style.width = "200px" */
     buyBtn.addEventListener("click", orderCart)
 
     totalDiv.append(totalDivTwo)
