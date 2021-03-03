@@ -1,6 +1,6 @@
 <?php
-require("../handlers/databaseHandler.php");
-require("../classes/productClass.php");
+require_once ("../handlers/databaseHandler.php");
+require_once ("../classes/productClass.php");
 //get all
 function getAllProducts(){
     $db = new Database();
@@ -81,7 +81,9 @@ function getProduct($product){
 //get number of products in cart
 function getCartCounter($userID) {
     $db = new Database();
-    return $db->fetchQuery("SELECT SUM(quantity) AS quant FROM cartitem WHERE userID = $userID");
+    $quantity=$db->fetchQuery("SELECT SUM(quantity) as qty FROM cartitem WHERE userID = $userID");
+    
+    return $quantity;
 
 }
 

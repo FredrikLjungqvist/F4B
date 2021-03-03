@@ -2,11 +2,12 @@
 session_start();
 require_once ("../handlers/databaseHandler.php");
 require ("../classes/orderClass.php");
+require ("../repositories/productRepository.php");
 
 
 function sendOrder($order){
 $db = new Database;
-return $db->runQuery("INSERT INTO orders (userID, date, status) VALUES (:userID, :date, :status);", $order);
+return $db->runQuery("INSERT INTO orders (userID, date, status, price) VALUES (:userID, :date, :status, :price);", $order);
 
 };
 
@@ -21,8 +22,30 @@ function getOrder(){
     $userID = $_SESSION["id"];
     $db= new Database;
     $response = $db->fetchQuery("SELECT * FROM orders WHERE userID = '$userID'");
-    return $response;
+    
+    $orders=[];
+    foreach ($response as $order) {
+        $orderItems = getOrderDetails($order["ID"]);
+        $orderItemList=[];
+            
+        foreach ($orderItems as $orderItem){
+                $product=getProduct($orderItem["productID"]);
+                $orderItemInstance = new OrderItem($product, $orderItem["orderID"], $orderItem["quantity"]);
+                
+                    
+                
+                array_push($orderItemList, $orderItemInstance);
+                
+            }
+        $order = new Order($orderItemList, $order["ID"], $_SESSION["id"], $order["price"], $order["date"], NULL);
+        array_push($orders, $order);
+    
+    }
+    return $orders;
+
+
 }
+
 function getOrderDetails($orderID){
 $db= new Database;
 $response = $db->fetchQuery("SELECT * FROM orderitems WHERE orderID = '$orderID'");
@@ -37,7 +60,8 @@ function makeOrder($cart){
     $orderToSave = [
         "userID"=>$_SESSION["id"],
         "date"=>date("Y-m-d H:i:s"),
-        "status"=>1
+        "status"=>1,
+        "price"=>$cart["totalPrice"]
     ];
     
     $orderSent=sendOrder($orderToSave);
@@ -46,6 +70,8 @@ function makeOrder($cart){
     
     foreach ($cart["cartitems"] as $item) {
         
+        updateStock($item["product"][0]["id"], $item["quantity"]);
+
         $product= $item["product"];
         $orderItemInstance = new OrderItem($product, $orderSent["index"], $item["quantity"]);
         $orderItems = [
@@ -53,6 +79,7 @@ function makeOrder($cart){
             "productID"=>$item["product"][0]["id"],
             "price"=>$item["product"][0]["id"],
             "quantity"=>$item["quantity"]
+            
         ];
         addOrderItem($orderItems); 
         array_push($orderItemList, $orderItemInstance);
@@ -60,12 +87,20 @@ function makeOrder($cart){
     }
    
     
-    $order = new Order($orderItemList, $orderSent["index"], $_SESSION["id"], $cart["totalPrice"], $cart["totalWeight"]);
+    $order = new Order($orderItemList, $orderSent["index"], $_SESSION["id"], $cart["totalPrice"],date("Y-m-d H:i:s"), $cart["totalWeight"]);
     return $order;
     };
 
 
+function updateStock($productID, $quantity){
+$product=[
+    "quantity"=>$quantity,
+    "prodID"=>$productID
+];
+$db= new Database;
+return $db->runQuery("UPDATE products SET unitInStock = unitInStock - :quantity WHERE ID = :prodID", $product);
 
+}
 
 
 ?>
