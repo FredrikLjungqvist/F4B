@@ -15,6 +15,7 @@ async function initCart() {
 
 function initCustomer() {
     console.log("initCustomer")
+    //document.getElementById("customerInfo").innerHTML=""
     document.getElementById("customerInfo").innerHTML=""
     getCustomer()
 }
@@ -186,18 +187,19 @@ async function deleteCartItem() {
 async function renderCustomer() {
     console.log("jag körs")
     //document.getElementById("customerInfo").innerHTML="" */
+ 
     let customer = await getCustomer()
     console.log(customer)
+
     //kunduppgifter
     let renderCustomerCard = document.createElement("div")
-    //renderCustomerCard.className = "card";
-    renderCustomerCard.classList.add("container")
+    //renderCustomerCard.classList.add("container")
     renderCustomerCard.style.width = "80%"
-    renderCustomerCard.style.height = "5.5rem"
+    //renderCustomerCard.style.height = "5.5rem"
     renderCustomerCard.style.margin = "5px"
     
     let cardBodyCustomer = document.createElement("div")
-    cardBodyCustomer.classList.add("card-body", "d-flex", "justify-content-around", "align-items-center")
+    cardBodyCustomer.classList.add("card-body", "d-flex", "justify-content-around", "align-items-center",)
     cardBodyCustomer.style.padding = "1rem"        
 
     let customerPageTitle = document.createElement("h3")
@@ -208,7 +210,7 @@ async function renderCustomer() {
 
     //förnamn + efternamn
     let fullnameLabel = document.createElement("tr")
-    fullnameLabel.classList.add("table", "row", "col")
+    fullnameLabel.classList.add("table", "row", "col", "m-0")
     fullnameLabel.innerText="För- och efternamn"
 
     let fullnameInput = document.createElement("td")
@@ -217,7 +219,7 @@ async function renderCustomer() {
 
     //adress1
     let addressOneLabel = document.createElement("tr")
-    addressOneLabel.classList.add("table", "row", "col")
+    addressOneLabel.classList.add("table", "row", "col", "m-0")
     addressOneLabel.innerText="Adress 1"
 
     let addressOneInput = document.createElement("td")
@@ -226,6 +228,7 @@ async function renderCustomer() {
 
     //address2
     let addressTwoLabel = document.createElement("tr")
+    addressTwoLabel.classList.add("m-0", "mt-1")
     addressTwoLabel.innerText="Adress 2"
 
     let addressTwoInput = document.createElement("td")
@@ -234,6 +237,7 @@ async function renderCustomer() {
 
     //zipCode + city
     let zipCodeCityLabel = document.createElement("tr")
+    zipCodeCityLabel.classList.add("m-0")
     zipCodeCityLabel.innerText="Postnummer och ort"
 
     let zipCodeCityInput = document.createElement("td")
@@ -242,6 +246,7 @@ async function renderCustomer() {
 
     //country
     let countryLabel = document.createElement("tr")
+    countryLabel.classList.add("m-0")
     countryLabel.innerText="Land"
 
     let countryInput = document.createElement("td")
@@ -250,6 +255,7 @@ async function renderCustomer() {
     
     //email
     let customerEmailLabel = document.createElement("tr")
+    customerEmailLabel.classList.add("m-0")
     customerEmailLabel.innerText="Email-adress"
 
     let customerEmailInput = document.createElement("td")
@@ -258,100 +264,105 @@ async function renderCustomer() {
 
     //mobilephone
     let customerMobileLabel = document.createElement("tr")
+    customerMobileLabel.classList.add("m-0")
     customerMobileLabel.innerText = "Mobilnummer"
 
     let customerMobileInput = document.createElement("td")
-    customerMobileInput.classList.add("form-control", "col" )
+    customerMobileInput.classList.add("form-control", "col")
     customerMobileInput.innerText = customer[0].mobilePhone
 
     
     //append kunduppgifter   
     customerAccountForm.append(customerPageTitle)
 
-    customerAccountForm.append(fullnameLabel)
-    customerAccountForm.append(fullnameInput)
+    customerAccountForm.append(fullnameLabel, fullnameInput)
 
-    customerAccountForm.append(addressOneLabel)
-    customerAccountForm.append(addressOneInput)
+    customerAccountForm.append(addressOneLabel,addressOneInput) 
 
-    customerAccountForm.append(addressTwoLabel)
-    customerAccountForm.append(addressTwoInput)
+    customerAccountForm.append(addressTwoLabel, addressTwoInput)
+   
+    customerAccountForm.append(zipCodeCityLabel, zipCodeCityInput)
 
-    customerAccountForm.append(zipCodeCityLabel)
-    customerAccountForm.append(zipCodeCityInput)
+    customerAccountForm.append(countryLabel, countryInput)
 
-    customerAccountForm.append(countryLabel)
-    customerAccountForm.append(countryInput)
-
-    customerAccountForm.append(customerEmailLabel)
-    customerAccountForm.append(customerEmailInput)
-
-    customerAccountForm.append(customerMobileLabel)
-    customerAccountForm.append(customerMobileInput)
+    customerAccountForm.append(customerEmailLabel, customerEmailInput)
+    
+    customerAccountForm.append(customerMobileLabel, customerMobileInput)
 
     //renderCustomerCard.append(customerAccountForm)
 
+   
     document.getElementById("customerInfo").appendChild(renderCustomerCard);
-    
+   
+    /*shipper.forEach((shipper) => { */
+
     
     //leveransalternativ
     let renderShipOptions = document.createElement("div")
     renderShipOptions.style.maxwidth="800px"
     renderShipOptions.classList.add("container")
 
-    let shipOptionTitle = document.createElement("h3")
-    shipOptionTitle.innerText ="Välj leveransalternativ"
 
-    let shipOptionText = document.createElement("h6")
-    shipOptionText.innerText = "angivet fraktpris gäller vid beställning UNDER 495 kr, annars fraktfritt"
+        let shipOptionTitle = document.createElement("h3")
+        shipOptionTitle.innerText ="Välj leveransalternativ"
+
+        let shipOptionText = document.createElement("h6")
+        shipOptionText.innerText = "Paketet hämtas på närmaste utlämningsställe som anges i sms-aviseringen."
     
-    let shipOptionForm = document.createElement("table")
-    shipOptionForm.classList.add("table-row","m-6")
+        let shipOptionForm = document.createElement("table")
+        shipOptionForm.classList.add("table-row","m-6")
 
-    //shipOptionsOne
-    let shipperOneLabel = document.createElement("tr")
-    shipperOneLabel.classList.add("row","form-check-label", type="radio")
+        //shipOptionsOne
+        let shipperOneLabel = document.createElement("tr")
+        shipperOneLabel.classList.add("row", "form-check-label", type="radio")
 
-    let shipperOneRadioInput = document.createElement("INPUT");
-    shipperOneRadioInput.classList.add("m-1");
-    shipperOneRadioInput.setAttribute("type", "radio");
-    shipperOneRadioInput.name = "frakt"
+        let shipperOneRadioInput = document.createElement("INPUT");
+        shipperOneRadioInput.classList.add("form-check-input", "m-1")
+        shipperOneRadioInput.setAttribute("type", "radio");
+        shipperOneRadioInput.name = "frakt"
 
-    let shipperOneName = document.createElement("h6")
-    shipperOneName.innerText = "Bring"
+        let shipperOneName = document.createElement("h6")
+        shipperOneName.classList.add("row", "ml-4")
+        //shipperOneName.innerText = shipper.companyName
+        shipperOneName.innerText = "Bring"
 
-    let shipperOneText = document.createElement("td")
-    shipperOneText.innerText = "Fraktpris: 150" + " kr" 
+        /* let shipperOneText = document.createElement("td")
+        shipperOneText.innerText = "Fraktpris: 150" + " kr"  */
 
-    //shipperOptionTwo
-    let shipperTwoLabel = document.createElement("tr")
-    shipperTwoLabel.classList.add("form-check-label", type="radio")
+        //shipperOptionTwo
+        let shipperTwoLabel = document.createElement("tr")
+        shipperTwoLabel.classList.add("row", "form-check-label", type="radio")
 
-    let shipperTwoRadioInput = document.createElement("INPUT");
-    shipperTwoRadioInput.classList.add("m-1");
-    shipperTwoRadioInput.setAttribute("type", "radio");
-    shipperTwoRadioInput.name = "frakt"
+        let shipperTwoRadioInput = document.createElement("INPUT");
+        shipperTwoRadioInput.classList.add("form-check-input", "m-1");
+        shipperTwoRadioInput.setAttribute("type", "radio");
+        shipperTwoRadioInput.name = "frakt"
 
-    let shipperTwoName = document.createElement("h6")
-    shipperTwoName.innerText = "PostNord"
+        let shipperTwoName = document.createElement("h6")
+        shipperTwoName.classList.add("row", "ml-4")
+        shipperTwoName.innerText = "PostNord"
 
-    let shipperTwoText = document.createElement("td")
-    shipperTwoText.innerText = "Fraktpris: 75" + " kr" 
+        /* let shipperTwoText = document.createElement("td")
+        shipperTwoText.innerText = "Fraktpris: 75" + " kr"  */
 
-    //shipperOptionThree
-    let shipperThreeLabel = document.createElement("tr")
-    shipperThreeLabel.classList.add("form-check-label", type="radio")
+        //shipperOptionThree
+        let shipperThreeLabel = document.createElement("tr")
+        shipperThreeLabel.classList.add("row","form-check-label", type="radio")
 
-    let shipperThreeRadioInput = document.createElement("INPUT");
-    shipperThreeRadioInput.classList.add("m-1");
-    shipperThreeRadioInput.setAttribute("type", "radio");
-    shipperThreeRadioInput.name = "frakt"
+        let shipperThreeRadioInput = document.createElement("INPUT");
+        shipperThreeRadioInput.classList.add("form-check-input", "m-1");
+        shipperThreeRadioInput.setAttribute("type", "radio");
+        shipperThreeRadioInput.name = "frakt"
 
-    let shipperThreeName = document.createElement("h6")
-    shipperThreeName.innerText = "DHL"
+        let shipperThreeName = document.createElement("h6")
+        shipperThreeName.classList.add("row", "ml-4")
+        shipperThreeName.innerText = "DHL"
 
-    let shipperThreeText = document.createElement("td")
-    shipperThreeText.innerText = "Fraktpris: 125" + " kr" 
+
+        /* let shipperThreeText = document.createElement("td")
+        shipperThreeText.innerText = "Fraktpris: 125" + " kr"  */
+
+    /*})*/
 
     //newsletter 
     let checkformTwo = document.createElement("div")
@@ -380,58 +391,31 @@ async function renderCustomer() {
     buyBtn.style.margin.bottom = "100px"
     buyBtn.addEventListener("click", orderCart)
 
-    
     //append levernasalternativ
-    shipOptionForm.append(shipOptionTitle)
-    shipOptionForm.append(shipperOneName)
+    shipOptionForm.append(shipOptionTitle, shipOptionText)
 
-    shipperOneLabel.append(shipperOneRadioInput)
-    shipperOneLabel.append(shipperOneName)
+    //append shipper1
+    shipOptionForm.append(shipperOneLabel, shipperOneRadioInput, shipperOneName)
+    /*shipOptionForm.append(shipperOneText)*/
 
+    //append shipper2
+    shipOptionForm.append(shipperTwoLabel, shipperTwoRadioInput, shipperTwoName)       
+    /*shipOptionForm.append(shipperTwoText)*/
 
-    shipOptionForm.append(shipperOneLabel)
-    /* shipOptionForm.append(shipperOneRadioInput)
-    shipOptionForm.append(shipperOneName) */
-    shipOptionForm.append(shipperOneText)
-
-    //shipOptionForm.append(shipperTwoInput)
-    shipOptionForm.append(shipperTwoLabel)       
-    shipOptionForm.append(shipperTwoRadioInput)
-    shipOptionForm.append(shipperTwoName)
-    shipOptionForm.append(shipperTwoText)
-
-    shipOptionForm.append(shipperThreeLabel)
-    shipOptionForm.append(shipperThreeRadioInput)
-    shipOptionForm.append(shipperThreeName)
-    shipOptionForm.append(shipperThreeText)
+    //append shipper3
+    shipOptionForm.append(shipperThreeLabel, shipperThreeRadioInput, shipperThreeName )
+    /*shipOptionForm.append(shipperThreeText)*/
 
     //newsletter
-    checkformTwo.append(checkText)
-    checkformTwo.append(checkboxTwo)
-    checkformTwo.append(checklabelTwo)
+    checkformTwo.append(checkText, checkboxTwo, checklabelTwo)
         
     //bekräfta knappen
     buyBtnForm.append(buyBtn)
 
     renderShipOptions.append(customerAccountForm, shipOptionForm, checkformTwo, buyBtnForm)
-
-
    
     document.getElementById("shippingInfo").appendChild(renderShipOptions);
-    //return renderCustomerCart    
-     
-    
-/* async function getAllCustomers() {   
-    document.getElementsById("customerInfo").innerHTML = "";
-
-    var url = new URL("http://localhost/api/receivers/customerReceiver.php")
-    let params = {action: "getAllCustomers", user: 1}
-    url.search = new URLSearchParams(params);
-
-    let user = await makeRequest(url, "GET") 
-    console.log(user)
-    renderCustomer(user)
-} */
+   
 }
 
 async function getCustomer() {
@@ -441,7 +425,15 @@ async function getCustomer() {
 
     let customer = await makeRequest(url, "GET")
     return customer
-   
+}
+
+async function getShipper() {
+    var url = new URL("http://localhost/api/recievers/customerReceiver.php")
+    var params = {action: "getShipper"}
+    url.search = new URLSearchParams(params);
+
+    let shipper = await makeRequest(url, "GET")
+    return shipper
 }
 
 

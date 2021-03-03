@@ -37,32 +37,27 @@ async function renderOrders(response) {
     let orderlist = getOrders()
     let order = response 
     console.log(order)
-    console.log(renderOrders)
-    /* if (!orders) {
-        let emptyOrder = document.createElement("h3")
-        emptyOrder.innerText = "Inga ordrar gjorda..."
-        mainElement.appendChild(emptyOrder)
-    } */
 
     let imagePic = document.createElement("img")
     imagePic.append("img-fluid")
     imagePic.src = "./pictures/hikingBoot.png"
     imagePic.style.maxWidth = "50%"
     imagePic.style.height = "auto"
+    imagePic.style.marginTop = "10px"
 
     let imagePicTwo = document.createElement("img")
     imagePicTwo.append("img-fluid")
     imagePicTwo.src = "./pictures/fjällräven.png"
     imagePicTwo.style.maxWidth = "50%"
     imagePicTwo.style.height = "auto"
+    imagePicTwo.style.marginTop = "10px"
 
     let orderHeadText = document.createElement("h2")
     orderHeadText.innerText = "Din beställning"
     orderHeadText.style.padding = "20px"
     orderHeadText.style.justifyContent = "center"
 
-
-    //order
+//ordercard
     let renderCardOrder = document.createElement("div")
 
     let orderNum = document.createElement("h4")
@@ -113,7 +108,7 @@ async function renderOrders(response) {
 
 
     //loopa över order.orderItems för bild/quant
-    
+
     let renderCard = document.createElement("div")
     renderCard.classList.add("card", "mx-3", "my-3", "py-2")
     renderCard.style.width = "15%"
@@ -130,6 +125,7 @@ async function renderOrders(response) {
         let quantityToSave = orderItem.quantity
         let orderID = orderItem.orderID
 
+    //loopar över bild/antal
     orderItem.product.forEach((product) => {
 
     let cardBodyOrder = document.createElement("div")
@@ -161,13 +157,12 @@ async function renderOrders(response) {
     cardBodyOrder.append(orderImage, orderTitle, orderQuant)
     orderBody.append(cardBodyOrder)
 })
-//kör foorloop för bild
+
 })
     let line = document.createElement("hr")
     line.style.borderTop = "2px solid rgb(28, 58, 28)"
     line.style.width = "58%"
     line.style.marginLeft = "0px"
-
 
     tableProductRow.append(tbOrderPrice, tdOrderDate, tdOrdStat)
     table.append(tableProductRow)
