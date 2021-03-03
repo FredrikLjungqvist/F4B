@@ -130,7 +130,7 @@ function renderCart(cart) {
     buyBtn.innerText = "Gå till betalning"
     buyBtn.classList.add("btn", "text-white")
     buyBtn.style.background = "rgb(28, 58, 28)"
-    buyBtn.style.width = "200px"
+    /* buyBtn.style.width = "200px" */
     buyBtn.addEventListener("click", orderCart)
 
     totalDiv.append(totalDivTwo)
