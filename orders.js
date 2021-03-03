@@ -147,18 +147,6 @@ async function renderOrders(response) {
     renderCardOrder.append(orderBody)
     renderCardOrder.append(line)
 
-    let orderBtnForm = document.createElement("div")
-        
-    let orderBtn = document.createElement("button")
-    orderBtn.innerText = "Lägg order"
-    orderBtn.classList.add("btn", "text-white", "col")
-    orderBtn.style.background = "rgb(28, 58, 28)"
-    orderBtn.style.width = "10%"
-    orderBtn.style.margin.bottom = "100px"
-    /* orderBtn.addEventListener("click", orderCart) */
-    renderCardOrder.append(orderBtnForm)
-    orderBtnForm.append(orderBtn)
-
 }
 
 /* async function getOrder(order) {
