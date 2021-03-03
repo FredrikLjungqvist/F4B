@@ -88,10 +88,9 @@ function makeOrder($cart){
    
     
     $order = new Order($orderItemList, $orderSent["index"], $_SESSION["id"], $cart["totalPrice"],date("Y-m-d H:i:s"), $cart["totalWeight"]);
-    $cartItems=[
-        "userID"=>$_SESSION["id"]
-    ];
-    deleteCartItems($cartItems);
+    $userID=[
+        "userID"=>$_SESSION["id"]];
+    deleteCartItems($userID);
     return $order;
 };
 
