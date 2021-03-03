@@ -12,6 +12,21 @@ function initOrder() {
 
 }
 
+async function getOrders() {
+    
+    
+    let url = new URL("http://localhost/api/recievers/orderReciever.php")
+    var params = {action:"listOrder"} 
+    url.search = new URLSearchParams(params)
+    
+    
+    let response = await makeRequest(url, "GET")
+    console.log(response)
+
+
+}
+
+
 async function renderOrders(response) {
     document.getElementById("productCardOrder").innerHTML = "";
     document.getElementById("productCard").innerHTML = "";
@@ -61,6 +76,9 @@ async function renderOrders(response) {
     let orderStat = document.createElement("th")
     orderStat.innerText = "Order Status"
 
+    let confirmBtn = document.createElement("button")
+    confirmBtn.innerText = "Bekräfta Order"
+    confirmBtn.addEventListener("click", getOrders)
 
     renderCardOrder.append(imagePic, imagePicTwo, orderHeadText, orderNum)
     table.append(orderTotPrice, orderDate, orderStat)
@@ -68,6 +86,7 @@ async function renderOrders(response) {
     renderCardOrder.append(table)
 
     document.getElementById("productCardOrder").appendChild(renderCardOrder);
+    document.getElementById("productCardOrder").appendChild(confirmBtn);
 
 
     /* orderItems.forEach((orderItem) => {   */
