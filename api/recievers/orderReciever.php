@@ -10,6 +10,7 @@ try {
             
             if($_GET["action"] == "listOrder") {
                 
+                echo json_encode(getOrder());
             } else if($_GET["action"] == "listPreviousOrders") {
                 //GET ORDER HISTORY
             } else if($_GET["action"] == "listAllOrders") {

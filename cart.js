@@ -1,9 +1,16 @@
-function initCart() {
+async function initCart() {
     document.getElementById("productCardCart").innerHTML=""
-    document.getElementById("productCard").innerHTML=""
-    
-    getCart()
-    
+    user = await getUser()
+    console.log(user)
+    if (user==undefined) {
+        
+        loginModal()
+    }else{
+        document.getElementById("productCard").innerHTML=""
+        getCart()
+        renderCustomer()
+   
+    }  
 }
 
 function initCustomer() {
@@ -14,8 +21,12 @@ function initCustomer() {
 }
 
 function renderCart(cart) {
+    console.log("renderCart")
     document.getElementById("productCardCart").innerHTML=""
     document.getElementById("productCard").innerHTML=""
+    document.getElementById("productCardOrder").innerHTML = "";
+    document.getElementById("customerInfo").innerHTML = "";
+    document.getElementById("shippingInfo").innerHTML = "";
     /* if(!cart) {
         let emptyCart = document.createElement(h3)
         emptyCart.innerText = "Det finns inga produkter i varukorgen"
@@ -27,8 +38,7 @@ function renderCart(cart) {
             
             let renderCardCart = document.createElement("div")
             renderCardCart.className = "card";
-            renderCardCart.style.width = "80%"
-            renderCardCart.style.height = "5.5rem"
+            renderCardCart.style.minheight = "5.5rem"
             renderCardCart.style.margin = "5px"
       
             let image = document.createElement("img")
@@ -40,7 +50,7 @@ function renderCart(cart) {
             image.style.maxHeight = "60px"
           
             let cardBodyCart = document.createElement("div")
-            cardBodyCart.classList.add("card-body", "d-flex", "justify-content-around", "align-items-center")
+            cardBodyCart.classList.add(/* "card-body", */ "d-flex", "justify-content-around","flex-wrap", "align-items-center")
             cardBodyCart.style.padding = "1rem"
       
             let title = document.createElement("h6");
@@ -89,7 +99,7 @@ function renderCart(cart) {
             deleteBtn.style.maxHeight = "12px"
           
         deleteBtn.data = value.id
-        deleteBtn.addEventListener("click", function() {deleteCartItem(cartItem)}); 
+        deleteBtn.addEventListener("click", deleteCartItem) 
           
       
       cardBodyCart.append(image, title, cardText, cardWeight, cardQuant, cardTotWeight, cardTotal, deleteBtn)
@@ -128,6 +138,7 @@ function renderCart(cart) {
     totalDiv.append(totalTextTwo)
     
     document.getElementById("productCardCart").appendChild(totalDiv); 
+    
 }
 
 
@@ -144,8 +155,9 @@ function renderCart(cart) {
 }  
 
 async function getCart() {
+    userID = await getUser()
     var url = new URL("http://localhost/api/recievers/productReciever.php")
-    var params = {action: "getCart", userID: 1} 
+    var params = {action: "getCart", userID: userID} 
     url.search = new URLSearchParams(params);
 
     let cart = await makeRequest(url, "GET")
@@ -156,7 +168,7 @@ async function getCart() {
 
 async function deleteCartItem() {
     const prodID = this.data
-    const userID = 1
+    const userID = await getUser()
 
     let body = new FormData()
     body.append("prodID", prodID)
@@ -166,10 +178,10 @@ async function deleteCartItem() {
     const result = await makeRequest("./api/recievers/productReciever.php", "POST", body)
     console.log(result)
     getCart()
-    updateCartCounter(1)
+    updateCartCounter()
 }
 
-renderCustomer()
+
 
 async function renderCustomer() {
  
@@ -280,10 +292,13 @@ async function renderCustomer() {
     document.getElementById("customerInfo").appendChild(renderCustomerCard);
    
     /*shipper.forEach((shipper) => { */
+
     
-        //leveransalternativ
-        let renderShipOptions = document.createElement("div")
-        renderShipOptions.classList.add("container")
+    //leveransalternativ
+    let renderShipOptions = document.createElement("div")
+    renderShipOptions.style.maxwidth="800px"
+    renderShipOptions.classList.add("container")
+
 
         let shipOptionTitle = document.createElement("h3")
         shipOptionTitle.innerText ="Välj leveransalternativ"
@@ -339,6 +354,7 @@ async function renderCustomer() {
         let shipperThreeName = document.createElement("h6")
         shipperThreeName.classList.add("row", "ml-4")
         shipperThreeName.innerText = "DHL"
+
 
         /* let shipperThreeText = document.createElement("td")
         shipperThreeText.innerText = "Fraktpris: 125" + " kr"  */

@@ -7,11 +7,12 @@ body {
     margin: 0;
 }
 
-#productCardOrder {
-    margin: 50px;
+#renderCardOrder {
+    margin: 20px;
 }
 
 /* rgba(128, 128, 128, 0.308) */
+
 
 th {
     font-size: 15px;
@@ -24,7 +25,4 @@ td {
 table {
     width: 60%;
     font-size: 11px;
-    margin: 20px;
-    padding: 20px;
 }
-

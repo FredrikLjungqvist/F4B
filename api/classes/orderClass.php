@@ -18,13 +18,13 @@ class Order{
     public $totalWeight;
 
     
-    function __construct($orderItems, $orderID, $userID, $totalPrice, $totalWeight) {
+    function __construct($orderItems, $orderID, $userID, $totalPrice, $date, $totalWeight) {
         $this->orderItems = $orderItems;
         $this->orderID = $orderID;
         $this->totalPrice = $totalPrice;
         $this->userID=$userID;
         $this->totalWeight = $totalWeight;
-        $this->date=date("Y-m-d H:i:s");
+         $this->date=$date; 
     }
 
 } 
