@@ -68,7 +68,7 @@ function getListNewsletter() {
 function submitNewsletter($newsletter) {
     
     $db = new Database();
-    return $db->runQuery("INSERT INTO newsletter (ID, titel, text) VALUES (NULL, :title, :text);", $newsletter);
+    return $db->runQuery("INSERT INTO newsletter (ID, titel, text, date) VALUES (NULL, :title, :text, :date );", $newsletter);
 
 }
 
