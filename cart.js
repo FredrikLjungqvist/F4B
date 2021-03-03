@@ -10,7 +10,7 @@ async function initCart() {
         getCart()
         renderCustomer()
    
-    }
+    }  
 }
 
 function initCustomer() {
@@ -20,8 +20,12 @@ function initCustomer() {
 }
 
 function renderCart(cart) {
+    console.log("renderCart")
     document.getElementById("productCardCart").innerHTML=""
     document.getElementById("productCard").innerHTML=""
+    document.getElementById("productCardOrder").innerHTML = "";
+    document.getElementById("customerInfo").innerHTML = "";
+    document.getElementById("shippingInfo").innerHTML = "";
     /* if(!cart) {
         let emptyCart = document.createElement(h3)
         emptyCart.innerText = "Det finns inga produkter i varukorgen"
@@ -33,8 +37,7 @@ function renderCart(cart) {
             
             let renderCardCart = document.createElement("div")
             renderCardCart.className = "card";
-            renderCardCart.style.width = "80%"
-            renderCardCart.style.height = "5.5rem"
+            renderCardCart.style.minheight = "5.5rem"
             renderCardCart.style.margin = "5px"
       
             let image = document.createElement("img")
@@ -46,7 +49,7 @@ function renderCart(cart) {
             image.style.maxHeight = "60px"
           
             let cardBodyCart = document.createElement("div")
-            cardBodyCart.classList.add("card-body", "d-flex", "justify-content-around", "align-items-center")
+            cardBodyCart.classList.add(/* "card-body", */ "d-flex", "justify-content-around","flex-wrap", "align-items-center")
             cardBodyCart.style.padding = "1rem"
       
             let title = document.createElement("h6");
@@ -134,6 +137,7 @@ function renderCart(cart) {
     totalDiv.append(totalTextTwo)
     
     document.getElementById("productCardCart").appendChild(totalDiv); 
+    
 }
 
 
@@ -286,9 +290,11 @@ async function renderCustomer() {
     //renderCustomerCard.append(customerAccountForm)
 
     document.getElementById("customerInfo").appendChild(renderCustomerCard);
-       
+    
+    
     //leveransalternativ
     let renderShipOptions = document.createElement("div")
+    renderShipOptions.style.maxwidth="800px"
     renderShipOptions.classList.add("container")
 
     let shipOptionTitle = document.createElement("h3")
@@ -302,10 +308,12 @@ async function renderCustomer() {
 
     //shipOptionsOne
     let shipperOneLabel = document.createElement("tr")
-    shipperOneLabel.classList.add("form-check-label", type="radio")
+    shipperOneLabel.classList.add("row","form-check-label", type="radio")
 
     let shipperOneRadioInput = document.createElement("INPUT");
+    shipperOneRadioInput.classList.add("m-1");
     shipperOneRadioInput.setAttribute("type", "radio");
+    shipperOneRadioInput.name = "frakt"
 
     let shipperOneName = document.createElement("h6")
     shipperOneName.innerText = "Bring"
@@ -318,7 +326,9 @@ async function renderCustomer() {
     shipperTwoLabel.classList.add("form-check-label", type="radio")
 
     let shipperTwoRadioInput = document.createElement("INPUT");
+    shipperTwoRadioInput.classList.add("m-1");
     shipperTwoRadioInput.setAttribute("type", "radio");
+    shipperTwoRadioInput.name = "frakt"
 
     let shipperTwoName = document.createElement("h6")
     shipperTwoName.innerText = "PostNord"
@@ -331,7 +341,9 @@ async function renderCustomer() {
     shipperThreeLabel.classList.add("form-check-label", type="radio")
 
     let shipperThreeRadioInput = document.createElement("INPUT");
+    shipperThreeRadioInput.classList.add("m-1");
     shipperThreeRadioInput.setAttribute("type", "radio");
+    shipperThreeRadioInput.name = "frakt"
 
     let shipperThreeName = document.createElement("h6")
     shipperThreeName.innerText = "DHL"
@@ -369,11 +381,15 @@ async function renderCustomer() {
     
     //append levernasalternativ
     shipOptionForm.append(shipOptionTitle)
-    shipOptionForm.append(shipOptionText)
+    shipOptionForm.append(shipperOneName)
+
+    shipperOneLabel.append(shipperOneRadioInput)
+    shipperOneLabel.append(shipperOneName)
+
 
     shipOptionForm.append(shipperOneLabel)
-    shipOptionForm.append(shipperOneRadioInput)
-    shipOptionForm.append(shipperOneName)
+    /* shipOptionForm.append(shipperOneRadioInput)
+    shipOptionForm.append(shipperOneName) */
     shipOptionForm.append(shipperOneText)
 
     //shipOptionForm.append(shipperTwoInput)

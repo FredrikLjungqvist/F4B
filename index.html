@@ -9,12 +9,14 @@
   <script defer src="/cart.js"></script>
   <script defer src="loggedin.js"></script>
   <script defer src="/orders.js"></script>
+  <script defer src="admin.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <script src="https://kit.fontawesome.com/2ab6c683d8.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="index.css">
   <link rel="stylesheet" href="cart.css">
   <link rel="stylesheet" href="orders.css">
+
   <title>F4B-FRILUFT</title>
 </head>
 
@@ -22,7 +24,7 @@
   <header class="bigcontainer fixed-top">
     <div class="header">
         <div class="logoContainer">
-          <a href="#"><img src="./pictures/fa.png" alt="logga" onclick="getAllProducts()" style ="justify-content: start;"></a>
+          <a href="#"><img src="./pictures/fa.png" alt="logga" onclick="initsite()" style ="justify-content: start;"></a>
         </div>
       
       <div class="menyContainer">
@@ -50,6 +52,7 @@
             </a>
 
             <div id="categorymenu" class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <a class="dropdown-item " style="cursor: pointer;" onclick="initsite()">Alla Produkter</a>
               <a class="dropdown-item " style="cursor: pointer;" onclick="getCategory(1)">Bärsystem</a>
               <a class="dropdown-item " style="cursor: pointer;" onclick="getCategory(2)">Friluftskläder</a>
               <a class="dropdown-item " style="cursor: pointer;" onclick="getCategory(3)">Kringutrustning</a>
@@ -78,32 +81,8 @@
   </main>
 
   <footer>
-    
-
-      <!-- <div class="row"> -->
-      <div class="footConOne">
-  
-          <p>Välkommen till F4B-FRILUFT! <br>
-            Webshoppen för dig som vill vara snygg och lätt i<br>
-            vildmarken. Vi vill gärna hållafokuset på upplevelse <br>
-            än att lägga tanke på vikten under färden. Med mängder <br>
-            av produkter så tillhanda håller vi eget märket där vi <br>
-            sätter ribban högt med hållbarhet och produkter som klarar<br>
-            utmaningarna för den friluftige äventyraren.<br></p>
-            <p>Copyright 1990. F4B-FRILUFT AB.</p>
-          </div>
-          <div class="footConTwo"></div>
-
-          <div class="footConThree">
-          
-            <p>Prenumerera på vårat nyhetsbrev för fler nyheter!<br>
-              <a href="#">Klicka här!</a>
-            </p>
-            
-          </div>
-  
-        <!-- </div> -->
-
+            <h5>F4B-FRILUFT AB Copyright 1990.</h5>
+            <p>Prenumerera på vårat nyhetsbrev för fler nyheter! <a href="#">Klicka här!</a></p>
   </footer>
 
   <!-- bootstrap-kod -->
