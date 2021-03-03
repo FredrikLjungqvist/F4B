@@ -139,6 +139,8 @@ async function render(user){
     document.getElementById("shippingInfo").innerText=""
     document.getElementById("productCardOrder").innerText=""
     
+    /* let user = await getUser() */ 
+
     let renderCardOrder = document.createElement("div")
     
     

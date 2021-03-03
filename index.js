@@ -1,4 +1,6 @@
 window.addEventListener("load", initsite)
+document.getElementById("newsletterTop").addEventListener("click", indexNewsletter) 
+document.getElementById("newsletterBottom").addEventListener("click", indexNewsletter) 
 document.getElementById("loginPopUp").addEventListener("click",loginModal)
 
 $('#myModal').modal()                      // initialized with defaults
@@ -9,6 +11,7 @@ function initsite(){
    
     /* document.getElementById("productCard").innerHTML = ""; */
     document.getElementById("productCardCart").innerHTML = "";
+    document.getElementById("productCardOrder").innerText="";
     document.getElementById("modalpop").innerHTML = "";
     /* getProduct("30002") */
     /* getCategory("3") */
@@ -16,6 +19,18 @@ function initsite(){
     updateCartCounter()
     loginCheck()
 }
+
+async function indexNewsletter() { 
+    let email = prompt("Ange e-post") 
+    console.log(email) 
+    let body = new FormData() 
+    body.append("user", JSON.stringify({"email":email, "name":null})) 
+    body.append("action", "addNewsletter") 
+
+    let response = await makeRequest("./api/recievers/customerReceiver.php", "POST", body) 
+    console.log(response) 
+}
+
 function loginModal(){
     document.getElementById("modalpop").innerHTML = "";
     console.log("LoginModal")
@@ -419,6 +434,7 @@ function renderAccountCreation(){
 function renderProducts(products) {
     //Function will get the list of products and render them onto page
     document.getElementById("productCard").innerHTML = "";
+    document.getElementById("productCardOrder").innerHTML = "";
     
     
     products.forEach((product => {

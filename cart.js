@@ -374,11 +374,28 @@ async function renderCustomer() {
     checklabelTwo.classList.add("form-check-label")
     checklabelTwo.innerText="Jag vill bli informerad om nyheter, aktuella erbjudanden och händelser från F4B-FRILUFT via e-post."
   
+    /* let checkboxTwo = document.createElement("input")
+    checkboxTwo.type ="checkbox"
+    checkboxTwo.id="checkbox"
+    checkboxTwo.classList.add("form-check-input")
+    checkboxTwo.addEventListener('change', e => {​​
+        if(e.target.checked){​​
+            orderNewsletter(customer[0].email, customer[0].firstName)
+        }​​
+    }​​); */
+
     let checkboxTwo = document.createElement("input")
     checkboxTwo.type ="checkbox"
     checkboxTwo.id="checkbox"
     checkboxTwo.classList.add("form-check-input")
-        
+    checkboxTwo.addEventListener("change", e=>{
+
+        if(e.target.checked){
+            orderNewsletter(customer[0].email, customer[0].firstName)
+        }
+    }); 
+    
+    
     //knapp bekräfta och gå till betalning
     let buyBtnForm = document.createElement("div")
         
@@ -415,6 +432,28 @@ async function renderCustomer() {
    
     document.getElementById("shippingInfo").appendChild(renderShipOptions);
    
+}
+
+/* async function orderNewsletter(email, firstName) {​​
+    console.log(email)
+
+    let body = new FormData()
+    body.append("user", JSON.stringify({​​"email":email, "name":firstName}​​))
+    body.append("action", "addNewsletter")
+
+    let response = await makeRequest("./api/recievers/customerReceiver.php", "POST", body)
+    console.log(response)
+}​​ */
+
+async function orderNewsletter(email, firstName){
+    console.log(email)
+    
+    let body = new FormData()
+    body.append("user", JSON.stringify({"email" :email, "name":firstName}))
+    body.append("action", "addNewsletter")
+
+    let response = await makeRequest("http://localhost/api/recievers/customerReceiver.php", "POST",body)
+    console.log(response)
 }
 
 async function getCustomer() {
