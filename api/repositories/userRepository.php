@@ -24,4 +24,12 @@
         return $customerList; 
     }
 
+    /* function getShipper() {
+
+        $db = new Database();
+        return $db->fetchQuery("SELECT * FROM shipper WHERE id = $shippId");
+
+        }
+    } */
+
 ?>
