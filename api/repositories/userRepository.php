@@ -10,7 +10,12 @@
         return $db->fetchQuery("SELECT * FROM user WHERE id = '$userId'");
     }
 
-    
+    function orderNewslette($user){
+        $db = new Database;
+       return $db->runQuery("INSERT INTO newsletter_users (email_adress, name) VALUES (:email, :name);", $user);
+
+    }
+
     function customerItem($customers) {
 
         $customerList = [];
