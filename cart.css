@@ -7,6 +7,18 @@ body {
     margin: 0;
 }
 
+p {
+    margin: 0;
+}
+
+#title {
+    margin: 0;
+}
+
+/* #productCardCart {
+    min-height: 60vh;
+} */
+
 /* .cardBodyCart {
     display: flex;
     width: 50%;
