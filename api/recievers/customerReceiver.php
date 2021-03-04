@@ -18,7 +18,11 @@ try {
                 //kundnfo hämta här:
                 echo json_encode(getCustomer());
                 exit;
-               
+              
+            }else if($_GET["action"] == "getShipper") {
+
+                echo json_encode(getShipper());
+                exit;
 
 
             } else {
@@ -26,11 +30,7 @@ try {
             exit;
             }
 
-           /*  if($_GET["action"] == "getShipper") {
-
-                echo json_encode(getShipper());
-                exit;
-            } */
+    
     
         } else {
             throw new ErrorException("Endpoint not found...", 404);
