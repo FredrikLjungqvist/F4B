@@ -22,17 +22,13 @@ function initCustomer() {
 
 function renderCart(cart) {
     console.log("renderCart")
+    document.getElementById("customerInfo").innerHTML=""
     document.getElementById("productCardCart").innerHTML=""
     document.getElementById("productCard").innerHTML=""
     document.getElementById("productCardOrder").innerHTML = "";
    /*  document.getElementById("customerInfo").innerHTML = ""; */
    /*  document.getElementById("shippingInfo").innerHTML = ""; */
-    /* if(!cart) {
-        let emptyCart = document.createElement(h3)
-        emptyCart.innerText = "Det finns inga produkter i varukorgen"
-        productCard.appendChild(emptyCart)
-    }
-     */
+    
     cart.cartitems.forEach((cartItem => {
         cartItem.product.forEach(value => {
             
@@ -53,7 +49,8 @@ function renderCart(cart) {
             cardBodyCart.classList.add(/* "card-body", */ "d-flex", "justify-content-around","flex-wrap", "align-items-center")
             cardBodyCart.style.padding = "1rem"
       
-            let title = document.createElement("h6");
+            let title = document.createElement("h6")
+            title.id = "title"
             title.classList.add("card-title","d-flex","p-0","align-items-center")
             title.innerText = value.name 
             title.style.maxWidth = "130px"
@@ -91,6 +88,7 @@ function renderCart(cart) {
 
             let iconCross = document.createElement("i")
             iconCross.classList = "fa fa-close"
+            iconCross.style.marginBottom = "5px"
 
             let deleteBtn = document.createElement("button")
             deleteBtn.classList.add("btn", "text-grey", "p-0","align-items-center")
@@ -161,9 +159,25 @@ async function getCart() {
     url.search = new URLSearchParams(params);
 
     let cart = await makeRequest(url, "GET")
-    console.log(cart)
-    renderCart(cart)
-    return cart
+
+    if (cart.totalPrice == 0) {
+
+        document.getElementById("productCardCart").innerHTML=""
+        document.getElementById("productCardOrder").innerHTML=""
+        document.getElementById("shippingInfo").innerHTML=""
+        document.getElementById("customerInfo").innerHTML=""
+        
+        let emptyCart = document.createElement("h3")
+        emptyCart.style.textAlign = "center"
+        emptyCart.style.margin = "20% 0"
+        emptyCart.innerText = "Det finns inga produkter i varukorgen"
+        productCardCart.appendChild(emptyCart)
+    } else {
+        renderCart(cart)
+        return cart
+
+    }
+    
 }
 
 async function deleteCartItem() {
