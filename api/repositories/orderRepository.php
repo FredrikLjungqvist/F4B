@@ -7,7 +7,7 @@ require ("../repositories/productRepository.php");
 
 function sendOrder($order){
 $db = new Database;
-return $db->runQuery("INSERT INTO orders (userID, date, status, price) VALUES (:userID, :date, :status, :price);", $order);
+return $db->runQuery("INSERT INTO orders (userID, date, status, price, shipperID) VALUES (:userID, :date, :status, :price, :shipperID);", $order);
 
 };
 
@@ -61,7 +61,8 @@ function makeOrder($cart){
         "userID"=>$_SESSION["id"],
         "date"=>date("Y-m-d H:i:s"),
         "status"=>1,
-        "price"=>$cart["totalPrice"]
+        "price"=>$cart["totalPrice"],
+        "shipperID"=>json_decode ($_POST["shipperID"])
     ];
     
     $orderSent=sendOrder($orderToSave);
