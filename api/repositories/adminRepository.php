@@ -88,6 +88,12 @@ function approveOrder($id) {
     return $db->runQuery("UPDATE orders SET status = 2 WHERE ID = :id;", $id);
 
 }
+function applyAdmin($id) {
+    
+    $db = new Database();
+    return $db->runQuery("UPDATE user SET pendingAdmin = 1 WHERE id = :id;", $id);
+ 
+}
 
 ?>
 

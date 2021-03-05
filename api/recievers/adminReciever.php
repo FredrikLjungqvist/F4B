@@ -94,6 +94,9 @@ try {
                 /* echo json_encode($id); */
                 echo json_encode(approveOrder($id));
 
+            } elseif ($_POST["action"] == "becomeAdmin"){
+                $id = json_decode($_POST["id"],true);
+                echo json_encode(applyAdmin($id));
             }
 
         } else {
