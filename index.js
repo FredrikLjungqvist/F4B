@@ -18,6 +18,7 @@ function initsite(){
     getAllProducts()
     updateCartCounter()
     loginCheckStart()
+    getCategories()
 }
 
 async function indexNewsletter() { 
@@ -530,7 +531,32 @@ async function updateCartCounter() {
     }
 }
 
+async function getCategories(){
+    var url = new URL("http://localhost/api/recievers/productReciever.php")
+    
+    var params = {action: "getCategories"} 
+    url.search = new URLSearchParams(params);
+    let products = await makeRequest(url, "GET")
+    console.log(products)
 
+    products.forEach(category => {
+        
+        let catbtn = document.createElement("a")
+        catbtn.innerText = category.categoryName
+        catbtn.addEventListener("click",()=>{
+            getCategory(category.ID)
+            /* renderProducts(products) */
+            console.log(category.ID)
+        })
+
+        let catBr = document.createElement("br")
+
+        document.getElementById("categorymenu").append(catbtn,catBr)
+        
+    });
+
+
+}
 
 async function getCategory(category) {
     //FETCHES ARRAY OF PRODUCTS CONTAINED IN A CATEGORY. categoryID SET IN PARAMETER.
@@ -541,7 +567,9 @@ async function getCategory(category) {
     url.search = new URLSearchParams(params);
 
 let products = await makeRequest(url, "GET")
-renderProducts(products)
+
+
+renderProducts(products[0]) 
 
 }
 
