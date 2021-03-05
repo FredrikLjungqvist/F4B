@@ -8,7 +8,7 @@ async function initCart() {
     }else{
         document.getElementById("productCard").innerHTML=""
         getCart()
-        renderCustomer()
+        
    
     }  
 }
@@ -38,7 +38,8 @@ function renderCart(cart) {
             renderCardCart.style.margin = "5px"
       
             let image = document.createElement("img")
-            image.classList.add("card-img-top", "img-fluid", "p-0")    
+            image.classList.add("card-img-top", "img-fluid", "p-0")
+            image.style.marginRight = "5px"    
             image.style.width = "auto"
             image.style.height = "100%"
             image.src = "./pictures/" + value.image
@@ -48,33 +49,48 @@ function renderCart(cart) {
             let cardBodyCart = document.createElement("div")
             cardBodyCart.classList.add(/* "card-body", */ "d-flex", "justify-content-around","flex-wrap", "align-items-center")
             cardBodyCart.style.padding = "1rem"
+            cardBodyCart.id = "cardBodyCart"
+            
+            
+            let titleContainer = document.createElement("div")
+            titleContainer.style.flexGrow ="1"
+            titleContainer.classList.add("m-2", "row")
+
+            let descriptionContainer = document.createElement("div")
+            descriptionContainer.style.flexGrow ="3"
+            descriptionContainer.classList.add("m-2","row", "flex-wrap")
+            
       
-            let title = document.createElement("h6")
-            title.id = "title"
-            title.classList.add("card-title","d-flex","p-0","align-items-center")
-            title.innerText = value.name 
-            title.style.maxWidth = "130px"
-            title.style.maxHeight = "15px"
+            let producttitle = document.createElement("h6")
+            producttitle.id = "producttitle"
+            producttitle.classList.add(/* "card-title" */"d-flex","p-0","align-items-center")
+            producttitle.innerText = value.name 
+            producttitle.style.maxWidth = "130px"
+            /* title.style.maxHeight = "15px" */
       
             let cardText = document.createElement("p")
+            cardText.style.marginBottom="3px"
             cardText.classList.add("card-text","d-flex", "p-0", "align-items-center")
             cardText.innerText = " Pris: " + value.price + " kr "
             cardText.style.maxWidth = "130px"
             cardText.style.maxHeight = "15px"
       
             let cardWeight = document.createElement("p")
+            cardWeight.style.marginBottom="3px"
             cardWeight.classList.add("card-text","d-flex","p-0", "align-items-center")
             cardWeight.innerText = " Vikt: " + value.weight + " g "
             cardWeight.style.maxWidth = "130px"
             cardWeight.style.maxHeight = "15px"
 
             let cardQuant = document.createElement("p")
+            cardQuant.style.marginBottom="3px"
             cardQuant.classList.add("card-text","d-flex","p-0","align-items-center")
             cardQuant.innerText = " Antal: " + cartItem.quantity + " st"
-            title.style.maxWidth = "130px"
-            title.style.maxHeight = "15px"
+            cardQuant.style.maxWidth = "130px"
+            cardQuant.style.maxHeight = "15px"
 
             let cardTotWeight = document.createElement("p")
+            cardTotWeight.marginBottom="3px"
             cardTotWeight.classList.add("card-text","d-flex","p-0", "align-items-center")
             cardTotWeight.innerText = "Sum vikt: " + value.weight * cartItem.quantity + " g"
             cardTotWeight.style.maxWidth = "130px"
@@ -93,14 +109,16 @@ function renderCart(cart) {
             let deleteBtn = document.createElement("button")
             deleteBtn.classList.add("btn", "text-grey", "p-0","align-items-center")
             deleteBtn.style.background = "white"
-            deleteBtn.style.maxWidth = "20px"
-            deleteBtn.style.maxHeight = "20px"
+            deleteBtn.style.maxWidth = "200px"
+            deleteBtn.style.maxHeight = "120px"
           
         deleteBtn.data = value.id
         deleteBtn.addEventListener("click", deleteCartItem) 
           
       
-      cardBodyCart.append(image, title, cardText, cardWeight, cardQuant, cardTotWeight, cardTotal, deleteBtn)
+      titleContainer.append(image, producttitle,)
+      descriptionContainer.append(cardText, cardWeight, cardQuant, cardTotWeight, cardTotal)
+      cardBodyCart.append(titleContainer, descriptionContainer,deleteBtn)
       deleteBtn.append(iconCross)
       renderCardCart.append(cardBodyCart)
       
@@ -110,10 +128,11 @@ function renderCart(cart) {
     }))
 
     let totalDiv = document.createElement("div")
+    totalDiv.style.margin = "5px"
+    totalDiv.style.padding="5px"
     totalDiv.classList.add("card")
 
     let totalDivTwo = document.createElement("div")
-    totalDivTwo.classList.add("card-body")
     
     let totalText = document.createElement("h5")
     totalText.innerText = "Total Vikt: " + cart.totalWeight + " g"
@@ -175,6 +194,7 @@ async function getCart() {
         productCardCart.appendChild(emptyCart)
     } else {
         renderCart(cart)
+        renderCustomer()
         return cart
 
     }
@@ -209,11 +229,11 @@ async function renderCustomer() {
     renderCustomerCard.classList.add("container")
     renderCustomerCard.style.width = "80%"
     renderCustomerCard.style.height = "5.5rem"
-    renderCustomerCard.style.margin = "5px"
+    renderCustomerCard.style.margin = "5px" 
     
-    let cardBodyCustomer = document.createElement("div")
+    /* let cardBodyCustomer = document.createElement("div")
     cardBodyCustomer.classList.add("card-body", "d-flex", "justify-content-around", "align-items-center",)
-    cardBodyCustomer.style.padding = "1rem"        
+    cardBodyCustomer.style.padding = "1rem"   */   
     
     let customerPageTitle = document.createElement("h3")
     customerPageTitle.innerText ="Kunduppgifter"
@@ -302,11 +322,6 @@ async function renderCustomer() {
     
     customerAccountForm.append(customerMobileLabel, customerMobileInput)
     
-    renderCustomerCard.append(customerAccountForm)
-    
-    
-    document.getElementById("customerInfo").appendChild(renderCustomerCard);
-    
     let shipperarray = await getShipper()
     
     
@@ -378,7 +393,7 @@ async function renderCustomer() {
     let buyBtnForm = document.createElement("div")
     
     let buyBtn = document.createElement("button")
-    buyBtn.innerText = "Bekräfta och gå till betalning"
+    buyBtn.innerText = "Bekräfta köp"
     buyBtn.classList.add("btn", "text-white", "col", "mt-4")
     buyBtn.style.background = "rgb(28, 58, 28)"
     buyBtn.style.width = "300px"

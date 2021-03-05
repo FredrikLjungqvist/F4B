@@ -14,11 +14,38 @@ async function loginCheck(){
     if (response.username && response.role == "admin") {
         console.log(response)
         hidelogin()
-        renderAdmin(response.username)
+        
+        renderAdmin(response.username) 
     }else if (response.username && response.role == "user") {
         console.log("user finns")
         hidelogin()
         render(response.username)
+
+    } else {
+        console.log("ingen user")
+        showLogin()
+    }
+}
+
+async function loginCheckStart(){
+    console.log("loginCheck")
+    
+    let url = new URL("http://localhost/api/recievers/userReciever.php")
+        
+    let params = {action: "loginCheck"}
+    url.search = new URLSearchParams(params)
+
+    let response = await makeRequest(url, "GET")
+    console.log(response)
+    if (response.username && response.role == "admin") {
+        console.log(response)
+        hidelogin()
+        
+       
+    }else if (response.username && response.role == "user") {
+        console.log("user finns")
+        hidelogin()
+        
 
     } else {
         console.log("ingen user")
@@ -65,25 +92,25 @@ async function registerUser(){
 }
 
 async function loginUser(){
-    hidelogin()
+    /* hidelogin()  */
     console.log("loginUser")
     $('#myModal').modal('hide')
     const username = document.getElementById("username").value
     const password = document.getElementById("password").value
-
+    
     const body = new FormData()
     body.append("username", username)
     body.append("password", password)
-
+    
     let response = await makeRequest("./api/recievers/userReciever.php", "POST", body)
     console.log(response)
     if(response ==="loginerror"){
+        
+    
         alert("Felaktigt användarnamn eller lösenord")
         return
-    } else{
-        /* render() */
-    }
-    
+    } 
+    initsite()
 }
 
 function hidelogin(){
@@ -178,11 +205,12 @@ async function render(user){
     let renderCardDiv = document.createElement("div")
     renderCardDiv.style.width = "100%"
     
-    let houseHeadtitle = document.createElement("h1")
+    let houseHeadtitle = document.createElement("p")
     houseHeadtitle.innerText = "Välkommen " + response.username
     houseHeadtitle.style.padding = "5%"
     houseHeadtitle.style.marginTop = "-16%"
     houseHeadtitle.style.color = "white"
+    houseHeadtitle.style.fontSize = "3vw"
     
     productCard.append(houseimage, renderCardDiv)
     renderCardDiv.append(houseHeadtitle)
@@ -197,7 +225,7 @@ async function render(user){
     let Adminviewbtn = document.createElement("button")
     Adminviewbtn.id="Adminviewbtn"
     Adminviewbtn.style.marginLeft = "10%"
-    Adminviewbtn.style.marginTop = "30px"
+    Adminviewbtn.style.marginTop = "5px"
     Adminviewbtn.classList.add("btn","btn-secondary")
     Adminviewbtn.innerText ="Admin vy"
     Adminviewbtn.addEventListener("click",renderAdmin)
@@ -205,7 +233,7 @@ async function render(user){
     let AdminAskbtn = document.createElement("button")
     AdminAskbtn.id="AdminAskbtn"
     AdminAskbtn.style.marginLeft = "10%"
-    AdminAskbtn.style.marginTop = "30px"
+    AdminAskbtn.style.marginTop = "5px"
     AdminAskbtn.classList.add("btn","btn-secondary")
     AdminAskbtn.innerText = "begäran om att bli admin"
     AdminAskbtn.addEventListener("click", askAdmin)

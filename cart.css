@@ -7,14 +7,16 @@ body {
     margin: 0;
 }
 
-p {
-    margin: 0;
+#cardBodyCart p {
+     margin: 0px 10px;
 }
 
 #title {
     margin: 0;
 }
-
+#shippingInfo{
+    margin-top:20px;
+}
 /* #productCardCart {
     min-height: 60vh;
 } */

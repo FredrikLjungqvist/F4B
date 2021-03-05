@@ -1,6 +1,6 @@
 window.addEventListener("load", initsite)
 document.getElementById("newsletterTop").addEventListener("click", indexNewsletter) 
-document.getElementById("newsletterBottom").addEventListener("click", indexNewsletter) 
+
 document.getElementById("loginPopUp").addEventListener("click",loginModal)
 
 $('#myModal').modal()                      // initialized with defaults
@@ -17,7 +17,7 @@ function initsite(){
     /* getCategory("3") */
     getAllProducts()
     updateCartCounter()
-    loginCheck()
+    loginCheckStart()
 }
 
 async function indexNewsletter() { 
@@ -489,7 +489,10 @@ function renderProducts(products) {
 }
 
 async function getAllProducts() {
+
     document.getElementById("productCardCart").innerHTML = "";
+    document.getElementById("customerInfo").innerHTML = "";
+    document.getElementById("shippingInfo").innerHTML = "";
     var url = new URL("http://localhost/api/recievers/productReciever.php")
     var params = {action: "getAllProducts"} 
     url.search = new URLSearchParams(params);
