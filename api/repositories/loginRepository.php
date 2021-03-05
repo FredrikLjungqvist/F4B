@@ -6,8 +6,6 @@ require ("../handlers/databaseHandler.php");
 function addUser($userinfo){
    
     
-    
-   /*  $password =  password_hash($password, PASSWORD_DEFAULT); */
     $db = new Database();
     return $db->runQuery("INSERT INTO user (name, password, role, firstName, lastName, address1, address2, zipCode, city, country, email, mobilePhone,pendingAdmin) VALUES ( :username, :password, :role, :firstName, :lastName, :address1, :address2, :zipCode, :city, :country, :email, :mobilePhone, 0);", $userinfo);
 }
@@ -17,7 +15,7 @@ function loginUser($username, $password){
     $db = new Database();
     
 
-    /* $response = $db->fetchQuery("SELECT * FROM user WHERE name = :username", ["username" => $username]); */
+    
      $response = $db->fetchQuery("SELECT * FROM user WHERE name = '$username'"); 
    
     

@@ -1,11 +1,11 @@
 
 
 async function updateqty() {
-    console.log("updateqty")
+    
 
     let prodid = document.getElementById("prodIDinput").value
     let qty = document.getElementById("qtyinput").value
-    console.log(prodid + qty)
+   
 
     if (window.confirm("Vill du uppdatera detta?")) {
         
@@ -14,11 +14,11 @@ async function updateqty() {
 
         body.append("action", "updateStock") 
         body.append("id", prodid)
-    console.log(response)
+    
         body.append("qty", qty)
 
         let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
-        console.log(response)
+        
             
         prodid.value = 0
         qty.value = 0
@@ -33,11 +33,11 @@ async function updateqty() {
 }
 
 async function setCategory() {
-    console.log("setCategory")
+    
 
     let productID = document.getElementById("productidset").value
     let categoryID = document.getElementById("prodcategoryset").value
-    console.log(productID + " " + categoryID)
+    
 
     if (window.confirm("Vill du uppdatera detta?")) {
         const body = new FormData()
@@ -46,7 +46,7 @@ async function setCategory() {
         body.append("categoryID", categoryID)
 
         let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
-        console.log(response)
+       
             
         productID.value = 0
         categoryID.value = 0
@@ -59,8 +59,7 @@ async function setCategory() {
 }
 
 async function addProduct() {
-    console.log(addProduct)
-   
+    
     let product = {
         description : document.getElementById("descInput").value,
         name : document.getElementById("setName").value,
@@ -77,7 +76,7 @@ async function addProduct() {
         body.append("product", JSON.stringify(product))
 
         let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
-        console.log(response)
+        
           
         descInput.value = 0
         setName.value = 0
@@ -102,7 +101,7 @@ async function addProduct() {
 }
 
 async function deleteProduct(){
-    console.log("deleteProduct")
+    
 
     let deleteproductinput = document.getElementById("deleteprod").value
     let deleteprod = deleteproductinput
@@ -116,7 +115,7 @@ async function deleteProduct(){
         body.append("product", JSON.stringify(product))
         
         const result = await makeRequest("http://localhost/api/recievers/adminReciever.php", "POST",body)
-        console.log(result)
+        
         
         deleteproductinput.value = 0
         deleteprod.value = 0
@@ -131,7 +130,7 @@ async function deleteProduct(){
 }
 
 async function approveAdmin() {
-    console.log("approveAdmin")
+    
 
     if (window.confirm("Är du säker på att du vill göra detta?")) {
         const userID = {
@@ -143,7 +142,7 @@ async function approveAdmin() {
         body.append("userID", JSON.stringify(userID))
     
         let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
-        console.log(response)
+        
 
         renderAdmin()
     } else {
@@ -153,7 +152,7 @@ async function approveAdmin() {
 
 //
 async function denyAdmin() {
-    console.log("denyAdmin")
+    
 
     if (window.confirm("Är du säker på att du vill göra detta?")) {
         const userID = {
@@ -165,7 +164,7 @@ async function denyAdmin() {
         body.append("userID", JSON.stringify(userID))
     
         let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
-        console.log(response)
+        
         renderAdmin()
     } else {
         renderAdmin()
@@ -173,7 +172,7 @@ async function denyAdmin() {
 }
 
 async function newsletter() {
-    console.log("newsletter")
+    
 
     let productCard = document.getElementById("productCard")
     productCard.innerHTML = ""
@@ -217,7 +216,7 @@ async function newsletter() {
 }
 
 async function listNewsletter() {
-    console.log("listNewsletter")
+    
 
     let productCard = document.getElementById("productCard")
     productCard.innerHTML = ""
@@ -253,7 +252,7 @@ async function listNewsletter() {
     getListNewsletter()
 
     async function getListNewsletter() {
-        console.log("getListNewsletter")
+        
         
         let url = new URL("http://localhost/api/recievers/adminReciever.php")
         
@@ -344,7 +343,7 @@ async function addNewsletter() {
     cardBody.append(cardText, backBtn, divTitleNewsletter, divTextNewsletter, submitBtn)
 
     async function submitNewsletter(){
-        console.log("submitNewsletter")
+        
         
        if (window.confirm("Vill du skicka detta?")) {
         let title = titleInput.value
@@ -356,7 +355,7 @@ async function addNewsletter() {
         body.append("text", text)
         
         const result = await makeRequest("http://localhost/api/recievers/adminReciever.php","POST", body)
-        console.log(result)
+       
         
         titleInput.value = 0
         textInput.value = 0
@@ -368,7 +367,7 @@ async function addNewsletter() {
 }
 
 async function orders() {
-    console.log("orders")
+    
 
     let productCard = document.getElementById("productCard")
     productCard.innerHTML = ""
@@ -418,7 +417,7 @@ async function orders() {
 }
 
 async function approveOrders() {
-    console.log("approveOrders")
+   
 
     let productCard = document.getElementById("productCard")
     productCard.innerHTML = ""
@@ -454,7 +453,7 @@ async function approveOrders() {
     getListOrders(1)
 
     async function getListOrders(status) {
-        console.log("getListOrders")
+        
         
         let url = new URL("http://localhost/api/recievers/adminReciever.php")
         
@@ -488,7 +487,7 @@ async function approveOrders() {
 }
 
 async function approveOrder() {
-    console.log("approveOrder")
+    
 
     if (window.confirm("Är du säker?")) {
         const id = {
@@ -500,7 +499,7 @@ async function approveOrder() {
         body.append("ID", JSON.stringify(id))
     
         let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
-        console.log(response)
+        
         approveOrders()
     } else {
         approveOrders()
@@ -508,7 +507,7 @@ async function approveOrder() {
 }
 
 async function listShippedOrders() {
-    console.log("listShippedOrders")
+    
 
     let productCard = document.getElementById("productCard")
     productCard.innerHTML = ""
@@ -544,7 +543,7 @@ async function listShippedOrders() {
     getListOrders(2)
 
     async function getListOrders(status) {
-        console.log("getListOrders")
+        
         
         let url = new URL("http://localhost/api/recievers/adminReciever.php")
         
@@ -572,7 +571,7 @@ async function listShippedOrders() {
 }
 
 async function listCompleteOrders() {
-    console.log("listCompleteOrders")
+    
 
     let productCard = document.getElementById("productCard")
     productCard.innerHTML = ""
@@ -608,7 +607,7 @@ async function listCompleteOrders() {
     getListOrders(3)
 
     async function getListOrders(status) {
-        console.log("getListOrders")
+        
         
         let url = new URL("http://localhost/api/recievers/adminReciever.php")
         
@@ -636,7 +635,7 @@ async function listCompleteOrders() {
 }
 
 async function renderAdmin(){
-    console.log("renderAdmin")
+   
 
     document.getElementById("productCardCart").innerHTML=""
     document.getElementById("productCard").innerText=""
@@ -869,7 +868,6 @@ async function renderAdmin(){
     cardupload.append(uploadttitle)
     cardupload.append(descInput)
     cardupload.append(setName)
-    /* cardupload.append(setProudctID) */
     cardupload.append(setcategory)
     cardupload.append(setUnitPrice)
     cardupload.append(setWeight)
@@ -903,7 +901,7 @@ async function renderAdmin(){
     //add new admin
     //(En administratör behöver godkännas av en tidigare administratör innan man kan logga in fösta gången (VG))
     async function listPendingUsers() {
-        console.log("listPendingUsers")
+       
         
         let url = new URL("http://localhost/api/recievers/adminReciever.php")
         
@@ -921,7 +919,7 @@ async function renderAdmin(){
             
             let pendingUser = document.createElement("p")
             pendingUser.innerText = "ID: " + row.id + ", Username: " + row.name + ", Status: " + row.role
-            /* pendingUser.style.backgroundColor = "white" */
+           
             
             let approveButton = document.createElement("button")
             approveButton.classList.add("btn","btn-warning")
@@ -942,7 +940,7 @@ async function renderAdmin(){
     }
 
     async function listAdmins() {
-        console.log("listAdmins")
+        
         
         let url = new URL("http://localhost/api/recievers/adminReciever.php")
         

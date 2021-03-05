@@ -4,7 +4,7 @@ try {
 
     if(isset($_SERVER["REQUEST_METHOD"])) {
 
-        /* require(""); */
+        
 
         if($_SERVER["REQUEST_METHOD"] == "GET") {
             

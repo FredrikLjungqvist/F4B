@@ -44,12 +44,4 @@ class cart {
 
 
 
-
-
-
-
-//cartitem has product + quant;
-//cart is array of cartitems;
-//method is in cart class, as sum etc.
-
 ?>

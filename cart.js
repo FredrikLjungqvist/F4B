@@ -1,7 +1,7 @@
 async function initCart() {
     document.getElementById("productCardCart").innerHTML=""
     user = await getUser()
-    console.log(user)
+    
     if (user==undefined) {
         
         loginModal()
@@ -14,20 +14,19 @@ async function initCart() {
 }
 
 function initCustomer() {
-    console.log("initCustomer")
-    //document.getElementById("customerInfo").innerHTML=""
+    
+    
     document.getElementById("customerInfo").innerHTML=""
     getCustomer()
 }
 
 function renderCart(cart) {
-    console.log("renderCart")
+    
     document.getElementById("customerInfo").innerHTML=""
     document.getElementById("productCardCart").innerHTML=""
     document.getElementById("productCard").innerHTML=""
     document.getElementById("productCardOrder").innerHTML = "";
-   /*  document.getElementById("customerInfo").innerHTML = ""; */
-   /*  document.getElementById("shippingInfo").innerHTML = ""; */
+   
     
     cart.cartitems.forEach((cartItem => {
         cartItem.product.forEach(value => {
@@ -66,7 +65,7 @@ function renderCart(cart) {
             producttitle.classList.add(/* "card-title" */"d-flex","p-0","align-items-center")
             producttitle.innerText = value.name 
             producttitle.style.maxWidth = "130px"
-            /* title.style.maxHeight = "15px" */
+           
       
             let cardText = document.createElement("p")
             cardText.style.marginBottom="3px"
@@ -160,13 +159,13 @@ function renderCart(cart) {
 
  async function orderCart() {
      cart= await getCart()
-     console.log(cart)
+     
      body= new FormData
      body.append("shipperID", shipperId)
      body.append("action", "sendOrder")
      body.append("cart", JSON.stringify(cart))
      let response = await makeRequest("./api/recievers/orderReciever.php", "POST", body)
-     console.log(response)
+     
      renderOrders(response)
      updateCartCounter()
     
@@ -211,7 +210,7 @@ async function deleteCartItem() {
     body.append("action", "deleteAll")
     
     const result = await makeRequest("./api/recievers/productReciever.php", "POST", body)
-    console.log(result)
+    
     getCart()
     updateCartCounter()
 }
@@ -219,10 +218,10 @@ async function deleteCartItem() {
 let shipperId=""
 
 async function renderCustomer() {
-    console.log("jag körs")
+    
     //document.getElementById("customerInfo").innerHTML="" */
     let customer = await getCustomer()
-    console.log(customer)
+    
     
     //kunduppgifter
     let renderCustomerCard = document.createElement("div")
@@ -231,9 +230,7 @@ async function renderCustomer() {
     renderCustomerCard.style.height = "5.5rem"
     renderCustomerCard.style.margin = "5px" 
     
-    /* let cardBodyCustomer = document.createElement("div")
-    cardBodyCustomer.classList.add("card-body", "d-flex", "justify-content-around", "align-items-center",)
-    cardBodyCustomer.style.padding = "1rem"   */   
+    
     
     let customerPageTitle = document.createElement("h3")
     customerPageTitle.innerText ="Kunduppgifter"
@@ -264,9 +261,7 @@ async function renderCustomer() {
     addressTwoLabel.classList.add("table", "row", "col", "m-0")
     addressTwoLabel.innerText="Adress 2"
     
-    /* let addressTwoInput = document.createElement("td")
-    addressTwoInput.classList.add("form-control", "col")
-    addressTwoInput.innerText = customer[0].address2 */
+    
     
     //zipCode + city
     let zipCodeCityLabel = document.createElement("tr")
@@ -356,7 +351,7 @@ async function renderCustomer() {
         shipperOneRadioInput.value = i+1
         shipperOneRadioInput.addEventListener("click", ()=> {
             shipperId = shipperOneRadioInput.value
-            console.log(shipperId)
+            
         })
         
         let shipperOneName = document.createElement("h6")
@@ -414,14 +409,14 @@ async function renderCustomer() {
 }
 
 async function orderNewsletter(email, firstName){
-    console.log(email)
+    
     
     let body = new FormData()
     body.append("user", JSON.stringify({"email" :email, "name":firstName}))
     body.append("action", "addNewsletter")
 
     let response = await makeRequest("http://localhost/api/recievers/customerReceiver.php", "POST",body)
-    console.log(response)
+    
 }
 
 async function getCustomer() {
@@ -439,7 +434,7 @@ async function getShipper() {
     url.search = new URLSearchParams(params);
 
     let shipper = await makeRequest(url, "GET")
-    console.log(shipper)
+   
     return shipper
 }
 
@@ -451,6 +446,6 @@ async function makeRequest(url, method, body) {
         return response.json()
     
     } catch (error) {
-        console.log("det blev fel"+error)
+        
     }
 }

@@ -8,7 +8,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                 $userinfo = json_decode($_POST["userCreation"], true);
                 $userinfo["password"] = password_hash($userinfo["password"], PASSWORD_DEFAULT);
                 echo json_encode(adduser($userinfo));
-                /* echo json_encode(addUser($userinfo)); */
+                
                 exit;
             
             }elseif (isset($_POST["username"]) && isset($_POST["password"])) {

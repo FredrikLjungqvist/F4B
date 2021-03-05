@@ -107,7 +107,7 @@ async function renderOrders(response) {
     orderBody.classList.add("row")
     orderBody.style.maxWidth = "65%"
 
-    console.log(order.orderItems)
+    
     order.orderItems.forEach((orderItem) => {
 
         let quantityToSave = orderItem.quantity
@@ -160,13 +160,4 @@ async function renderOrders(response) {
 
 }
 
-/* async function getOrder(order) {
-    var url = new URL("http://localhost/api/recievers/productReciever.php")
-    var params = {action: "getOrder", userID: 1}
-    url.search = new URLSearchParams(params);
 
-    let order = await makeRequest(url, "GET")
-    console.log(order)
-    renderOrders(order)
-    return order
-} */
