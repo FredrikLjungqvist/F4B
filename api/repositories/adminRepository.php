@@ -18,7 +18,7 @@ function adminDelete($product) {
 function setCategory($input) {
 
     $db = new Database();
-    return $db->runQuery("INSERT INTO productcat (productID, categoryID) VALUES (:productID, :categoryID);", $input);
+    return $db->runQuery("INSERT INTO productcategory (productID, categoryID) VALUES (:productID, :categoryID);", $input);
 }
 
 function addProduct($product) {

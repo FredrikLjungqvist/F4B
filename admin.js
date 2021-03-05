@@ -2,39 +2,63 @@
 
 async function updateqty() {
     console.log("updateqty")
-    const prodid = document.getElementById("prodIDinput").value
-    const qty = document.getElementById("qtyinput").value
+
+    let prodid = document.getElementById("prodIDinput").value
+    let qty = document.getElementById("qtyinput").value
     console.log(prodid + qty)
-   
-    const body = new FormData()
 
-    body.append("action", "updateStock")
-    body.append("prodid", prodid)
-    body.append("qty", qty)
+    if (window.confirm("Vill du uppdatera detta?")) {
+        
+    
+        const body = new FormData()
 
-    let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
-    console.log(response)
+        body.append("action", "updateStock")
+        body.append("prodid", prodid)
+        body.append("qty", qty)
+
+        let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
+        console.log(response)
+            
+        prodid.value = 0
+        qty.value = 0
+
+        renderAdmin()
+    } else {
+        prodid.value = 0
+        qty.value = 0
+        renderAdmin()
+    }
+    
 }
 
 async function setCategory() {
     console.log("setCategory")
 
-    const productID = document.getElementById("productidset").value
-    const categoryID = document.getElementById("prodcategoryset").value
+    let productID = document.getElementById("productidset").value
+    let categoryID = document.getElementById("prodcategoryset").value
     console.log(productID + " " + categoryID)
-   
-    const body = new FormData()
-    body.append("action", "setCategory")
-    body.append("productID", productID)
-    body.append("categoryID", categoryID)
 
-    let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
-    console.log(response)
+    if (window.confirm("Vill du uppdatera detta?")) {
+        const body = new FormData()
+        body.append("action", "setCategory")
+        body.append("productID", productID)
+        body.append("categoryID", categoryID)
 
+        let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
+        console.log(response)
+            
+        productID.value = 0
+        categoryID.value = 0
+        renderAdmin()
+    } else {
+        productID.value = 0
+        categoryID.value = 0
+        renderAdmin()
+    }
 }
 
 async function addProduct() {
-
+    console.log(addProduct)
    
     let product = {
         description : document.getElementById("descInput").value,
@@ -46,71 +70,105 @@ async function addProduct() {
         img : document.getElementById("imagefile").value
     }
 
-    console.log(product)
-    const body = new FormData()
+    if (window.confirm("Vill du uppdatera detta?")) {
+        const body = new FormData()
+        body.append("action", "addProduct")
+        body.append("product", JSON.stringify(product))
 
-    body.append("action", "addProduct")
-    body.append("product", JSON.stringify(product))
-    
+        let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
+        console.log(response)
+          
+        descInput.value = 0
+        setName.value = 0
+        setcategory.value = 0
+        setUnitPrice.value = 0
+        setWeight.value = 0
+        newqtyinput.value = 0
+        imagefile.value = 0
 
-    let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
-    console.log(response)
-    
+        renderAdmin()
+    } else {
+        descInput.value = 0
+        setName.value = 0
+        setcategory.value = 0
+        setUnitPrice.value = 0
+        setWeight.value = 0
+        newqtyinput.value = 0
+        imagefile.value = 0
 
-
+        renderAdmin()
+    }
 }
 
 async function deleteProduct(){
     console.log("deleteProduct")
-    //DELETE FROM `products` WHERE `products`.`ID` = 30008;
+
     let deleteproductinput = document.getElementById("deleteprod").value
     let deleteprod = deleteproductinput
 
-    const product ={
-        ID:deleteprod
+    if (window.confirm("Är du säker på att du vill ta bort produkten?")) {
+        const product ={
+            ID:deleteprod
+        }
+        let body = new FormData()
+        body.append("action", "deleteProduct")
+        body.append("product", JSON.stringify(product))
+        
+        const result = await makeRequest("http://localhost/api/recievers/adminReciever.php", "POST",body)
+        console.log(result)
+        
+        deleteproductinput.value = 0
+        deleteprod.value = 0
+
+        renderAdmin()
+    } else {
+        deleteproductinput.value = 0
+        deleteprod.value = 0
+
+        renderAdmin()
     }
-    let body = new FormData()
-    body.append("action", "deleteProduct")
-    body.append("product", JSON.stringify(product))
-    
-    const result = await makeRequest("http://localhost/api/recievers/adminReciever.php", "POST",body)
-    console.log(result)
-    return
 }
 
 async function approveAdmin() {
     console.log("approveAdmin")
 
-    const userID = {
-        id : this.data 
+    if (window.confirm("Är du säker på att du vill göra detta?")) {
+        const userID = {
+            id : this.data 
+        }
+    
+        const body = new FormData()
+        body.append("action", "approveAdmin")
+        body.append("userID", JSON.stringify(userID))
+    
+        let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
+        console.log(response)
+
+        renderAdmin()
+    } else {
+        renderAdmin()
     }
-
-    const body = new FormData()
-    body.append("action", "approveAdmin")
-    body.append("userID", JSON.stringify(userID))
-
-    let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
-    console.log(response)
-    loginCheck()
-
 }
 
 //
 async function denyAdmin() {
     console.log("denyAdmin")
 
-    const userID = {
-        id : this.data 
+    if (window.confirm("Är du säker på att du vill göra detta?")) {
+        const userID = {
+            id : this.data 
+        }
+    
+        const body = new FormData()
+        body.append("action", "denyAdmin")
+        body.append("userID", JSON.stringify(userID))
+    
+        let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
+        console.log(response)
+        renderAdmin()
+    } else {
+        renderAdmin()
     }
-
-    const body = new FormData()
-    body.append("action", "denyAdmin")
-    body.append("userID", JSON.stringify(userID))
-
-    let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
-    console.log(response)
-    loginCheck()
-
 }
 
 async function newsletter() {
@@ -431,17 +489,21 @@ async function approveOrders() {
 async function approveOrder() {
     console.log("approveOrder")
 
-    const id = {
-        id : this.data 
+    if (window.confirm("Är du säker?")) {
+        const id = {
+            id : this.data 
+        }
+    
+        const body = new FormData()
+        body.append("action", "approveOrder")
+        body.append("ID", JSON.stringify(id))
+    
+        let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
+        console.log(response)
+        approveOrders()
+    } else {
+        approveOrders()
     }
-
-    const body = new FormData()
-    body.append("action", "approveOrder")
-    body.append("ID", JSON.stringify(id))
-
-    let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
-    console.log(response)
-    approveOrders()
 }
 
 async function listShippedOrders() {
@@ -695,11 +757,11 @@ async function renderAdmin(){
     let prodIDinput = document.createElement("input")
     prodIDinput.id = "prodIDinput"
     prodIDinput.style.width="100%"
-    prodIDinput.placeholder = "prodIDinput"
+    prodIDinput.placeholder = "productID"
 
     let qtyinput = document.createElement("input")
     qtyinput.id ="qtyinput"
-    qtyinput.placeholder = "Qty"
+    qtyinput.placeholder = "quantity"
 
     let addqtybtn = document.createElement("button")
     addqtybtn.id="addqtybtn"
@@ -712,21 +774,21 @@ async function renderAdmin(){
     let productidtitle = document.createElement("h3")
     productidtitle.style.color="white"
     productidtitle.style.textAlign="left"
-    productidtitle.innerText="Set Category of product"
+    productidtitle.innerText="Set category of product"
 
     let productidset = document.createElement("input")
     productidset.id = "productidset"
-    productidset.placeholder = "Product ID"
+    productidset.placeholder = "productID"
 
     let prodcategoryset = document.createElement("input")
     prodcategoryset.id ="prodcategoryset"
-    prodcategoryset.placeholder = "Category ID"
+    prodcategoryset.placeholder = "categoryID"
 
     let addcategorybtn = document.createElement("button")
     addcategorybtn.id="addcategorybtn"
     addcategorybtn.innerText = "Add Category"
     addcategorybtn.classList.add("btn","btn-warning")
-    addcategorybtn.innerText = "Add to catergory"
+    addcategorybtn.innerText = "UPDATE"
     addcategorybtn.addEventListener("click", setCategory)
 
     //Upload Input
@@ -734,43 +796,38 @@ async function renderAdmin(){
     let uploadttitle = document.createElement("h3")
     uploadttitle.style.color="white"
     uploadttitle.style.textAlign="left"
-    uploadttitle.innerText="Create a new Product"
+    uploadttitle.innerText="Create a new product"
 
     let descInput = document.createElement("textarea")
     descInput.style.width = "100%"
     descInput.style.height = "50px"
     descInput.id = "descInput"
-    descInput.placeholder = "Description"
+    descInput.placeholder = "description"
     
-
     let setName = document.createElement("input")
     setName.id ="setName"
-    setName.placeholder = "set Name"
+    setName.placeholder = "name"
     
-
     let setcategory = document.createElement("input")
     setcategory.id ="setcategory"
-    setcategory.placeholder = "setcategory"
+    setcategory.placeholder = "category"
     
-
     let setUnitPrice = document.createElement("input")
     setUnitPrice.id ="setUnitPrice"
-    setUnitPrice.placeholder = "set Unit Price"
+    setUnitPrice.placeholder = "unitPrice"
     
-
     let setWeight = document.createElement("input")
     setWeight.id ="setWeight"
-    setWeight.placeholder = "setWeight"
+    setWeight.placeholder = "weight"
     
-
     let newqtyinput = document.createElement("input")
     newqtyinput.id ="newqtyinput"
-    newqtyinput.placeholder = "Qty"
-    
+    newqtyinput.placeholder = "quantity"
+
 
     let imagefile = document.createElement("input")
     imagefile.id="imagefile"
-    imagefile.placeholder ="Place image code here"
+    imagefile.placeholder ="image code"
     
 
     let uploadbtn = document.createElement("button")
@@ -858,10 +915,12 @@ async function renderAdmin(){
 
             let divPendingUser = document.createElement("div")
             divPendingUser.style.display = "flex"
+            divPendingUser.style.backgroundColor = "white"
+            divPendingUser.style.border = "solid black 1px"
             
             let pendingUser = document.createElement("p")
             pendingUser.innerText = "ID: " + row.id + ", Username: " + row.name + ", Status: " + row.role
-            pendingUser.style.backgroundColor = "white"
+            /* pendingUser.style.backgroundColor = "white" */
             
             let approveButton = document.createElement("button")
             approveButton.classList.add("btn","btn-warning")
@@ -896,6 +955,7 @@ async function renderAdmin(){
             let divPendingUser = document.createElement("div")
             divPendingUser.style.display = "flex"
             divPendingUser.style.backgroundColor = "white"
+            divPendingUser.style.border = "solid black 1px"
             
             let pendingUser = document.createElement("p")
             pendingUser.innerText = "ID: " + row.id + ", Username: " + row.name + ", Status: " + row.role
