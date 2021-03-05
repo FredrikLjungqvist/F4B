@@ -9,12 +9,11 @@ $('#myModal').modal('hide')                // initializes and invokes show immed
 
 function initsite(){
    
-    /* document.getElementById("productCard").innerHTML = ""; */
+    
     document.getElementById("productCardCart").innerHTML = "";
     document.getElementById("productCardOrder").innerText="";
     document.getElementById("modalpop").innerHTML = "";
-    /* getProduct("30002") */
-    /* getCategory("3") */
+   
     getAllProducts()
     updateCartCounter()
     loginCheckStart()
@@ -23,18 +22,18 @@ function initsite(){
 
 async function indexNewsletter() { 
     let email = prompt("Ange e-post") 
-    console.log(email) 
+   
     let body = new FormData() 
     body.append("user", JSON.stringify({"email":email, "name":null})) 
     body.append("action", "addNewsletter") 
 
     let response = await makeRequest("./api/recievers/customerReceiver.php", "POST", body) 
-    console.log(response) 
+    
 }
 
 function loginModal(){
     document.getElementById("modalpop").innerHTML = "";
-    console.log("LoginModal")
+    
     
     let renderModal = document.createElement("div")
     renderModal.id="myModal"
@@ -130,7 +129,7 @@ function loginModal(){
 }
 
 function renderAccountCreation(){
-    console.log("renderAccountCreation")
+    
 
     document.getElementById("productCard").innerHTML = "";
 
@@ -334,15 +333,6 @@ function renderAccountCreation(){
     zipinput.style.minWidth = "200px"
     zipinput.classList.add("form-control","col")
     zipinput.placeholder="Postkod"
-
-    /* let usernameToSave = document.createElement("input")
-    usernameToSave.id = "usernameToSave"
-    usernameToSave.placeholder ="6 characters"
-
-    let passwordToSave = document.createElement("input")
-    passwordToSave.id = "passwordToSave"
-    passwordToSave.type="password"
-    passwordToSave.placeholder ="6 characters" */
     
     let createaccbtn = document.createElement("button")
     createaccbtn.id="createaccbtn"
@@ -352,9 +342,7 @@ function renderAccountCreation(){
     createaccbtn.addEventListener("click",registerUser)
 
     //create Acc
-    /* createform.append(usernameToSave)
-    createform.append(passwordToSave)
-    createform.append(createaccbtn) */
+    
 
     userform.append(userlabel)
     userform.append(userInput)
@@ -473,9 +461,7 @@ function renderProducts(products) {
         addbutton.style.background = "rgb(28, 58, 28)"
 
         addbutton.data = product
-        addbutton.addEventListener("click", addProductToCart) /* () =>{
-            alert ("you clicked the button");
-    }); */
+        addbutton.addEventListener("click", addProductToCart) 
     
     cardBody.append(image)
     cardBody.append(title)
@@ -508,17 +494,17 @@ async function updateCartCounter() {
     if (userID) {
         
     
-    console.log("updateCartCounter")
+    
     document.getElementById("cartCounter").innerText = ""
     let url = new URL("http://localhost/api/recievers/productReciever.php")
         
     let params = {action: "getCartCounter", userID: userID}
-    console.log(params)
+    
     url.search = new URLSearchParams(params)
     
 
     let cartItem = await makeRequest(url, "GET")
-    console.log(cartItem)
+    
     if (cartItem != undefined) {
         document.getElementById("cartCounter").innerText = cartItem[0].qty
     }else{
@@ -537,21 +523,30 @@ async function getCategories(){
     var params = {action: "getCategories"} 
     url.search = new URLSearchParams(params);
     let products = await makeRequest(url, "GET")
-    console.log(products)
-
+    document.getElementById("categorymenu").innerHTML=""
+    let allcat = document.createElement("a")
+        allcat.style.cursor = "pointer"
+        allcat.classList.add("dropdown-item")
+        allcat.innerText = "Alla produkter"
+        allcat.addEventListener("click", initsite)
+            
+    document.getElementById("categorymenu").append(allcat)
     products.forEach(category => {
         
         let catbtn = document.createElement("a")
+        catbtn.style.cursor = "pointer"
+        catbtn.classList.add("dropdown-item")
         catbtn.innerText = category.categoryName
         catbtn.addEventListener("click",()=>{
+            document.getElementById("shippingInfo").innerHTML=""
+            document.getElementById("productCardCart").innerHTML=""
             getCategory(category.ID)
-            /* renderProducts(products) */
-            console.log(category.ID)
+            
         })
 
-        let catBr = document.createElement("br")
+        
 
-        document.getElementById("categorymenu").append(catbtn,catBr)
+        document.getElementById("categorymenu").append(catbtn)
         
     });
 
@@ -569,7 +564,7 @@ async function getCategory(category) {
 let products = await makeRequest(url, "GET")
 
 
-renderProducts(products[0]) 
+renderProducts(products.flat(1)) 
 
 }
 
@@ -582,7 +577,7 @@ async function getProduct(product) {
     url.search = new URLSearchParams(params);
 
 let products = await makeRequest(url, "GET")
-console.log(products)
+
 
 }
 
@@ -590,9 +585,9 @@ console.log(products)
 async function addProductToCart(){
     if (userID){
     const productID = this.data.id
-    console.log(productID)
+    
     let cartItemlist = []
-    const userID = await getUser() // för inställd userID
+    const userID = await getUser()
     var url = new URL("http://localhost/api/recievers/productReciever.php")
     
     var params = {action: "getcartitem", userID: userID} 
@@ -616,7 +611,7 @@ async function addProductToCart(){
             
                 const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
 
-                console.log(result)
+               
                 updateCartCounter()
                 return
 
@@ -637,7 +632,7 @@ async function addProductToCart(){
             body.append("product", JSON.stringify(product))
             
             const result = await makeRequest("http://localhost/api/recievers/productReciever.php", "POST",body)
-            console.log(result)
+            
             updateCartCounter()
             return
         
@@ -651,6 +646,6 @@ async function makeRequest(url, method, body) {
         return response.json()
     
     } catch (error) {
-        console.log("det belv fel"+error)
+        
     }
 }

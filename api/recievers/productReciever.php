@@ -86,8 +86,6 @@ try {
             
                 echo json_encode(deleteCartItem($entity));
 
-            } else if($_POST["action"] == "clearCart") {
-                //CLEARS CART
             } 
 
         } else {

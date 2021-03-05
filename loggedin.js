@@ -20,7 +20,7 @@ async function loginCheck() {
         render(response.username)
 
     } else {
-        console.log("ingen user")
+        
         showLogin()
     }
 }
