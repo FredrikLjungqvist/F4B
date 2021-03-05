@@ -569,7 +569,7 @@ async function getCategory(category) {
 let products = await makeRequest(url, "GET")
 
 
-renderProducts(products[0]) 
+renderProducts(products.flat(1)) 
 
 }
 
