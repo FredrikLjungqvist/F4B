@@ -4,30 +4,21 @@ function initOrder() {
     document.getElementById("productCardOrder").innerHTML = "";
     document.getElementById("productCard").innerHTML = "";
     document.getElementById("productCardCart").innerHTML = "";
-  
-   
-    
-    /* const order = await request("./api/recievers/orderReciever.php", "GET")
-    console.log(order) */
-    renderOrders()
 
+    renderOrders()
 }
 
 async function getOrders() {
-    
-    
+
     let url = new URL("http://localhost/api/recievers/orderReciever.php")
-    var params = {action:"listOrder"} 
+    var params = { action: "listOrder" }
     url.search = new URLSearchParams(params)
-    
-    
+
     let response = await makeRequest(url, "GET")
     return response
-
-
 }
 
-
+//renderar ut "orderkortet"/text på sidan
 async function renderOrders(response) {
     document.getElementById("productCardOrder").innerHTML = "";
     document.getElementById("productCard").innerHTML = "";
@@ -35,8 +26,7 @@ async function renderOrders(response) {
     document.getElementById("customerInfo").innerHTML = "";
     document.getElementById("shippingInfo").innerHTML = "";
     let orderlist = getOrders()
-    let order = response 
-    console.log(order)
+    let order = response
 
     let imagePic = document.createElement("img")
     imagePic.append("img-fluid")
@@ -57,7 +47,7 @@ async function renderOrders(response) {
     orderHeadText.style.padding = "20px"
     orderHeadText.style.justifyContent = "center"
 
-//ordercard
+    //här börjar "orderkortet"
     let renderCardOrder = document.createElement("div")
 
     let orderNum = document.createElement("h4")
@@ -82,7 +72,7 @@ async function renderOrders(response) {
     confirmBtn.innerText = "Shoppa Vidare!"
     confirmBtn.classList.add("btn", "text-white")
     confirmBtn.style.background = "rgb(28, 58, 28)"
-    confirmBtn.addEventListener("click", ()=>{
+    confirmBtn.addEventListener("click", () => {
         alert("Bra JOBBAT! Nu blir du snygg och lätt i naturen!")
         initsite()
     })
@@ -95,9 +85,7 @@ async function renderOrders(response) {
     document.getElementById("productCardOrder").appendChild(renderCardOrder);
     document.getElementById("productCardOrder").appendChild(confirmBtn);
 
-
-    /* orderItems.forEach((orderItem) => {   */
-
+    //loopar över table-datan
     let tableProductRow = document.createElement("tr")
 
     let tbOrderPrice = document.createElement("td")
@@ -108,9 +96,6 @@ async function renderOrders(response) {
 
     let tdOrdStat = document.createElement("td")
     tdOrdStat.innerText = "Skickad"
-
-
-    //loopa över order.orderItems för bild/quant
 
     let renderCard = document.createElement("div")
     renderCard.classList.add("card", "mx-3", "my-3", "py-2")
@@ -128,40 +113,40 @@ async function renderOrders(response) {
         let quantityToSave = orderItem.quantity
         let orderID = orderItem.orderID
 
-    //loopar över bild/antal
-    orderItem.product.forEach((product) => {
+        //loopar över bild/antal
+        orderItem.product.forEach((product) => {
 
-    let cardBodyOrder = document.createElement("div")
-    cardBodyOrder.classList.add("card-body")
-    cardBodyOrder.style.maxWidth = "150px"
-    cardBodyOrder.style.margin = "5px"
+            let cardBodyOrder = document.createElement("div")
+            cardBodyOrder.classList.add("card-body")
+            cardBodyOrder.style.maxWidth = "150px"
+            cardBodyOrder.style.margin = "5px"
 
-    let orderImage = document.createElement("img")
-    orderImage.classList.add("card-img-top", "img-fluid")
-    orderImage.style.width = "auto"
-    orderImage.style.height = "100%"
-    orderImage.src = "./pictures/" + product.image
-    orderImage.style.maxWidth = "100px"
-    orderImage.style.maxHeight = "100px"
+            let orderImage = document.createElement("img")
+            orderImage.classList.add("card-img-top", "img-fluid")
+            orderImage.style.width = "auto"
+            orderImage.style.height = "100%"
+            orderImage.src = "./pictures/" + product.image
+            orderImage.style.maxWidth = "100px"
+            orderImage.style.maxHeight = "100px"
 
-    let orderTitle = document.createElement("p")
-    orderTitle.classList.add("card-title")
-    orderTitle.innerText = product.name
-    orderTitle.style.fontWeight = "bold"
-    orderTitle.style.fontSize = "11px"
+            let orderTitle = document.createElement("p")
+            orderTitle.classList.add("card-title")
+            orderTitle.innerText = product.name
+            orderTitle.style.fontWeight = "bold"
+            orderTitle.style.fontSize = "11px"
 
-   
-    let orderQuant = document.createElement("p")
-    orderQuant.classList.add("card-text")
-    orderQuant.innerText = "Antal: " + quantityToSave
-    orderQuant.style.marginTop = "10px"
-    orderQuant.style.fontSize = "12px"
 
-    cardBodyOrder.append(orderImage, orderTitle, orderQuant)
-    orderBody.append(cardBodyOrder)
-})
+            let orderQuant = document.createElement("p")
+            orderQuant.classList.add("card-text")
+            orderQuant.innerText = "Antal: " + quantityToSave
+            orderQuant.style.marginTop = "10px"
+            orderQuant.style.fontSize = "12px"
 
-})
+            cardBodyOrder.append(orderImage, orderTitle, orderQuant)
+            orderBody.append(cardBodyOrder)
+        })
+
+    })
     let line = document.createElement("hr")
     line.style.borderTop = "2px solid rgb(28, 58, 28)"
     line.style.width = "58%"
@@ -169,7 +154,7 @@ async function renderOrders(response) {
 
     tableProductRow.append(tbOrderPrice, tdOrderDate, tdOrdStat)
     table.append(tableProductRow)
-    
+
     renderCardOrder.append(orderBody)
     renderCardOrder.append(line)
 
@@ -177,7 +162,7 @@ async function renderOrders(response) {
 
 /* async function getOrder(order) {
     var url = new URL("http://localhost/api/recievers/productReciever.php")
-    var params = {action: "getOrder", userID: 1} 
+    var params = {action: "getOrder", userID: 1}
     url.search = new URLSearchParams(params);
 
     let order = await makeRequest(url, "GET")
