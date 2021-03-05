@@ -1,5 +1,5 @@
 <?php
-require ("../repositories/loginRepository.php");
+require_once ("../repositories/loginRepository.php");
 session_start();
 if($_SERVER["REQUEST_METHOD"] == "POST") {
     

@@ -572,10 +572,22 @@ async function listCompleteOrders() {
 
 }
 
-function renderAdmin(user){
-    document.getElementById("shippingInfo").innerHTML = "";
-    hidelogin()
+async function renderAdmin(){
     console.log("renderAdmin")
+
+    document.getElementById("productCardCart").innerHTML=""
+    document.getElementById("productCard").innerText=""
+    document.getElementById("customerInfo").innerText=""
+    document.getElementById("shippingInfo").innerText=""
+    document.getElementById("productCardOrder").innerText=""
+    
+
+    let url = new URL("http://localhost/api/recievers/userReciever.php")
+        
+    let params = {action: "loginCheck"}
+    url.search = new URLSearchParams(params)
+
+    let response = await makeRequest(url, "GET")
 
     
     let logoutbtn = document.createElement("button")
@@ -584,6 +596,7 @@ function renderAdmin(user){
     logoutbtn.classList.add("btn-secondary")
     logoutbtn.addEventListener("click", logout)
 
+    
     let ordersBtn = document.createElement("button")
     ordersBtn.id="ordersBtn"
     ordersBtn.style.marginBottom = "15px"
@@ -591,7 +604,7 @@ function renderAdmin(user){
     ordersBtn.classList.add("btn","btn-secondary","mx-2")
     ordersBtn.addEventListener("click", orders)
     document.getElementById("productCard").innerHTML= ""
-
+    
     let newsletterBtn = document.createElement("button")
     newsletterBtn.id="logoutbtn"
     newsletterBtn.style.marginBottom = "15px"
@@ -600,6 +613,14 @@ function renderAdmin(user){
     newsletterBtn.addEventListener("click", newsletter)
     document.getElementById("productCard").innerHTML= ""
     
+    //Customer view button
+    let customerviewbtn =document.createElement("button")
+    customerviewbtn.id="customerviewbtn"
+    customerviewbtn.classList.add("btn","btn-secondary","mx-2")
+    customerviewbtn.style.marginBottom = "15px"
+    customerviewbtn.innerText ="Kund vy"
+    customerviewbtn.addEventListener("click", render)
+
     let renderCard = document.createElement("div")
     renderCard.style.margin="auto"
     renderCard.classList.add =("d-flex");
@@ -662,7 +683,7 @@ function renderAdmin(user){
 
     let cardText = document.createElement("h4")
     cardText.classList.add("col-12")
-    cardText.innerText ="Välkommen Admin " + user
+    cardText.innerText ="Välkommen Admin " + response.username
 
     //Update Input
 
@@ -808,6 +829,7 @@ function renderAdmin(user){
     cardBody.append(cardText)
     cardBody.append(newsletterBtn)
     cardBody.append(ordersBtn)
+    cardBody.append(customerviewbtn)
     cardBody.append(cardupdate)
     cardBody.append(cardupdatecategory)
     cardBody.append(cardupload)
