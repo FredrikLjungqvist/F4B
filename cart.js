@@ -241,7 +241,7 @@ async function renderCustomer() {
     
     //address2
     let addressTwoLabel = document.createElement("tr")
-    addressTwoLabel.classList.add("m-0", "mt-1", "m-0")
+    addressTwoLabel.classList.add("table", "row", "col", "m-0")
     addressTwoLabel.innerText="Adress 2"
     
     /* let addressTwoInput = document.createElement("td")
@@ -250,7 +250,7 @@ async function renderCustomer() {
     
     //zipCode + city
     let zipCodeCityLabel = document.createElement("tr")
-    zipCodeCityLabel.classList.add("m-0")
+    zipCodeCityLabel.classList.add("table", "row", "col", "m-0")
     zipCodeCityLabel.innerText="Postnummer och ort"
     
     let zipCodeCityInput = document.createElement("td")
@@ -259,7 +259,7 @@ async function renderCustomer() {
     
     //country
     let countryLabel = document.createElement("tr")
-    countryLabel.classList.add("m-0")
+    countryLabel.classList.add("table", "row", "col", "m-0")
     countryLabel.innerText="Land"
     
     let countryInput = document.createElement("td")
@@ -268,7 +268,7 @@ async function renderCustomer() {
     
     //email
     let customerEmailLabel = document.createElement("tr")
-    customerEmailLabel.classList.add("m-0")
+    customerEmailLabel.classList.add("table", "row", "col", "m-0")
     customerEmailLabel.innerText="Email-adress"
     
     let customerEmailInput = document.createElement("td")
@@ -277,7 +277,7 @@ async function renderCustomer() {
     
     //mobilephone
     let customerMobileLabel = document.createElement("tr")
-    customerMobileLabel.classList.add("m-0")
+    customerMobileLabel.classList.add("table", "row", "col", "m-0")
     customerMobileLabel.innerText = "Mobilnummer"
     
     let customerMobileInput = document.createElement("td")
@@ -346,7 +346,7 @@ async function renderCustomer() {
         
         let shipperOneName = document.createElement("h6")
         shipperOneName.classList.add("row", "ml-4")
-        shipperOneName.innerText = shipper.companyName
+        shipperOneName.innerText = shipper.companyName + " - leveranstid: " + shipper.deliverytime + " arbetsdagar"
         
         shipOptionForm.append(shipperOneLabel, shipperOneRadioInput, shipperOneName)
     })
