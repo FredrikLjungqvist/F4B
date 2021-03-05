@@ -542,6 +542,8 @@ async function getCategories(){
     products.forEach(category => {
         
         let catbtn = document.createElement("a")
+        catbtn.style.cursor = "pointer"
+        catbtn.classList.add("dropdown-item")
         catbtn.innerText = category.categoryName
         catbtn.addEventListener("click",()=>{
             getCategory(category.ID)
@@ -549,9 +551,9 @@ async function getCategories(){
             console.log(category.ID)
         })
 
-        let catBr = document.createElement("br")
+        
 
-        document.getElementById("categorymenu").append(catbtn,catBr)
+        document.getElementById("categorymenu").append(catbtn)
         
     });
 
