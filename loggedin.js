@@ -1,5 +1,6 @@
 document.getElementById("userpages").addEventListener("click",loginCheck)
 document.getElementById("logout").addEventListener("click", logout)
+
 async function loginCheck(){
     console.log("loginCheck")
     
@@ -12,10 +13,11 @@ async function loginCheck(){
     console.log(response)
     if (response.username && response.role == "admin") {
         console.log(response)
-
+        hidelogin()
         renderAdmin(response.username)
     }else if (response.username && response.role == "user") {
         console.log("user finns")
+        hidelogin()
         render(response.username)
 
     } else {
@@ -63,6 +65,7 @@ async function registerUser(){
 }
 
 async function loginUser(){
+    hidelogin()
     console.log("loginUser")
     $('#myModal').modal('hide')
     const username = document.getElementById("username").value
@@ -78,7 +81,7 @@ async function loginUser(){
         alert("Felaktigt användarnamn eller lösenord")
         return
     } else{
-        initsite()
+        /* render() */
     }
     
 }
@@ -131,16 +134,36 @@ async function orderReceived() {
     loginCheck()
 }
 
+async function askAdmin(){
+    let id = {
+        id: await getUser()
+    }
+
+    const body = new FormData()
+    body.append("action", "becomeAdmin")
+    body.append("id", JSON.stringify(id))
+
+    let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)
+    console.log(response)
+}
+
+
 async function render(user){
     console.log("render")
+
     document.getElementById("productCardCart").innerHTML=""
     document.getElementById("productCard").innerText=""
     document.getElementById("customerInfo").innerText=""
     document.getElementById("shippingInfo").innerText=""
     document.getElementById("productCardOrder").innerText=""
     
-    /* let user = await getUser() */ 
+    let url = new URL("http://localhost/api/recievers/userReciever.php")
+        
+    let params = {action: "loginCheck"}
+    url.search = new URLSearchParams(params)
 
+    let response = await makeRequest(url, "GET")
+ 
     let renderCardOrder = document.createElement("div")
     
     
@@ -156,7 +179,7 @@ async function render(user){
     renderCardDiv.style.width = "100%"
     
     let houseHeadtitle = document.createElement("h1")
-    houseHeadtitle.innerText = "Välkommen " + user
+    houseHeadtitle.innerText = "Välkommen " + response.username
     houseHeadtitle.style.padding = "5%"
     houseHeadtitle.style.marginTop = "-16%"
     houseHeadtitle.style.color = "white"
@@ -164,14 +187,29 @@ async function render(user){
     productCard.append(houseimage, renderCardDiv)
     renderCardDiv.append(houseHeadtitle)
     document.getElementById("productCard").appendChild(renderCardDiv);
-    hidelogin()
     
-    
+
     let orderHeadText = document.createElement("h2")
     orderHeadText.innerText = "Tidigare beställningar"
     orderHeadText.style.marginLeft = "10%"
     orderHeadText.style.marginTop = "30px"
     
+    let Adminviewbtn = document.createElement("button")
+    Adminviewbtn.id="Adminviewbtn"
+    Adminviewbtn.style.marginLeft = "10%"
+    Adminviewbtn.style.marginTop = "30px"
+    Adminviewbtn.classList.add("btn","btn-secondary")
+    Adminviewbtn.innerText ="Admin vy"
+    Adminviewbtn.addEventListener("click",renderAdmin)
+
+    let AdminAskbtn = document.createElement("button")
+    AdminAskbtn.id="AdminAskbtn"
+    AdminAskbtn.style.marginLeft = "10%"
+    AdminAskbtn.style.marginTop = "30px"
+    AdminAskbtn.classList.add("btn","btn-secondary")
+    AdminAskbtn.innerText = "begäran om att bli admin"
+    AdminAskbtn.addEventListener("click", askAdmin)
+
 
     let orderStatusCheck  = document.createElement("h6")
     orderStatusCheck.innerText = "1 = underbehandling | 2 = skickad | 3 = mottagen"
@@ -179,8 +217,16 @@ async function render(user){
     orderStatusCheck.style.marginTop = "10px"
     orderStatusCheck.style.fontSize = "11px"
     
-    
-    renderCardOrder.append(orderHeadText, orderStatusCheck)
+    if( response.role == "admin"  ){
+        console.log("admin")
+        renderCardOrder.append(Adminviewbtn,orderHeadText, orderStatusCheck)
+    }else if( response.role == "user"){
+        console.log("user")
+        renderCardOrder.append(AdminAskbtn, orderHeadText, orderStatusCheck) 
+    } else{
+        alert("något gick fel, är du verkligen en användare?")
+    }
+
     document.getElementById("productCard").append(renderCardOrder)
     
     let orders = await getOrders()
