@@ -95,7 +95,7 @@ async function renderOrders(response) {
     tdOrderDate.innerText = order.date
 
     let tdOrdStat = document.createElement("td")
-    tdOrdStat.innerText = "Skickad"
+    tdOrdStat.innerText = "Under behandling"
 
     let renderCard = document.createElement("div")
     renderCard.classList.add("card", "mx-3", "my-3", "py-2")
