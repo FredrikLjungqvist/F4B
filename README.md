@@ -15,11 +15,11 @@ User: registrera dig själv sidan
 
 ### Kravspecifikation på projektet:
 
-#### Alla sidor skall vara responsiva. (G) - PÅGÅR
+#### Alla sidor skall vara responsiva. (G) - KLART
 #### Arbetet ska implementeras med objektorienterade principer. (G) - KLART
 #### Skapa ett konceptuellt ER diagram, detta ska lämnas in vid idégodkännandet (G) - KLART
 #### Beskriv er företagsidé i en kort textuell presentation, detta ska lämnas in vid idégodkännandet (G) - KLART
-#### All data som programmet utnyttjar ska vara sparat i en MYSQL databas (produkter, beställningar, konton mm) (G) - PÅGÅR
+#### All data som programmet utnyttjar ska vara sparat i en MYSQL databas (produkter, beställningar, konton mm) (G) - KLART
 #### Det ska finnas ett normaliserat diagram över databasen i gitrepot G) - PÅGÅR
 #### Man ska kunna logga in som administratör i systemet (G) - KLART
 #### Inga Lösenord får sparas i klartext i databasen (G) - KLART
@@ -31,7 +31,7 @@ User: registrera dig själv sidan
 #### Besökare ska kunna lägga produkterna i en kundkorg, som är sparad i session på servern (G) - KLART MEN VI SPARAR I DATABASEN
 #### Man ska från hemsidan kunna skriva upp sig för att få butikens nyhetsbrev genom att ange sitt namn och epostadress (G) - PÅGÅR
 #### Administratörer ska kunna se en lista över personer som vill ha nyhetsbrevet och deras epost adresser (G) - PÅGÅR
-#### Tillgängliga fraktalternativ ska vara hämtade från databasen (G) - PÅGÅR
+#### Tillgängliga fraktalternativ ska vara hämtade från databasen (G) - KLART
 #### Besökare ska kunna välja ett av flera fraktalternativ (G) - KLART
 
 #### Man ska kunna registrera sig som administratör på sidan, nya användare ska sparas i databasen (VG) - KLAR   

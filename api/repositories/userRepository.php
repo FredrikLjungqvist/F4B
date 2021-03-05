@@ -29,12 +29,12 @@
         return $customerList; 
     }
 
-    /* function getShipper() {
+    function getShipper() {
 
         $db = new Database();
-        return $db->fetchQuery("SELECT * FROM shipper WHERE id = $shippId");
+        return $db->fetchQuery("SELECT * FROM shipper");
 
-        }
-    } */
+    }
+    
 
 ?>

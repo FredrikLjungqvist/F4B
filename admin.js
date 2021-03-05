@@ -254,6 +254,7 @@ async function addNewsletter() {
     titleNewsletter.style.color = "white"
     
     let titleInput = document.createElement("input")
+    titleInput.id = "titleInput"
 
     divTitleNewsletter.append(titleNewsletter, titleInput)
 
@@ -285,7 +286,8 @@ async function addNewsletter() {
 
     async function submitNewsletter(){
         console.log("submitNewsletter")
-
+        
+       if (window.confirm("Vill du skicka detta?")) {
         let title = titleInput.value
         let text = textInput.value
 
@@ -296,6 +298,13 @@ async function addNewsletter() {
         
         const result = await makeRequest("http://localhost/api/recievers/adminReciever.php","POST", body)
         console.log(result)
+        
+        titleInput.value = 0
+        textInput.value = 0
+
+        addNewsletter()
+
+        } 
     }
 }
 
