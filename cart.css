@@ -14,7 +14,9 @@ body {
 #title {
     margin: 0;
 }
-
+#shippingInfo{
+    margin-top:20px;
+}
 /* #productCardCart {
     min-height: 60vh;
 } */

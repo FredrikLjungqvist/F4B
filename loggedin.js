@@ -92,7 +92,7 @@ async function registerUser(){
 }
 
 async function loginUser(){
-    hidelogin() 
+    /* hidelogin()  */
     console.log("loginUser")
     $('#myModal').modal('hide')
     const username = document.getElementById("username").value
@@ -105,12 +105,11 @@ async function loginUser(){
     let response = await makeRequest("./api/recievers/userReciever.php", "POST", body)
     console.log(response)
     if(response ==="loginerror"){
+        
+    
         alert("Felaktigt användarnamn eller lösenord")
         return
-    } else{
-        /* render() */
-    }
-    
+    } 
     initsite()
 }
 

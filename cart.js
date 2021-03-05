@@ -322,11 +322,6 @@ async function renderCustomer() {
     
     customerAccountForm.append(customerMobileLabel, customerMobileInput)
     
-    renderCustomerCard.append(customerAccountForm)
-    
-    
-    document.getElementById("customerInfo").appendChild(renderCustomerCard);
-    
     let shipperarray = await getShipper()
     
     
