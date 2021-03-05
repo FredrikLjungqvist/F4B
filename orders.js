@@ -147,16 +147,16 @@ async function renderOrders(response) {
         })
 
     })
-    let line = document.createElement("hr")
-    line.style.borderTop = "2px solid rgb(28, 58, 28)"
-    line.style.width = "58%"
-    line.style.marginLeft = "0px"
+            let line = document.createElement("hr")
+            line.style.borderTop = "2px solid rgb(28, 58, 28)"
+            line.style.width = "58%"
+            line.style.marginLeft = "0px"
 
-    tableProductRow.append(tbOrderPrice, tdOrderDate, tdOrdStat)
-    table.append(tableProductRow)
+            tableProductRow.append(tbOrderPrice, tdOrderDate, tdOrdStat)
+            table.append(tableProductRow)
 
-    renderCardOrder.append(orderBody)
-    renderCardOrder.append(line)
+            renderCardOrder.append(orderBody)
+            renderCardOrder.append(line)
 
 }
 
