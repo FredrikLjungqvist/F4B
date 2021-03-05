@@ -12,8 +12,9 @@ async function updateqty() {
     
         const body = new FormData()
 
-        body.append("action", "updateStock")
-        body.append("prodid", prodid)
+        body.append("action", "updateStock") 
+        body.append("id", prodid)
+    console.log(response)
         body.append("qty", qty)
 
         let response = await makeRequest("./api/recievers/adminReciever.php", "POST", body)

@@ -64,11 +64,32 @@ function deleteCartItem($cartItem) {
     return $db->runQuery("DELETE FROM cartitem WHERE prodID = :prodID AND userID = :userID;", $cartItem);
 }
 
+function getCategories(){
+    $db= new Database;
+    $categories=$db->fetchQuery("SELECT * FROM category");
+    return $categories;
+}
+function getCategoryProduct($id){
+    $db = new Database;
+    $products= $db->fetchQuery("SELECT * FROM productcategory WHERE id = $id");
+    return $products;
+}
+
+
 //get specific category
 function getCategory($category){
     $db = new Database();
-    $productList =  $db->fetchQuery("SELECT * FROM products WHERE categoryID = $category");
-    return productClassItem($productList);
+    $productList =  $db->fetchQuery("SELECT productID FROM productcategory WHERE categoryID = $category");
+    $productToGet=[];
+    foreach ($productList as $product) {
+        array_push($productToGet, getProduct($product["productID"]));
+           
+
+        
+    }
+    
+    return $productToGet;
+     
 }
 
 //get specific product

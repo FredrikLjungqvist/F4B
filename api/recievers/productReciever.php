@@ -20,12 +20,17 @@ try {
 
                 
 
+            } else if($_GET["action"] == "getCategories") {
+                //ECHOS BACK LIST OF ALL PRODUCTS IN SPECIFIC CATEGORY
+                echo json_encode(getCategories());
+                exit;
+            
             } else if($_GET["action"] == "getCategory") {
                 //ECHOS BACK LIST OF ALL PRODUCTS IN SPECIFIC CATEGORY
                 echo json_encode(getCategory($_GET["categoryID"]));
                 exit;
             
-            } else if($_GET["action"] == "getCart") {
+            }else if($_GET["action"] == "getCart") {
                 //ECHOS BACK CARTITEM FROM SPECIFIC USERID
                 
                 
